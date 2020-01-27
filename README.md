@@ -1,4 +1,4 @@
-# iPC VRE CWL Executor
+# # vre_sample_tool
 
 Example pipelines file that is ready to run in the VRE matching the code in the HowTo documentation.
 
@@ -34,4 +34,3 @@ pyenv activate vre_cwl_executor
 pip install -e .
 pip install -r requirements.txt
 ```
-# vre_sample_tool
