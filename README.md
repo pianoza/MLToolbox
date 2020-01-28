@@ -37,36 +37,34 @@ pip install -r requirements.txt
 Add your ${USER} in `/tests/basic/config.json`:
 
 ```json 
- "arguments": [
-    {
-        "name": "execution",
-        "value": "/home/${USER}/vre_cwl_executor/tests/basic/run000"
-    }
- ],
- "output_files": [
-    {
-        "name": "bam_file",
-        "required": true,
-        "allow_multiple": false,
-        "file": {
-            "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/run000/A.bam"
-        }
-    }
+"arguments": [
+  {
+      "name": "execution",
+      "value": "/home/${USER}/vre_cwl_executor/tests/basic/run000"
+  }
+],
+"output_files": [
+  {
+      "name": "bam_file",
+      "required": true,
+      "allow_multiple": false,
+      "file": {
+          "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/run000/A.bam"
+      }
+   }
 ]
 ```
 and `/tests/basic/in_metadata.json`:
 
 ```json 
-[
-    {
-        "_id": "unique_file_id_5e14abe0a37012.29503907",
-        "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/NA12878.bam"
-    },
-    {
-        "_id": "unique_file_id_5e14abe0a37012.29503908",
-        "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/hg38.fa"
-    {
-]
+{
+    "_id": "unique_file_id_5e14abe0a37012.29503907",
+    "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/NA12878.bam"
+},
+{
+    "_id": "unique_file_id_5e14abe0a37012.29503908",
+    "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/hg38.fa"
+{
 ``` 
 and `/test/basic/input_basic_example.yml`:
 
