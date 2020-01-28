@@ -3,36 +3,49 @@
 A simple example tool that is ready to run a workflow
 
 ## Requirements
-- Python 3.6.9+
-- Python3-dev and Python3-venv
-- Docker: https://docs.docker.com/get-docker/
-- Python Modules:
-  - pylint
-  - pytest
-  - mg-tool-api: https://github.com/Multiscale-Genomics/mg-tool-api.git
-  - cwltool: https://github.com/common-workflow-language/cwltool.git
+
+* Install the dependencies used by the Wrapper.
+
+```bash
+sudo apt update
+sudo apt install git
+sudo apt install docker-ce
+```
+
+Remember to add your username to the `docker` group.
+
+ ```bash
+ sudo usermod -a -G docker $USER
+ ```
+ 
+* Install the Wrapper dependencies.
+
+    - Python 3.6 or +
+    - Python3.6-dev and Python3.6-venv or +
+    - mg-tool-api: https://github.com/Multiscale-Genomics/mg-tool-api.git
+    - cwltool: https://github.com/common-workflow-language/cwltool.git
 
 ## Installation
 
 Directly from GitHub:
 
-```
+```bash
 cd ${HOME}/user
 
-git clone https://github.com/inab/vre_sample_tool.git
+git clone https://github.com/lrodrin/vre-process_cwl-executor.git
 
-cd vre_sample_tool
+cd vre-process_cwl-executor
 ```
 
 Create the Python environment
 
-```
+```bash
 python3 -m venv ${HOME}/user/vre_sample_tool/venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Configure
+## Configuration
 
 Add your ${USER} in `/tests/basic/config.json`:
 
@@ -77,4 +90,8 @@ and `/test/basic/input_basic_example.yml`:
   indexed_reference_fasta:
     class: File 
     location: /home/{USER}/vre_sample_tool/tests/basic/hg38.fa
+```
+## Run the example
+```bash
+./tests/basic/test_VRE_CWL_RUNNER.sh
 ```
