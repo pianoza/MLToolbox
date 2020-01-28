@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 ## Configure
 
-Add your $USER in `/tests/basic/config.json`:
+Add your ${USER} in `/tests/basic/config.json`:
 
 ```json 
 { 
@@ -62,12 +62,12 @@ and `/tests/basic/in_metadata.json`:
 [
     {
         "_id": "unique_file_id_5e14abe0a37012.29503907",
-        "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/NA12878.bam",
+        "file_path": "/home/{USER}/vre_cwl_executor/tests/basic/NA12878.bam",
     ...
     },
     {
         "_id": "unique_file_id_5e14abe0a37012.29503908",
-        "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/hg38.fa",
+        "file_path": "/home/{USER}/vre_cwl_executor/tests/basic/hg38.fa",
     ...
 ``` 
 and `/test/basic/input_basic_example.yml`:
@@ -75,10 +75,10 @@ and `/test/basic/input_basic_example.yml`:
 ```json 
   input_reads: 
     class: File
-    location: /home/${USER}/vre_cwl_executor/tests/basic/NA12878.bam
+    location: /home/{USER}/vre_cwl_executor/tests/basic/NA12878.bam
   biospecimen_name: "hg38"
   output_basename: "mytest"
   indexed_reference_fasta:
     class: File 
-    location: /home/${USER}/vre_cwl_executor/tests/basic/hg38.fa
+    location: /home/{USER}/vre_cwl_executor/tests/basic/hg38.fa
 ```
