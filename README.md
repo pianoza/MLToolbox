@@ -19,15 +19,15 @@ Directly from GitHub:
 ```
 cd ${HOME}/user
 
-git clone https://github.com/inab/vre_cwl_executor.git
+git clone https://github.com/inab/vre_sample_tool.git
 
-cd vre_cwl_executor
+cd vre_sample_tool
 ```
 
 Create the Python environment
 
 ```
-python3 -m venv ${HOME}/user/vre_cwl_executor/venv
+python3 -m venv ${HOME}/user/vre_sample_tool/venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -40,7 +40,7 @@ Add your ${USER} in `/tests/basic/config.json`:
 "arguments": [
   {
       "name": "execution",
-      "value": "/home/${USER}/vre_cwl_executor/tests/basic/run000"
+      "value": "/home/${USER}/vre_sample_tool/tests/basic/run000"
   }
 ],
 "output_files": [
@@ -49,7 +49,7 @@ Add your ${USER} in `/tests/basic/config.json`:
       "required": true,
       "allow_multiple": false,
       "file": {
-          "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/run000/A.bam"
+          "file_path": "/home/${USER}/vre_sample_tool/tests/basic/run000/A.bam"
       }
    }
 ]
@@ -59,11 +59,11 @@ and `/tests/basic/in_metadata.json`:
 ```json 
 {
     "_id": "unique_file_id_5e14abe0a37012.29503907",
-    "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/NA12878.bam"
+    "file_path": "/home/${USER}/vre_sample_tool/tests/basic/NA12878.bam"
 },
 {
     "_id": "unique_file_id_5e14abe0a37012.29503908",
-    "file_path": "/home/${USER}/vre_cwl_executor/tests/basic/hg38.fa"
+    "file_path": "/home/${USER}/vre_sample_tool/tests/basic/hg38.fa"
 {
 ``` 
 and `/test/basic/input_basic_example.yml`:
@@ -71,10 +71,10 @@ and `/test/basic/input_basic_example.yml`:
 ```yaml 
   input_reads: 
     class: File
-    location: /home/{USER}/vre_cwl_executor/tests/basic/NA12878.bam
+    location: /home/{USER}/vre_sample_tool/tests/basic/NA12878.bam
   biospecimen_name: "hg38"
   output_basename: "mytest"
   indexed_reference_fasta:
     class: File 
-    location: /home/{USER}/vre_cwl_executor/tests/basic/hg38.fa
+    location: /home/{USER}/vre_sample_tool/tests/basic/hg38.fa
 ```
