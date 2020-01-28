@@ -1,8 +1,6 @@
-# iPC VRE CWL Executor
+# VRE Sample Tool
 
-Example pipelines file that is ready to run in the VRE matching the code in the HowTo documentation.
-
-This repo structure workflows and tools can be forked and used as the base template for new tools and workflows. It should have all of the base functionality and is set up for unit testing and with pylint to ensure code clarity.
+A simple example tool that is ready to run a workflow
 
 ## Requirements
 - Python 3.6.9+
