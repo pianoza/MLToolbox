@@ -32,9 +32,9 @@ Directly from GitHub:
 ```bash
 cd $HOME
 
-git clone https://github.com/lrodrin/vre-process_cwl-executor.git
+git clone https://github.com/lrodrin/vre_sample_tool.git
 
-cd vre-process_cwl-executor
+cd vre_sample_tool
 ```
 
 Create the Python environment
