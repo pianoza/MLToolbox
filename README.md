@@ -30,7 +30,7 @@ Remember to add your username to the `docker` group.
 Directly from GitHub:
 
 ```bash
-cd ${HOME}/user
+cd $HOME
 
 git clone https://github.com/lrodrin/vre-process_cwl-executor.git
 
@@ -40,14 +40,14 @@ cd vre-process_cwl-executor
 Create the Python environment
 
 ```bash
-python3 -m venv ${HOME}/user/vre_sample_tool/venv
+python3 -m venv $HOME/vre_sample_tool/venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ## Configuration
 
-Add your ${USER} in `/tests/basic/config.json`:
+Add your ${USER} in `tests/basic/config.json`:
 
 ```json 
 "arguments": [
@@ -67,7 +67,7 @@ Add your ${USER} in `/tests/basic/config.json`:
    }
 ]
 ```
-and `/tests/basic/in_metadata.json`:
+and `tests/basic/in_metadata.json`:
 
 ```json 
 {
