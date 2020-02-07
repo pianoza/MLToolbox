@@ -92,5 +92,5 @@ and `/test/basic/input_basic_example.yml`:
 ```
 ## Run the example
 ```bash
-./VRE_CWL_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_CWL_RUNNER.log
+./tests/basic/test_VRE_CWL_RUNNER.sh --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file test_VRE_CWL_RUNNER.log
 ```
