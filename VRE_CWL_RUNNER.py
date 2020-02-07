@@ -135,7 +135,7 @@ if __name__ == "__main__":
     LOCAL = ARGS.local
 
     if ARGS.log_file:
-        sys.stderr = sys.stdout = open(ARGS.log_file, "a")
+        sys.stderr = sys.stdout = open(ARGS.log_file, "w")
 
     if LOCAL:
         sys._run_from_cmdl = True  # pylint: disable=protected-access

@@ -16,3 +16,4 @@ env/*
 /venv
 dist/
 build/
+/VRE_CWL_RUNNER.log

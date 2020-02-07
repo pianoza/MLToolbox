@@ -111,6 +111,8 @@ class WF_RUNNER(Tool):
         try:
             # Set and check execution directory. If not exists the directory will be created.
             execution_path = os.path.abspath(self.configuration.get('execution', '.'))
+            if not os.path.isdir(execution_path):
+                os.makedirs(execution_path)
             execution_parent_dir = os.path.dirname(execution_path)
             if not os.path.isdir(execution_parent_dir):
                 os.makedirs(execution_parent_dir)
