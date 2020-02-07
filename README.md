@@ -84,11 +84,11 @@ and `/test/basic/input_basic_example.yml`:
 ```yaml 
   input_reads: 
     class: File
-    location: /home/{USER}/vre_sample_tool/tests/basic/NA12878.bam
+    location: /home/${USER}/vre_sample_tool/tests/basic/NA12878.bam
   biospecimen_name: "hg38"
   indexed_reference_fasta:
     class: File 
-    location: /home/{USER}/vre_sample_tool/tests/basic/hg38.fa
+    location: /home/${USER}/vre_sample_tool/tests/basic/hg38.fa
 ```
 ## Run the example
 ```bash
