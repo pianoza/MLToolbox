@@ -86,7 +86,6 @@ and `/test/basic/input_basic_example.yml`:
     class: File
     location: /home/{USER}/vre_sample_tool/tests/basic/NA12878.bam
   biospecimen_name: "hg38"
-  output_basename: "mytest"
   indexed_reference_fasta:
     class: File 
     location: /home/{USER}/vre_sample_tool/tests/basic/hg38.fa

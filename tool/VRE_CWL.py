@@ -29,7 +29,7 @@ class WF_RUNNER(Tool):
     """
     Tool for writing to a file
     """
-    MASKED_KEYS = {'execution', 'project', 'description', 'cwl_wf_url', 'cwl_wf_tag'}  # arguments from config.json
+    MASKED_KEYS = {'execution', 'project', 'description', 'cwl_wf_url'}  # arguments from config.json
 
     def __init__(self, configuration=None):
         """
@@ -57,9 +57,8 @@ class WF_RUNNER(Tool):
         try:
             logger.debug("Getting the CWL workflow file")
             cwl_wf_url = self.configuration.get('cwl_wf_url')
-            cwl_wf_tag = self.configuration.get('cwl_wf_tag')
-            if (cwl_wf_url is None) or (cwl_wf_tag is None):
-                errstr = "Both 'cwl_wf_url' and 'cwl_wf_tag' parameters must be defined"
+            if cwl_wf_url is None:
+                errstr = "cwl_wf_url parameter must be defined"
                 logger.fatal(errstr)
                 raise Exception(errstr)
 
