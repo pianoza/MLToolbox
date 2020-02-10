@@ -22,5 +22,7 @@ for prog in docker cwltool ; do
 	fi
 done
 
+# shellcheck disable=SC1090
+source "$BASEDIR"/venv/bin/activate
 exec python -u "${BASEDIR}"/"${PROGNAME}".py "$@"
 exit 1
