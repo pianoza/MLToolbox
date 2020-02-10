@@ -28,7 +28,7 @@
         },
         {
             "name": "cwl_wf_url",
-            "value": "https://raw.githubusercontent.com/inab/vre_sample_tool/master/tests/basic/data/workflows/basic_example.cwl"
+            "value": "https://raw.githubusercontent.com/inab/vre_cwl_executor/master/tests/basic/data/workflows/basic_example.cwl"
         }
     ],
     "output_files": [
