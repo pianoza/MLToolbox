@@ -141,6 +141,10 @@ class WF_RUNNER(Tool):
                     meta = Metadata()
                     meta.file_path = output_files[key]  # Set file_path for output files
 
+                    # set data_type and file_type
+                    meta.data_type = "sequence_dna"
+                    meta.file_type = "BAM"
+
                     # Set sources for output files
                     meta_sources_list = list()
                     for input_name in input_metadata.keys():
@@ -154,7 +158,6 @@ class WF_RUNNER(Tool):
                     logger.warning("Output {} not found. Path {} not exists".format(key, output_files[key]))
 
             logger.debug("Output metadata created")
-
             return output_files, output_metadata
 
         except:
