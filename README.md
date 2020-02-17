@@ -22,8 +22,6 @@ Remember to add your username to the `docker` group.
 
     - Python 3.6 or +
     - Python3.6-pip, Python3.6-dev and Python3.6-venv or +
-    - mg-tool-api: https://github.com/Multiscale-Genomics/mg-tool-api.git
-    - cwltool: https://github.com/common-workflow-language/cwltool.git
 
 ## Installation
 

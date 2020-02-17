@@ -96,15 +96,9 @@ def main_json(config, in_metadata, out_metadata):
         with open(in_metadata, "r") as in_metF:
             in_metaArr = json.load(in_metF)
 
-        in_fixed = False
-        for in_m in in_metaArr:
-            if in_m.get('taxon_id', 0) == 0:
-                in_m['taxon_id'] = -1
-                in_fixed = True
 
-        if in_fixed:
-            with open(in_metadata, "w") as in_metF:
-                json.dump(in_metaArr, in_metF)
+        with open(in_metadata, "w") as in_metF:
+            json.dump(in_metaArr, in_metF)
 
         result = app.launch(process_WF_RUNNER, config, in_metadata, out_metadata)  # launch the app
         logger.info("2. App successfully launched; see " + out_metadata)
