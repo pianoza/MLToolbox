@@ -32,7 +32,7 @@ Directly from GitHub:
 ```bash
 cd $HOME
 
-git clone https://github.com/lrodrin/vre_sample_tool.git
+git clone https://github.com/inab/vre_sample_tool.git
 
 cd vre_sample_tool
 ```
