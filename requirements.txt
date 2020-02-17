@@ -2,4 +2,4 @@ wheel
 pylint
 pytest
 cwltool
-git+https://github.com/inab/mg-tool-api.git
+git+https://github.com/inab/openvre-tool-api.git
