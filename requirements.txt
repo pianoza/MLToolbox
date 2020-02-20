@@ -1,3 +1,4 @@
+PyYAML
 wheel
 pylint
 pytest

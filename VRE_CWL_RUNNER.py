@@ -18,7 +18,6 @@
 """
 import argparse
 import sys
-import json
 
 from basic_modules.workflow import Workflow
 from utils import logger
@@ -61,7 +60,7 @@ class process_WF_RUNNER(Workflow):
         :rtype: dict, dict
         """
         try:
-            logger.info("Initialise the CWL Test Tool")
+            logger.debug("Initialise the CWL Test Tool")
             tt_handle = WF_RUNNER(self.configuration)
             tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files)
             return tt_files, tt_meta
@@ -72,18 +71,18 @@ class process_WF_RUNNER(Workflow):
             raise Exception(errstr)
 
 
-def main_json(config, in_metadata, out_metadata):
+def main_json(config_path, in_metadata_path, out_metadata_path):
     """
     Main function.
 
     This function launches the app using configuration written in two json files: config.json and input_metadata.json.
 
-    :param config:
-    :param in_metadata:
-    :param out_metadata:
-    :type config:
-    :type in_metadata:
-    :type out_metadata:
+    :param config_path:
+    :param in_metadata_path:
+    :param out_metadata_path:
+    :type config_path: str
+    :type in_metadata_path: str
+    :type out_metadata_path: str
     :return: If result is True, execution finished successfully. False, otherwise.
     :rtype: bool
     """
@@ -92,16 +91,8 @@ def main_json(config, in_metadata, out_metadata):
         from apps.jsonapp import JSONApp
         app = JSONApp()
 
-        # Fixing possible problems in the input metadata
-        with open(in_metadata, "r") as in_metF:
-            in_metaArr = json.load(in_metF)
-
-
-        with open(in_metadata, "w") as in_metF:
-            json.dump(in_metaArr, in_metF)
-
-        result = app.launch(process_WF_RUNNER, config, in_metadata, out_metadata)  # launch the app
-        logger.info("2. App successfully launched; see " + out_metadata)
+        result = app.launch(process_WF_RUNNER, config_path, in_metadata_path, out_metadata_path)  # launch the app
+        logger.info("2. App successfully launched; see " + out_metadata_path)
         return result
 
     except Exception as error:
@@ -118,7 +109,6 @@ if __name__ == "__main__":
     PARSER.add_argument("--in_metadata", help="Location of input metadata file", required=True)
     PARSER.add_argument("--out_metadata", help="Location of output metadata file", required=True)
     PARSER.add_argument("--log_file", help="Location of the log file", required=False)
-    PARSER.add_argument("--local", action="store_const", const=True, default=False)
 
     # Get the matching parameters from the command line
     ARGS = PARSER.parse_args()
@@ -126,12 +116,8 @@ if __name__ == "__main__":
     CONFIG = ARGS.config
     IN_METADATA = ARGS.in_metadata
     OUT_METADATA = ARGS.out_metadata
-    LOCAL = ARGS.local
 
     if ARGS.log_file:
         sys.stderr = sys.stdout = open(ARGS.log_file, "w")
-
-    if LOCAL:
-        sys._run_from_cmdl = True  # pylint: disable=protected-access
 
     RESULTS = main_json(CONFIG, IN_METADATA, OUT_METADATA)

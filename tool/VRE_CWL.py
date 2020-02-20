@@ -19,10 +19,11 @@
 import os
 import subprocess
 import time
+import yaml
 
 from basic_modules.metadata import Metadata
-from utils import logger
 from basic_modules.tool import Tool
+from utils import logger
 
 
 class WF_RUNNER(Tool):
@@ -35,7 +36,7 @@ class WF_RUNNER(Tool):
         """
         Init function
         """
-        logger.info("VRE CWL Workflow runner")
+        logger.debug("VRE CWL Workflow runner")
         Tool.__init__(self)
 
         if configuration is None:
@@ -50,13 +51,21 @@ class WF_RUNNER(Tool):
 
         self.populable_outputs = {}
 
-    def execute_cwl_workflow(self):  # pylint: disable=no-self-use
+    def execute_cwl_workflow(self, input_metadata, arguments, working_directory):  # pylint: disable=no-self-use
         """
         The main function to run the remote CWL workflow
+
+        :param input_metadata: Matching metadata for each of the files, plus any additional data.
+        :type input_metadata: dict
+        :param arguments: dict containing tool arguments
+        :type arguments: dict
+        :param working_directory: Execution working path directory
+        :type working_directory: str
         """
         try:
             logger.debug("Getting the CWL workflow file")
             cwl_wf_url = self.configuration.get('cwl_wf_url')
+
             if cwl_wf_url is None:
                 errstr = "cwl_wf_url parameter must be defined"
                 logger.fatal(errstr)
@@ -68,8 +77,9 @@ class WF_RUNNER(Tool):
                 if conf_key not in self.MASKED_KEYS:
                     variable_params.append((conf_key, self.configuration[conf_key]))
 
-            logger.info("3) Pack information to YAML or JSON")
-            cwl_wf_input_yml_path = "{}/../tests/basic/input_basic_example.yml".format(os.path.dirname(os.path.abspath(__file__)))
+            logger.info("3) Pack information to YAML")
+            cwl_wf_input_yml_path = working_directory + "/inputs_cwl.yml"
+            self.create_input_cwl(input_metadata, arguments, cwl_wf_input_yml_path)
 
             logger.debug("Starting cwltool execution")
             process = subprocess.Popen(["cwltool", cwl_wf_url, cwl_wf_input_yml_path], stdout=subprocess.PIPE,
@@ -91,6 +101,40 @@ class WF_RUNNER(Tool):
 
         except:
             errstr = "The CWL execution failed. See logs"
+            logger.error(errstr)
+            raise Exception(errstr)
+
+    def create_input_cwl(self, input_metadata, arguments, filename_path):
+        """
+        Create a YAML file containing the information of inputs from CWL workflow
+
+        :param input_metadata: Matching metadata for each of the files, plus any additional data.
+        :type input_metadata: dict
+        :param arguments: dict containing tool arguments
+        :type arguments: dict
+        :param filename_path: Working YAML file path directory
+        :type filename_path: str
+        """
+        try:
+            input_cwl = {}
+            for item in input_metadata.items():  # add metadata inputs
+                name = str(item[0])
+                data_type = str(item[1].meta_data["type"])
+                if data_type == "file":  # mapping
+                    data_type = data_type.replace("f", "F")
+
+                file_path = str(item[1].file_path)
+                input_cwl.update({name: {"class": data_type, "location": file_path}})
+
+            for key, value in arguments.items():  # add arguments
+                if key not in self.MASKED_KEYS:
+                    input_cwl[str(key)] = str(value)
+
+            with open(filename_path, 'w+') as f:
+                yaml.dump(input_cwl, f, allow_unicode=True, default_flow_style=False)
+
+        except:
+            errstr = "The YAML file creation failed. See logs"
             logger.error(errstr)
             raise Exception(errstr)
 
@@ -133,7 +177,7 @@ class WF_RUNNER(Tool):
                     raise Exception(errstr)
 
             logger.debug("Init execution of the CWL Workflow")
-            self.execute_cwl_workflow()
+            self.execute_cwl_workflow(input_metadata, self.configuration, execution_path)
 
             output_metadata = dict()
             for key in output_files.keys():
