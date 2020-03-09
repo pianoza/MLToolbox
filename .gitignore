@@ -17,4 +17,4 @@ env/*
 dist/
 build/
 /VRE_CWL_RUNNER.log
-./.idea
+.idea
