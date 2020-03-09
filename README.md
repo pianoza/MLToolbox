@@ -1,6 +1,6 @@
 # VRE Sample Tool
 
-A simple example tool that is ready to run a workflow
+A simple example tool that is ready to run a workflow.
 
 ## Requirements
 
@@ -35,7 +35,7 @@ git clone https://github.com/inab/vre_sample_tool.git
 cd vre_sample_tool
 ```
 
-Create the Python environment
+Create the Python environment:
 
 ```bash
 python3 -m venv $HOME/vre_sample_tool/venv

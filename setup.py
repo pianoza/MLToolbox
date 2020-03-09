@@ -18,7 +18,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='vre_cwl_executor',
+    name='vre_sample_tool',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[

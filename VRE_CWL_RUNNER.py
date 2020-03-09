@@ -21,7 +21,7 @@ import sys
 
 from basic_modules.workflow import Workflow
 from utils import logger
-
+from apps.jsonapp import JSONApp
 from tool.VRE_CWL import WF_RUNNER
 
 
@@ -88,7 +88,6 @@ def main_json(config_path, in_metadata_path, out_metadata_path):
     """
     try:
         logger.info("1. Instantiate and launch the App")
-        from apps.jsonapp import JSONApp
         app = JSONApp()
 
         result = app.launch(process_WF_RUNNER, config_path, in_metadata_path, out_metadata_path)  # launch the app

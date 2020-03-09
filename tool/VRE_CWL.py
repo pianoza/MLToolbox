@@ -17,13 +17,13 @@
    limitations under the License.
 """
 import os
-import subprocess
 import time
-import yaml
 
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
 from utils import logger
+
+from lib.cwl import CWL
 
 
 class WF_RUNNER(Tool):
@@ -79,11 +79,9 @@ class WF_RUNNER(Tool):
 
             logger.info("3) Pack information to YAML")
             cwl_wf_input_yml_path = working_directory + "/inputs_cwl.yml"
-            self.create_input_cwl(input_metadata, arguments, cwl_wf_input_yml_path)
+            CWL.create_input_cwl(input_metadata, arguments, cwl_wf_input_yml_path)
 
-            logger.debug("Starting cwltool execution")
-            process = subprocess.Popen(["cwltool", cwl_wf_url, cwl_wf_input_yml_path], stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE)
+            process = CWL.execute_cwltool(cwl_wf_input_yml_path, cwl_wf_url)
 
             # Sending the stdout to the log file
             for line in iter(process.stderr.readline, b''):
@@ -101,40 +99,6 @@ class WF_RUNNER(Tool):
 
         except:
             errstr = "The CWL execution failed. See logs"
-            logger.error(errstr)
-            raise Exception(errstr)
-
-    def create_input_cwl(self, input_metadata, arguments, filename_path):
-        """
-        Create a YAML file containing the information of inputs from CWL workflow
-
-        :param input_metadata: Matching metadata for each of the files, plus any additional data.
-        :type input_metadata: dict
-        :param arguments: dict containing tool arguments
-        :type arguments: dict
-        :param filename_path: Working YAML file path directory
-        :type filename_path: str
-        """
-        try:
-            input_cwl = {}
-            for item in input_metadata.items():  # add metadata inputs
-                name = str(item[0])
-                data_type = str(item[1].meta_data["type"])
-                if data_type == "file":  # mapping
-                    data_type = data_type.replace("f", "F")
-
-                file_path = str(item[1].file_path)
-                input_cwl.update({name: {"class": data_type, "location": file_path}})
-
-            for key, value in arguments.items():  # add arguments
-                if key not in self.MASKED_KEYS:
-                    input_cwl[str(key)] = str(value)
-
-            with open(filename_path, 'w+') as f:
-                yaml.dump(input_cwl, f, allow_unicode=True, default_flow_style=False)
-
-        except:
-            errstr = "The YAML file creation failed. See logs"
             logger.error(errstr)
             raise Exception(errstr)
 
@@ -166,6 +130,9 @@ class WF_RUNNER(Tool):
             logger.debug("Execution path: {}".format(execution_path))
 
             # Set file names for output files (with random name if not predefined)
+
+            print(output_files)
+
             for key in output_files.keys():
                 if output_files[key] is not None:
                     pop_output_path = os.path.abspath(output_files[key])
