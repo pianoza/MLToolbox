@@ -45,13 +45,13 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Add your ${USER} in `tests/basic/config.json`:
+Add your $USER in `tests/basic/config.json`:
 
 ```json 
 "arguments": [
   {
       "name": "execution",
-      "value": "/home/${USER}/vre_sample_tool/tests/basic/run000"
+      "value": "/home/$USER/vre_sample_tool/tests/basic/run000"
   }
 ],
 "output_files": [
@@ -60,7 +60,7 @@ Add your ${USER} in `tests/basic/config.json`:
       "required": true,
       "allow_multiple": false,
       "file": {
-          "file_path": "/home/${USER}/vre_sample_tool/tests/basic/run000/A.bam"
+          "file_path": "/home/$USER/vre_sample_tool/tests/basic/run000/A.bam"
       }
    }
 ]
@@ -70,24 +70,13 @@ and `tests/basic/in_metadata.json`:
 ```json 
 {
     "_id": "unique_file_id_5e14abe0a37012.29503907",
-    "file_path": "/home/${USER}/vre_sample_tool/tests/basic/NA12878.bam"
+    "file_path": "/home/$USER/vre_sample_tool/tests/basic/NA12878.bam"
 },
 {
     "_id": "unique_file_id_5e14abe0a37012.29503908",
-    "file_path": "/home/${USER}/vre_sample_tool/tests/basic/hg38.fa"
+    "file_path": "/home/$USER/vre_sample_tool/tests/basic/hg38.fa"
 {
 ``` 
-and `/test/basic/input_basic_example.yml`:
-
-```yaml 
-  input_reads: 
-    class: File
-    location: /home/${USER}/vre_sample_tool/tests/basic/NA12878.bam
-  biospecimen_name: "hg38"
-  indexed_reference_fasta:
-    class: File 
-    location: /home/${USER}/vre_sample_tool/tests/basic/hg38.fa
-```
 ## Run the example
 ```bash
 ./VRE_CWL_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_CWL_RUNNER.log
