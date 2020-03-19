@@ -31,6 +31,7 @@ class process_WF_RUNNER(Workflow):
     """
 
     configuration = {}
+    output = {}
 
     def __init__(self, configuration=None):
         """
@@ -46,23 +47,25 @@ class process_WF_RUNNER(Workflow):
 
         self.configuration.update(configuration)
 
-    def run(self, input_files, metadata, output_files):
+    def run(self, input_files, metadata, output_files, output_metadata):
         """
         Main run function for processing a test file.
 
         :param input_files: Dictionary of file locations.
-        :param metadata: Required meta data.
-        :param output_files: Locations of the output files to be returned by the pipeline.
         :type input_files: dict
+        :param metadata: Required meta data.
         :type metadata: dict
+        :param output_files: Locations of the output files to be returned by the pipeline.
         :type output_files: dict
+        :param output_metadata:
+        :type output_metadata: list
         :return: Locations for the output txt (output_files), Matching metadata for each of the files (output_metadata).
         :rtype: dict, dict
         """
         try:
             logger.debug("Initialise the CWL Test Tool")
             tt_handle = WF_RUNNER(self.configuration)
-            tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files)
+            tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files, output_metadata)
             return tt_files, tt_meta
 
         except Exception as error:
@@ -77,11 +80,11 @@ def main_json(config_path, in_metadata_path, out_metadata_path):
 
     This function launches the app using configuration written in two json files: config.json and input_metadata.json.
 
-    :param config_path:
-    :param in_metadata_path:
-    :param out_metadata_path:
+    :param config_path: path to a valid JSON file containing information on how the tool should be executed.
     :type config_path: str
+    :param in_metadata_path: path to a valid JSON file containing information on tool inputs.
     :type in_metadata_path: str
+    :param out_metadata_path: path to write the JSON file containing information on tool outputs.
     :type out_metadata_path: str
     :return: If result is True, execution finished successfully. False, otherwise.
     :rtype: bool
