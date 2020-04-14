@@ -16,11 +16,11 @@
     "arguments": [
         {
             "name": "execution",
-            "value": "/home/${USER}/vre_sample_tool/tests/basic/run000"
+            "value": "/home/user/vre_sample_tool/tests/basic/run000"
         },
         {
             "name": "project",
-            "value": "my_project_id"
+            "value": "test"
         },
         {
             "name": "biospecimen_name",
@@ -37,12 +37,12 @@
             "required": true,
             "allow_multiple": false,
             "file": {
-                "file_path": "/home/${USER}/vre_sample_tool/tests/basic/run000/A.bam",
+                "file_path": "/home/user/vre_sample_tool/tests/basic/run000/A.bam",
                 "file_type": "BAM",
-                "data_type": "data_chip_seq",
+                "data_type": "sequence_dna",
                 "meta_data": {
                     "visible": true,
-                    "description": "Splitted unaligned BAMs"
+                    "description": "Splitted BAM file (first item)"
                 }
             }
         }
