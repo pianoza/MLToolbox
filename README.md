@@ -80,5 +80,5 @@ and `tests/basic/in_metadata.json`:
 ``` 
 ## Run the example
 ```bash
-./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_CWL_RUNNER.log
+./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
 ```
