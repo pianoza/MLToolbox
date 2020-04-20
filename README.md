@@ -1,13 +1,19 @@
-# VRE Sample Tool
+# VRE CWL tool
 
-A simple example tool that is ready to run a workflow.
+Simple example CWL tool that is ready to run in the VRE.
 
 ## Requirements
 
-* Install the dependencies used by the Wrapper.
+- Python 3.6 or +x
+- Python3.6-pip, Python3.6-dev and Python3.6-venv or +
+- Git
+- Docker
+
 
 ```bash
 sudo apt update
+sudo apt install python3.6 
+sudo apt install python3.6-pip python3.6-dev  python3.6-venv
 sudo apt install git
 sudo apt install docker-ce
 ```
@@ -17,11 +23,6 @@ Remember to add your username to the `docker` group.
  ```bash
  sudo usermod -a -G docker $USER
  ```
- 
-* Install the Wrapper dependencies.
-
-    - Python 3.6 or +
-    - Python3.6-pip, Python3.6-dev and Python3.6-venv or +
 
 ## Installation
 
@@ -30,28 +31,28 @@ Directly from GitHub:
 ```bash
 cd $HOME
 
-git clone https://github.com/inab/vre_sample_tool.git
+git clone https://github.com/inab/vre_template_tool.git
 
-cd vre_sample_tool
+cd vre_template_tool
 ```
 
 Create the Python environment:
 
 ```bash
-python3 -m venv $HOME/vre_sample_tool/venv
+python3 -m venv $HOME/vre_template_tool/venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ## Configuration
 
-Add your $USER in `tests/basic/config.json`:
+Change $USER with your username in `tests/basic/config.json`:
 
 ```json 
 "arguments": [
   {
       "name": "execution",
-      "value": "/home/$USER/vre_sample_tool/tests/basic/run000"
+      "value": "/home/$USER/vre_template_tool/tests/basic/run000"
   }
 ],
 "output_files": [
@@ -60,7 +61,7 @@ Add your $USER in `tests/basic/config.json`:
       "required": true,
       "allow_multiple": false,
       "file": {
-          "file_path": "/home/$USER/vre_sample_tool/tests/basic/run000/A.bam"
+          "file_path": "/home/$USER/vre_template_tool/tests/basic/run000/A.bam"
       }
    }
 ]
@@ -70,11 +71,11 @@ and `tests/basic/in_metadata.json`:
 ```json 
 {
     "_id": "unique_file_id_5e14abe0a37012.29503907",
-    "file_path": "/home/$USER/vre_sample_tool/tests/basic/NA12878.bam"
+    "file_path": "/home/$USER/vre_template_tool/tests/basic/NA12878.bam"
 },
 {
     "_id": "unique_file_id_5e14abe0a37012.29503908",
-    "file_path": "/home/$USER/vre_sample_tool/tests/basic/hg38.fa"
+    "file_path": "/home/$USER/vre_template_tool/tests/basic/hg38.fa"
 {
 ``` 
 ## Run the example
