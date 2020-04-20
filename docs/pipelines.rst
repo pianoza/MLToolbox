@@ -18,7 +18,7 @@ Pipelines
 
 Test Tool
 ---------
-.. automodule:: process_test
+.. automodule:: vre_template_tool
 
    This is a demonstration pipeline using the testTool.
 
@@ -46,5 +46,5 @@ Test Tool
    .. code-block:: none
       :linenos:
 
-      cd /home/compss/code/mg-process-test
-      runcompss --lang=python mg_process_test/process_test.py --config /home/compss/code/mg-process-test/tool_config/process_test.json --in_metadata /home/compss/code/mg-process-test/tests/json/input_test.json --out_metadata /home/compss/code/mg-process-test/tests/results.json
+      cd /home/compss/code/vre_template_tool
+      runcompss --lang=python vre_template_tool/VRE_CWL_RUNNER.py --config /vre_template_tool/tests/basic/config.json --in_metadata /vre_template_tool/tests/basic/in_metadata.json --out_metadata /vre_template_tool/tests/basic/results.json

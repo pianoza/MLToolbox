@@ -16,9 +16,9 @@
 Tools
 =====
 
-.. automodule:: tests.basic.tool
+.. automodule:: tool
 
    Test Tool
    -----------
-   .. autoclass:: tests.basic.tool.testTool.testTool
+   .. autoclass:: tool.VRE_CWL.WF_RUNNER
       :members:

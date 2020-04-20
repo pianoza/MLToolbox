@@ -46,13 +46,13 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Change $USER with your username in `tests/basic/config.json`:
+Change user with your username in `tests/basic/config.json`:
 
 ```json 
 "arguments": [
   {
       "name": "execution",
-      "value": "/home/$USER/vre_template_tool/tests/basic/run000"
+      "value": "/home/user/vre_template_tool/tests/basic/run000"
   }
 ],
 "output_files": [
@@ -61,7 +61,7 @@ Change $USER with your username in `tests/basic/config.json`:
       "required": true,
       "allow_multiple": false,
       "file": {
-          "file_path": "/home/$USER/vre_template_tool/tests/basic/run000/A.bam"
+          "file_path": "/home/user/vre_template_tool/tests/basic/run000/A.bam"
       }
    }
 ]
@@ -71,11 +71,11 @@ and `tests/basic/in_metadata.json`:
 ```json 
 {
     "_id": "unique_file_id_5e14abe0a37012.29503907",
-    "file_path": "/home/$USER/vre_template_tool/tests/basic/NA12878.bam"
+    "file_path": "/home/user/vre_template_tool/tests/basic/NA12878.bam"
 },
 {
     "_id": "unique_file_id_5e14abe0a37012.29503908",
-    "file_path": "/home/$USER/vre_template_tool/tests/basic/hg38.fa"
+    "file_path": "/home/user/vre_template_tool/tests/basic/hg38.fa"
 {
 ``` 
 ## Run the example
