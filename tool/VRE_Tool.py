@@ -50,58 +50,6 @@ class WF_RUNNER(Tool):
 
         self.populable_outputs = {}
 
-    def execute_workflow(self, input_metadata, arguments, working_directory):  # pylint: disable=no-self-use
-        """
-        The main function to run the remote Template workflow
-
-        :param input_metadata: Matching metadata for each of the files, plus any additional data.
-        :type input_metadata: dict
-        :param arguments: dict containing tool arguments
-        :type arguments: dict
-        :param working_directory: Execution working path directory
-        :type working_directory: str
-        """
-        try:
-            logger.debug("Getting the Template workflow file")
-            wf_url = self.configuration.get('wf_url')
-
-            if wf_url is None:
-                errstr = "wf_url parameter must be defined"
-                logger.fatal(errstr)
-                raise Exception(errstr)
-
-            logger.debug("Adding parameters which are not input or output files are in the configuration")
-            variable_params = []
-            for conf_key in self.configuration.keys():
-                if conf_key not in self.MASKED_KEYS:
-                    variable_params.append((conf_key, self.configuration[conf_key]))
-
-            logger.info("3) Pack information to YAML")
-            wf_input_yml_path = working_directory + "/inputs.yml"
-            Template.create_input_yml(input_metadata, arguments, wf_input_yml_path)
-
-            # Template execution
-            process = Template.execute_tool(wf_input_yml_path, wf_url)
-
-            # Sending the stdout to the log file
-            for line in iter(process.stderr.readline, b''):
-                print(line.rstrip().decode("utf-8").replace("", " "))
-
-            rc = process.poll()
-            while rc is None:
-                rc = process.poll()
-                time.sleep(0.1)
-
-            if rc is not None and rc != 0:
-                logger.progress("Something went wrong inside the tool execution. See logs", status="WARNING")
-            else:
-                logger.progress("tool execution finished successfully", status="FINISHED")
-
-        except:
-            errstr = "The Template execution failed. See logs"
-            logger.error(errstr)
-            raise Exception(errstr)
-
     def run(self, input_files, input_metadata, output_files, output_metadata):
         """
         The main function to run the compute_metrics tool.
@@ -155,6 +103,58 @@ class WF_RUNNER(Tool):
         except:
             errstr = "VRE Template RUNNER pipeline failed. See logs"
             logger.fatal(errstr)
+            raise Exception(errstr)
+
+    def execute_workflow(self, input_metadata, arguments, working_directory):  # pylint: disable=no-self-use
+        """
+        The main function to run the remote Template workflow
+
+        :param input_metadata: Matching metadata for each of the files, plus any additional data.
+        :type input_metadata: dict
+        :param arguments: dict containing tool arguments
+        :type arguments: dict
+        :param working_directory: Execution working path directory
+        :type working_directory: str
+        """
+        try:
+            logger.debug("Getting the Template workflow file")
+            wf_url = self.configuration.get('wf_url')
+
+            if wf_url is None:
+                errstr = "wf_url parameter must be defined"
+                logger.fatal(errstr)
+                raise Exception(errstr)
+
+            logger.debug("Adding parameters which are not input or output files are in the configuration")
+            variable_params = []
+            for conf_key in self.configuration.keys():
+                if conf_key not in self.MASKED_KEYS:
+                    variable_params.append((conf_key, self.configuration[conf_key]))
+
+            logger.info("3) Pack information to YAML")
+            wf_input_yml_path = working_directory + "/inputs.yml"
+            Template.create_input_yml(input_metadata, arguments, wf_input_yml_path)
+
+            # Template execution
+            process = Template.execute_tool(wf_input_yml_path, wf_url)
+
+            # Sending the stdout to the log file
+            for line in iter(process.stderr.readline, b''):
+                print(line.rstrip().decode("utf-8").replace("", " "))
+
+            rc = process.poll()
+            while rc is None:
+                rc = process.poll()
+                time.sleep(0.1)
+
+            if rc is not None and rc != 0:
+                logger.progress("Something went wrong inside the tool execution. See logs", status="WARNING")
+            else:
+                logger.progress("tool execution finished successfully", status="FINISHED")
+
+        except:
+            errstr = "The Template execution failed. See logs"
+            logger.error(errstr)
             raise Exception(errstr)
 
     @staticmethod
