@@ -22,20 +22,20 @@ import time
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
 from utils import logger
-from lib.cwl import CWL
+from lib.tool_methods import Template
 
 
 class WF_RUNNER(Tool):
     """
-    Tool for writing to a file
+    Template for writing to a file
     """
-    MASKED_KEYS = {'execution', 'project', 'description', 'cwl_wf_url'}  # arguments from config.json
+    MASKED_KEYS = {'execution', 'project', 'description', 'wf_url'}  # arguments from config.json
 
     def __init__(self, configuration=None):
         """
         Init function
         """
-        logger.debug("VRE CWL Workflow runner")
+        logger.debug("VRE Template Workflow runner")
         Tool.__init__(self)
 
         if configuration is None:
@@ -50,9 +50,9 @@ class WF_RUNNER(Tool):
 
         self.populable_outputs = {}
 
-    def execute_cwl_workflow(self, input_metadata, arguments, working_directory):  # pylint: disable=no-self-use
+    def execute_workflow(self, input_metadata, arguments, working_directory):  # pylint: disable=no-self-use
         """
-        The main function to run the remote CWL workflow
+        The main function to run the remote Template workflow
 
         :param input_metadata: Matching metadata for each of the files, plus any additional data.
         :type input_metadata: dict
@@ -62,11 +62,11 @@ class WF_RUNNER(Tool):
         :type working_directory: str
         """
         try:
-            logger.debug("Getting the CWL workflow file")
-            cwl_wf_url = self.configuration.get('cwl_wf_url')
+            logger.debug("Getting the Template workflow file")
+            wf_url = self.configuration.get('wf_url')
 
-            if cwl_wf_url is None:
-                errstr = "cwl_wf_url parameter must be defined"
+            if wf_url is None:
+                errstr = "wf_url parameter must be defined"
                 logger.fatal(errstr)
                 raise Exception(errstr)
 
@@ -77,11 +77,11 @@ class WF_RUNNER(Tool):
                     variable_params.append((conf_key, self.configuration[conf_key]))
 
             logger.info("3) Pack information to YAML")
-            cwl_wf_input_yml_path = working_directory + "/inputs_cwl.yml"
-            CWL.create_input_cwl(input_metadata, arguments, cwl_wf_input_yml_path)
+            wf_input_yml_path = working_directory + "/inputs.yml"
+            Template.create_input_yml(input_metadata, arguments, wf_input_yml_path)
 
-            # CWL execution
-            process = CWL.execute_cwltool(cwl_wf_input_yml_path, cwl_wf_url)
+            # Template execution
+            process = Template.execute_tool(wf_input_yml_path, wf_url)
 
             # Sending the stdout to the log file
             for line in iter(process.stderr.readline, b''):
@@ -93,12 +93,12 @@ class WF_RUNNER(Tool):
                 time.sleep(0.1)
 
             if rc is not None and rc != 0:
-                logger.progress("Something went wrong inside the cwltool execution. See logs", status="WARNING")
+                logger.progress("Something went wrong inside the tool execution. See logs", status="WARNING")
             else:
-                logger.progress("cwltool execution finished successfully", status="FINISHED")
+                logger.progress("tool execution finished successfully", status="FINISHED")
 
         except:
-            errstr = "The CWL execution failed. See logs"
+            errstr = "The Template execution failed. See logs"
             logger.error(errstr)
             raise Exception(errstr)
 
@@ -133,8 +133,8 @@ class WF_RUNNER(Tool):
             os.chdir(execution_path)
             logger.debug("Execution path: {}".format(execution_path))
 
-            logger.debug("Init execution of the CWL Workflow")
-            self.execute_cwl_workflow(input_metadata, self.configuration, execution_path)
+            logger.debug("Init execution of the Template Workflow")
+            self.execute_workflow(input_metadata, self.configuration, execution_path)
 
             # Save and validate the output files list
             for key in output_files.keys():
@@ -153,7 +153,7 @@ class WF_RUNNER(Tool):
             return output_files, output_metadata
 
         except:
-            errstr = "VRE CWL RUNNER pipeline failed. See logs"
+            errstr = "VRE Template RUNNER pipeline failed. See logs"
             logger.fatal(errstr)
             raise Exception(errstr)
 

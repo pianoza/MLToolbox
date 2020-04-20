@@ -22,7 +22,7 @@ import sys
 from basic_modules.workflow import Workflow
 from utils import logger
 from apps.jsonapp import JSONApp
-from tool.VRE_CWL import WF_RUNNER
+from tool.VRE_Tool import WF_RUNNER
 
 
 class process_WF_RUNNER(Workflow):
@@ -38,10 +38,10 @@ class process_WF_RUNNER(Workflow):
         Initialise the tool with its configuration.
 
         :param configuration: a dictionary containing parameters that define how the operation should be carried out,
-        which are specific to each Tool.
+        which are specific to each Template.
         :type configuration: dict
         """
-        logger.debug("Processing CWL Test")
+        logger.debug("Processing Template Test")
         if configuration is None:
             configuration = {}
 
@@ -63,13 +63,13 @@ class process_WF_RUNNER(Workflow):
         :rtype: dict, dict
         """
         try:
-            logger.debug("Initialise the CWL Test Tool")
+            logger.debug("Initialise the Template Test Template")
             tt_handle = WF_RUNNER(self.configuration)
             tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files, output_metadata)
             return tt_files, tt_meta
 
         except Exception as error:
-            errstr = "CAWL Test Tool wasn't processed successfully. ERROR: {}".format(error)
+            errstr = "Test Template wasn't processed successfully. ERROR: {}".format(error)
             logger.error(errstr)
             raise Exception(errstr)
 
@@ -106,7 +106,7 @@ def main_json(config_path, in_metadata_path, out_metadata_path):
 if __name__ == "__main__":
 
     # Set up the command line parameters
-    PARSER = argparse.ArgumentParser(description="VRE CWL workflow runner")
+    PARSER = argparse.ArgumentParser(description="VRE Template workflow runner")
     PARSER.add_argument("--config", help="Configuration file", required=True)
     PARSER.add_argument("--in_metadata", help="Location of input metadata file", required=True)
     PARSER.add_argument("--out_metadata", help="Location of output metadata file", required=True)

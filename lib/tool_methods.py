@@ -21,18 +21,18 @@ import subprocess
 from ruamel import yaml
 from utils import logger
 
-import tool.VRE_CWL
+import tool.VRE_Tool
 
 
-class CWL:
+class Template:
     """
-    This is a class for CWL workflow module.
+    This is a class for Template workflow module.
     """
 
     @staticmethod
-    def create_input_cwl(input_metadata, arguments, filename_path):
+    def create_input_yml(input_metadata, arguments, filename_path):
         """
-        Create a YAML file containing the information of inputs from CWL workflow
+        Create a YAML file containing the information of inputs from Template workflow
 
         :param input_metadata: Matching metadata for each of the files, plus any additional data.
         :type input_metadata: dict
@@ -42,21 +42,21 @@ class CWL:
         :type filename_path: str
         """
         try:
-            input_cwl = {}
+            input = {}
             for key, value in input_metadata.items():  # add metadata inputs
                 data_type = value[0]
                 if data_type == "file":  # mapping
                     data_type = data_type.replace("f", "F")
 
                 file_path = str(value[1].file_path)
-                input_cwl.update({key: {"class": data_type, "location": file_path}})
+                input.update({key: {"class": data_type, "location": file_path}})
 
             for key, value in arguments.items():  # add arguments
-                if key not in tool.VRE_CWL.WF_RUNNER.MASKED_KEYS:
-                    input_cwl[str(key)] = str(value)
+                if key not in tool.VRE_Tool.WF_RUNNER.MASKED_KEYS:
+                    input[str(key)] = str(value)
 
             with open(filename_path, 'w+') as f:
-                yaml.dump(input_cwl, f, allow_unicode=True, default_flow_style=False)
+                yaml.dump(input, f, allow_unicode=True, default_flow_style=False)
 
         except:
             errstr = "The YAML file creation failed. See logs"
@@ -64,17 +64,17 @@ class CWL:
             raise Exception(errstr)
 
     @staticmethod
-    def execute_cwltool(cwl_wf_input_yml_path, cwl_wf_url):
+    def execute_tool(wf_input_yml_path, wf_url):
         """
-        cwltool execution process with the workflow specified by cwl_wf_url and YAML file path cwl_wf_input_yml_path
-        specified by cwl_wf_input_yml_path, created from config.json and input_metadata.json
+        Template execution process with the workflow specified by wf_url and YAML file path wf_input_yml_path
+        specified by wf_input_yml_path, created from config.json and input_metadata.json
 
-        :param cwl_wf_input_yml_path: CWL workflow in YAML format
-        :type cwl_wf_input_yml_path: str
-        :param cwl_wf_url: URL for the location of the workflow
-        :type cwl_wf_url: str
+        :param wf_input_yml_path: Template workflow in YAML format
+        :type wf_input_yml_path: str
+        :param wf_url: URL for the location of the workflow
+        :type wf_url: str
         """
-        logger.debug("Starting cwltool execution")
-        process = subprocess.Popen(["cwltool", cwl_wf_url, cwl_wf_input_yml_path], stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE)
+        logger.debug("Starting tool execution")
+        process = subprocess.Popen(["cwltool", wf_url, wf_input_yml_path], stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)  # TODO change for your execution tool
         return process
