@@ -22,14 +22,14 @@ Requirements
 Software
 ^^^^^^^^
 
-- Python 3.6.9+
+- Python 3.6+
 
 Python Modules
 ^^^^^^^^^^^^^^
 
 - pylint
 - pytest
-- mg-tool-api
+- openvre-tool-api
 - cwltool
 
 Installation
@@ -39,11 +39,11 @@ Directly from GitHub:
 .. code-block:: none
    :linenos:
 
-   git clone https://github.com/lrodrin/vre_cwl_executor.git
+   git clone https://github.com/inab/vre_template_tool.git
 
 Using pip:
 
 .. code-block:: none
    :linenos:
 
-   pip install git+https://github.com/lrodrin/vre_cwl_executor.git
+   pip install git+https://github.com/inab/vre_template_tool.git
