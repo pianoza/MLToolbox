@@ -21,10 +21,10 @@ import sys
 from utils import logger
 from apps.jsonapp import JSONApp
 
-from tool.VRE_Tool import TOOL
+from tool.VRE_Tool import myTool
 
 
-class WRAPPER:
+class Wrapper:
     """
     Functions for wrapping the tool set up and execution.
     """
@@ -62,7 +62,7 @@ class WRAPPER:
         """
         try:
             logger.debug("Running the Tool")
-            tt_handle = TOOL(self.configuration)
+            tt_handle = myTool(self.configuration)
             tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files, output_metadata)
             return tt_files, tt_meta
 
@@ -91,7 +91,7 @@ def main_wrapper(config_path, in_metadata_path, out_metadata_path):
         logger.info("1. Instantiate and launch the Tool")
         app = JSONApp()
 
-        result = app.launch(WRAPPER, config_path, in_metadata_path, out_metadata_path)
+        result = app.launch(Wrapper, config_path, in_metadata_path, out_metadata_path)
         logger.info("2. Tool successfully launched; see " + out_metadata_path)
         return result
 

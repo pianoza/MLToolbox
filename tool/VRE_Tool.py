@@ -1,41 +1,39 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-"""
-.. See the NOTICE file distributed with this work for additional information
-   regarding copyright ownership.
+# Copyright 2020-2021 Barcelona Supercomputing Center (BSC), Spain
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-"""
 import os
 import time
 
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
 from utils import logger
-from lib.tool_methods import Template
 
 
-class WF_RUNNER(Tool):
+class myTool(Tool):
     """
-    Template for writing to a file
+    Class to define a Tool
     """
-    MASKED_KEYS = {'execution', 'project', 'description', 'wf_url'}  # arguments from config.json
+    MASKED_KEYS = {'execution', 'project', 'description'}   # default keys of arguments from config.json
 
     def __init__(self, configuration=None):
         """
         Init function
         """
-        logger.debug("VRE Template Workflow runner")
+        logger.debug("Set up {}".format(Tool.__name__))
         Tool.__init__(self)
 
         if configuration is None:
