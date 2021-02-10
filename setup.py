@@ -25,9 +25,9 @@ import sys
 # not the system's one
 sys.path.insert(0, os.path.dirname(__file__))
 
-from lib import __version__ as version
-from lib import __author__ as author
-from lib import __license__ as license
+from tool import __version__ as version
+from tool import __author__ as author
+from tool import __license__ as license
 
 # Populating the long description
 with open("README.md", "r") as fh:

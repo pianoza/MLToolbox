@@ -45,14 +45,14 @@ class Wrapper:
 
         self.configuration.update(configuration)
 
-    def run(self, input_files, metadata, output_files, output_metadata):
+    def run(self, input_files, input_metadata, output_files, output_metadata):
         """
-        Main run function for running a TOOL.
+        Main run function for running a Tool.
 
         :param input_files: Dictionary of input files locations.
         :type input_files: dict
-        :param metadata: Dictionary of files metadata.
-        :type metadata: dict
+        :param input_metadata: Dictionary of files metadata.
+        :type input_metadata: dict
         :param output_files: Dictionary of output files locations expected to be generated.
         :type output_files: dict
         :param output_metadata: # TODO add
@@ -62,8 +62,8 @@ class Wrapper:
         """
         try:
             logger.debug("Running the Tool")
-            tt_handle = myTool(self.configuration)
-            tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files, output_metadata)
+            tt_handle = myTool()
+            tt_files, tt_meta = tt_handle.run(input_files, input_metadata, output_files, output_metadata)
             return tt_files, tt_meta
 
         except Exception as error:

@@ -41,6 +41,7 @@ Create the Python environment:
 ```bash
 python3 -m venv $HOME/vre_template_tool/venv
 source venv/bin/activate
+pip install --upgrade wheel
 pip install -r requirements.txt
 ```
 

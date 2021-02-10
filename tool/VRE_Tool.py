@@ -29,39 +29,29 @@ class myTool(Tool):
     """
     MASKED_KEYS = {'execution', 'project', 'description'}   # default keys of arguments from config.json
 
-    def __init__(self, configuration=None):
+    def __init__(self):
         """
         Init function
         """
-        logger.debug("Set up {}".format(Tool.__name__))
+        logger.debug("Initialise the tool {} with its configuration.".format(Tool.__name__))
         Tool.__init__(self)
 
-        if configuration is None:
-            configuration = {}
-
-        self.configuration.update(configuration)
-
-        # Arrays are serialized
-        for k, v in self.configuration.items():
-            if isinstance(v, list):
-                self.configuration[k] = ' '.join(v)
-
-        self.populable_outputs = {}
+        # Parameters
+        self.outputs = {}
 
     def run(self, input_files, input_metadata, output_files, output_metadata):
         """
-        The main function to run the compute_metrics tool.
+        The main function to run the tool.
 
-        :param input_files: List of input files - In this case there are no input files required.
+        :param input_files: Dictionary of input files locations.
         :type input_files: dict
-        :param input_metadata: Matching metadata for each of the files, plus any additional data.
+        :param input_metadata: Dictionary of files metadata.
         :type input_metadata: dict
-        :param output_files: List of the output files that are to be generated.
+        :param output_files: Dictionary of output files locations expected to be generated.
         :type output_files: dict
-        :param output_metadata: List of matching metadata for the output files
+        :param output_metadata: # TODO add
         :type output_metadata: list
-        :return: List of files with a single entry (output_files), List of matching metadata for the returned files
-        (output_metadata).
+        :return: Locations for the output txt (output_files), Matching metadata for each of the files (output_metadata). # TODO change
         :rtype: dict, dict
         """
         try:
@@ -71,22 +61,21 @@ class myTool(Tool):
                 os.makedirs(execution_path)
 
             execution_parent_dir = os.path.dirname(execution_path)
-
             if not os.path.isdir(execution_parent_dir):
                 os.makedirs(execution_parent_dir)
 
-            # Update working directory to execution path
             os.chdir(execution_path)
             logger.debug("Execution path: {}".format(execution_path))
 
-            logger.debug("Init execution of the Template Workflow")
-            self.execute_workflow(input_metadata, self.configuration, execution_path)
+            # Call application command to execute
+            logger.debug("Start application")
+            self.myTool_execution(input_metadata, execution_path)   # TODO adapt this method to your application
 
             # Save and validate the output files list
             for key in output_files.keys():
                 if output_files[key] is not None:
                     pop_output_path = os.path.abspath(output_files[key])
-                    self.populable_outputs[key] = pop_output_path
+                    self.outputs[key] = pop_output_path
                     output_files[key] = pop_output_path
                 else:
                     errstr = "The output_file[{}] can not be located. Please specify its expected path.".format(key)
@@ -103,14 +92,12 @@ class myTool(Tool):
             logger.fatal(errstr)
             raise Exception(errstr)
 
-    def execute_workflow(self, input_metadata, arguments, working_directory):  # pylint: disable=no-self-use
+    def myTool_execution(self, input_metadata, working_directory):  # pylint: disable=no-self-use
         """
         The main function to run the remote Template workflow
 
         :param input_metadata: Matching metadata for each of the files, plus any additional data.
         :type input_metadata: dict
-        :param arguments: dict containing tool arguments
-        :type arguments: dict
         :param working_directory: Execution working path directory
         :type working_directory: str
         """
