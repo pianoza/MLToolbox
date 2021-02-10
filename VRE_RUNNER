@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# MAIN EXECUTOR
+# Script that validates software dependencies and call VRE_RUNNER.py
+
+DEPENDENCIES=()  # TODO add your software dependencies (e.g DEPENDENCIES=("R", "docker"))
+PROGNAME="VRE_RUNNER.py"
+
+# Validate dependencies
 REALPATH="$(realpath "$0")"
 BASEDIR="$(dirname "$REALPATH")"
 case "$BASEDIR" in
@@ -11,9 +18,7 @@ case "$BASEDIR" in
   ;;
 esac
 
-PROGNAME="$(basename "$0")"
-
-for prog in docker cwltool; do  # add software dependencies
+for prog in DEPENDENCIES; do
   type -a "$prog" >/dev/null
 
   if [ $? -ne 0 ]; then
@@ -22,7 +27,7 @@ for prog in docker cwltool; do  # add software dependencies
   fi
 done
 
-# shellcheck disable=SC1090
+# Call VRE_RUNNER
 source "$BASEDIR"/venv/bin/activate
-exec python -u "${BASEDIR}"/"${PROGNAME}".py "$@"
+exec python -u "${BASEDIR}"/"${PROGNAME}" "$@"
 exit 1
