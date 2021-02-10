@@ -38,10 +38,10 @@ class process_WF_RUNNER(Workflow):
         Initialise the tool with its configuration.
 
         :param configuration: a dictionary containing parameters that define how the operation should be carried out,
-        which are specific to each Template.
+        which are specific to each Dorothea.
         :type configuration: dict
         """
-        logger.debug("Processing Template Test")
+        logger.debug("Processing Dorothea")
         if configuration is None:
             configuration = {}
 
@@ -63,13 +63,13 @@ class process_WF_RUNNER(Workflow):
         :rtype: dict, dict
         """
         try:
-            logger.debug("Initialise the Template Test Template")
+            logger.debug("Initialise the Dorothea")
             tt_handle = WF_RUNNER(self.configuration)
             tt_files, tt_meta = tt_handle.run(input_files, metadata, output_files, output_metadata)
             return tt_files, tt_meta
 
         except Exception as error:
-            errstr = "Test Template wasn't processed successfully. ERROR: {}".format(error)
+            errstr = "Test Dorothea wasn't processed successfully. ERROR: {}".format(error)
             logger.error(errstr)
             raise Exception(errstr)
 
@@ -78,7 +78,7 @@ def main_json(config_path, in_metadata_path, out_metadata_path):
     """
     Main function.
 
-    This function launches the app using configuration written in two json files: config.json and input_metadata.json.
+    This function launches the app using configuration written in two json files: defineIO.json and input_metadata.json.
 
     :param config_path: path to a valid JSON file containing information on how the tool should be executed.
     :type config_path: str
@@ -106,7 +106,7 @@ def main_json(config_path, in_metadata_path, out_metadata_path):
 if __name__ == "__main__":
 
     # Set up the command line parameters
-    PARSER = argparse.ArgumentParser(description="VRE Template workflow runner")
+    PARSER = argparse.ArgumentParser(description="VRE Dorothea workflow runner")
     PARSER.add_argument("--config", help="Configuration file", required=True)
     PARSER.add_argument("--in_metadata", help="Location of input metadata file", required=True)
     PARSER.add_argument("--out_metadata", help="Location of output metadata file", required=True)
