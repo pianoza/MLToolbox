@@ -16,7 +16,9 @@
 # limitations under the License.
 
 import os
+import subprocess
 import time
+import shutil
 
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
@@ -27,7 +29,8 @@ class myTool(Tool):
     """
     Class to define a Tool
     """
-    MASKED_KEYS = {'execution', 'project', 'description'}   # default keys of arguments from config.json
+    # default keys of arguments from config.json
+    DEFAULT_ARGUMENTS = {'execution', 'project', 'description'}
 
     def __init__(self):
         """
@@ -36,8 +39,13 @@ class myTool(Tool):
         logger.debug("Initialise the tool {} with its configuration.".format(Tool.__name__))
         Tool.__init__(self)
 
-        # Parameters
+        # Variables initialization
+        self.execution_path = os.path.abspath(self.configuration.get('execution', '.'))
         self.outputs = {}
+        self.arguments = []
+        for conf_key in self.configuration.keys():
+            if conf_key not in self.DEFAULT_ARGUMENTS:
+                self.arguments.append((conf_key, self.configuration[conf_key]))
 
     def run(self, input_files, input_metadata, output_files, output_metadata):
         """
@@ -55,92 +63,83 @@ class myTool(Tool):
         :rtype: dict, dict
         """
         try:
-            # Set and validate execution directory. If not exists the directory will be created.
-            execution_path = os.path.abspath(self.configuration.get('execution', '.'))
-            if not os.path.isdir(execution_path):
-                os.makedirs(execution_path)
+            # Set and validate execution directory. If not exists the execution directory will be created.
+            if not os.path.isdir(self.execution_path):
+                os.makedirs(self.execution_path)
 
-            execution_parent_dir = os.path.dirname(execution_path)
+            execution_parent_dir = os.path.dirname(self.execution_path)
             if not os.path.isdir(execution_parent_dir):
                 os.makedirs(execution_parent_dir)
 
-            os.chdir(execution_path)
-            logger.debug("Execution path: {}".format(execution_path))
+            os.chdir(self.execution_path)
 
             # Call application command to execute
-            logger.debug("Start application")
-            self.myTool_execution(input_metadata, execution_path)   # TODO adapt this method to your application
+            logger.debug("Launch application")
+            retVal = self.myToolExecution(input_metadata, self.execution_path)   # TODO adapt this method to your application
 
-            # Save and validate the output files list
+            # Save and validate the output files of execution
             for key in output_files.keys():
                 if output_files[key] is not None:
-                    pop_output_path = os.path.abspath(output_files[key])
-                    self.outputs[key] = pop_output_path
-                    output_files[key] = pop_output_path
+                    output_path = os.path.abspath(output_files[key])
+                    self.outputs[key] = output_path
+                    output_files[key] = output_path
                 else:
                     errstr = "The output_file[{}] can not be located. Please specify its expected path.".format(key)
                     logger.error(errstr)
                     raise Exception(errstr)
 
-            # Create output metadata
+            # Create output metadata from execution
             output_metadata = self.create_output_metadata(input_metadata, output_metadata)
+
+            # Clean tmp files
+            shutil.rmtree(self.execution_path + "/intermediate.txt") # TODO
+
+            if retVal != 0:
+                raise Exception("")
 
             return output_files, output_metadata
 
         except:
-            errstr = "VRE Template RUNNER pipeline failed. See logs"
+            errstr = "Tool execution failed. See logs."
             logger.fatal(errstr)
             raise Exception(errstr)
 
-    def myTool_execution(self, input_metadata, working_directory):  # pylint: disable=no-self-use
+    def myToolExecution(self, input_metadata, execution_path):
         """
-        The main function to run the remote Template workflow
+        The main function to run the tool.
 
-        :param input_metadata: Matching metadata for each of the files, plus any additional data.
+        :param input_metadata: Dictionary of files metadata.
         :type input_metadata: dict
-        :param working_directory: Execution working path directory
-        :type working_directory: str
+        :param execution_path: Execution working directory
+        :type execution_path: str
         """
-        try:
-            logger.debug("Getting the Template workflow file")
-            wf_url = self.configuration.get('wf_url')
+        # TODO put command line to run your application
+        cmd = [
+            'echo Hello VRE developer! Change this method, to call your application.',
+            'echo This dummy application creates {}'.format(self.execution_path + "/intermediate.txt"),
+            'touch intermediate.txt',
+            'echo This dummy application creates {}'.format(self.execution_path + "/results.txt"),
+            'touch results.txt'
+        ]
 
-            if wf_url is None:
-                errstr = "wf_url parameter must be defined"
-                logger.fatal(errstr)
-                raise Exception(errstr)
+        # Tool execution
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-            logger.debug("Adding parameters which are not input or output files are in the configuration")
-            variable_params = []
-            for conf_key in self.configuration.keys():
-                if conf_key not in self.MASKED_KEYS:
-                    variable_params.append((conf_key, self.configuration[conf_key]))
+        # Sending the stdout to the log file
+        for line in iter(process.stderr.readline, b''):
+            print(line.rstrip().decode("utf-8").replace("", " "))
 
-            logger.info("3) Pack information to YAML")
-            wf_input_yml_path = working_directory + "/inputs.yml"
-            Template.create_input_yml(input_metadata, arguments, wf_input_yml_path)
-
-            # Template execution
-            process = Template.execute_tool(wf_input_yml_path, wf_url)
-
-            # Sending the stdout to the log file
-            for line in iter(process.stderr.readline, b''):
-                print(line.rstrip().decode("utf-8").replace("", " "))
-
+        rc = process.poll()
+        while rc is None:
             rc = process.poll()
-            while rc is None:
-                rc = process.poll()
-                time.sleep(0.1)
+            time.sleep(0.1)
 
-            if rc is not None and rc != 0:
-                logger.progress("Something went wrong inside the tool execution. See logs", status="WARNING")
-            else:
-                logger.progress("tool execution finished successfully", status="FINISHED")
+        if rc is not None and rc != 0:
+            logger.progress("Something went wrong inside the tool execution. See logs", status="WARNING")
+        else:
+            logger.progress("Tool execution finished successfully", status="FINISHED")
 
-        except:
-            errstr = "The Template execution failed. See logs"
-            logger.error(errstr)
-            raise Exception(errstr)
+        return process.returncode
 
     @staticmethod
     def create_output_metadata(input_metadata, output_metadata):

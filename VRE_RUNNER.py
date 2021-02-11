@@ -61,7 +61,7 @@ class Wrapper:
         :rtype: dict, dict
         """
         try:
-            logger.debug("Running the Tool")
+            logger.debug("Run the Tool")
             tt_handle = myTool()
             tt_files, tt_meta = tt_handle.run(input_files, input_metadata, output_files, output_metadata)
             return tt_files, tt_meta
