@@ -7,7 +7,6 @@ Simple example tool that is ready to run in the VRE.
 - Python 3.6 or +x
 - Python3.6-pip, Python3.6-dev and Python3.6-venv or +
 - Git
-- Docker
 
 
 ```bash
