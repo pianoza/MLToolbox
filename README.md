@@ -68,5 +68,5 @@ Change the path in `example/in_metadata.json`:
 ### Usage
 
 ```bash
-./VRE_RUNNER --config example/config.json --in_metadata example/in_metadata.json --out_metadata example/out_metadata.json --log_file example/VRE_RUNNER.log
+./VRE_RUNNER --config example/config.json --in_metadata example/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
 ```
