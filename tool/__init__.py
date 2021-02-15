@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = 'Laura Rodriguez-Navas <https://orcid.org/0000-0003-4929-1219>'
+__author__ = 'Laura Rodriguez-Navas <https://orcid.org/0000-0003-4929-1219> and Laia Codó <https://orcid.org/0000-0002-6797-8746>'
 __copyright__ = '© 2020 Barcelona Supercomputing Center (BSC), ES'
 __license__ = 'Apache 2.0'
 __version__ = '0.0.1'
