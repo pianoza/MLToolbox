@@ -1,0 +1,2 @@
+Hello VRE tool developer!
+This is example/data/hello.txt file which is read using myToolExecution method.
