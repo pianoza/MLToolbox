@@ -1,50 +1,44 @@
 {
-    "input_files": [
-        {
-            "name": "input_reads",
-            "value": "unique_file_id_5e14abe0a37012.29503907",
-            "required": true,
-            "allow_multiple": false
-        },
-        {
-            "name": "indexed_reference_fasta",
-            "value": "unique_file_id_5e14abe0a37012.29503908",
-            "required": true,
-            "allow_multiple": false
+  "input_files": [
+    {
+      "name": "hello_file",
+      "value": "unique_file_id_5e14abe0a37012.29503907",
+      "required": true,
+      "allow_multiple": false
+    }
+  ],
+  "arguments": [
+    {
+      "name": "execution",
+      "value": "ADD_YOUR_LOCAL_PATH/example/run000"
+    },
+    {
+      "name": "project",
+      "value": "test"
+    },
+    {
+      "name": "description",
+      "value": "test"
+    },
+    {
+      "name": "username",
+      "value": "Tool Developer"
+    }
+  ],
+  "output_files": [
+    {
+      "name": "output_file",
+      "required": true,
+      "allow_multiple": false,
+      "file": {
+        "file_path": "ADD_YOUR_LOCAL_PATH/example/run000/results.txt",
+        "file_type": "TXT",
+        "data_type": "output_file",
+        "meta_data": {
+          "visible": true,
+          "description": ""
         }
-    ],
-    "arguments": [
-        {
-            "name": "execution",
-            "value": "/home/user/vre_template_tool/tests/basic/run000"
-        },
-        {
-            "name": "project",
-            "value": "test"
-        },
-        {
-            "name": "biospecimen_name",
-            "value": "hg38"
-        },
-        {
-            "name": "wf_url",
-            "value": "https://raw.githubusercontent.com/inab/vre_cwl_executor/master/tests/basic/data/workflows/basic_example.cwl"
-        }
-    ],
-    "output_files": [
-        {
-            "name": "bam_file",
-            "required": true,
-            "allow_multiple": false,
-            "file": {
-                "file_path": "/home/user/vre_template_tool/tests/basic/run000/A.bam",
-                "file_type": "BAM",
-                "data_type": "sequence_dna",
-                "meta_data": {
-                    "visible": true,
-                    "description": "Splitted BAM file (first item)"
-                }
-            }
-        }
-    ]
+      }
+    }
+  ]
 }
