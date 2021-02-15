@@ -8,7 +8,6 @@ Simple example tool that is ready to run in the VRE.
 - Python3.6-pip, Python3.6-dev and Python3.6-venv or +
 - Git
 
-
 ```bash
 sudo apt update
 sudo apt install python3.6 
@@ -48,7 +47,7 @@ pip install -r requirements.txt
 
 Change user with your username in `tests/basic/config.json`:
 
-```json 
+```json
 "arguments": [
   {
       "name": "execution",
@@ -65,10 +64,12 @@ Change user with your username in `tests/basic/config.json`:
       }
    }
 ]
+
 ```
+
 and `tests/basic/in_metadata.json`:
 
-```json 
+```json
 {
     "_id": "unique_file_id_5e14abe0a37012.29503907",
     "file_path": "/home/user/vre_template_tool/tests/basic/NA12878.bam"
@@ -77,8 +78,10 @@ and `tests/basic/in_metadata.json`:
     "_id": "unique_file_id_5e14abe0a37012.29503908",
     "file_path": "/home/user/vre_template_tool/tests/basic/hg38.fa"
 {
-``` 
+```
+
 ## Run the example
+
 ```bash
 ./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
 ```
