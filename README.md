@@ -11,6 +11,8 @@ sudo apt install python3-pip python3-dev python3-venv
 sudo apt install git
 ```
 
+The library [openvre-tool-api](https://github.com/inab/openvre-tool-api) is needed for new specifications of a new tools in the [openVRE](https://github.com/inab/openVRE) enviroment. It is included in the `requirements.txt` file.
+
 ## Installation
 
 Directly from GitHub:
