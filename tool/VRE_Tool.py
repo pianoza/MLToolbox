@@ -28,7 +28,7 @@ class myTool(Tool):
     This class define <myTool> Tool.
     """
     DEFAULT_KEYS = ['execution', 'project', 'description']  # config.json default keys
-    PYTHON_SCRIPT_PATH = "/hello/hello.py"   # tool application
+    PYTHON_SCRIPT_PATH = "/example/hello.py"   # tool application
 
     def __init__(self, configuration=None):
         """
