@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ## Run the Wrapper
 
 ```bash
-./VRE_RUNNER --config example/config.json --in_metadata example/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
+./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
 ```
 
 ## License

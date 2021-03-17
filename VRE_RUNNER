@@ -7,7 +7,7 @@
 ###
 
 
-DEPENDENCIES=("cat")  # TODO add your software dependencies (e.g. DEPENDENCIES=("Rscript","docker")
+DEPENDENCIES=("python")  # TODO add your software dependencies (e.g. DEPENDENCIES=("Rscript","docker")
 PROGNAME="VRE_RUNNER.py"
 
 # Validate dependencies

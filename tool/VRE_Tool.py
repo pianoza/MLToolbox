@@ -19,26 +19,26 @@ import os
 import subprocess
 import time
 
-from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
 from utils import logger
 
 
 class myTool(Tool):
     """
-    Class to define a Tool
+    This class define <myTool> Tool.
     """
+    DEFAULT_KEYS = ['execution', 'project', 'description']  # config.json default keys
+    PYTHON_SCRIPT_PATH = "/hello/hello.py"   # tool application
 
     def __init__(self, configuration=None):
         """
         Init function
 
         :param configuration: a dictionary containing parameters that define how the operation should be carried out,
-        which are specific to each Tool.
+        which are specific to <myTool> tool.
         :type configuration: dict
         """
         Tool.__init__(self)
-        # logger.debug("Initialized the tool {} with its configuration.".format(self.__class__.__name__))
 
         if configuration is None:
             configuration = {}
@@ -49,142 +49,101 @@ class myTool(Tool):
             if isinstance(v, list):
                 self.configuration[k] = ' '.join(v)
 
-        # Class variables initialization
+        # Init variables
+        self.current_dir = os.path.abspath(os.path.dirname(__file__))
+        self.parent_dir = os.path.abspath(self.current_dir + "/../")
         self.execution_path = os.path.abspath(self.configuration.get('execution', '.'))
-        self.arguments = self.configuration
+        self.arguments = dict(
+            [(key, value) for key, value in self.configuration.items() if key not in self.DEFAULT_KEYS]
+        )
 
     def run(self, input_files, input_metadata, output_files, output_metadata):
         """
-        The main function to run the tool.
+        The main function to run the <myTool> tool.
 
         :param input_files: Dictionary of input files locations.
         :type input_files: dict
         :param input_metadata: Dictionary of files metadata.
         :type input_metadata: dict
-        :param output_files: Dictionary of output files locations expected to be generated.
+        :param output_files: Dictionary of the output files locations. expected to be generated.
         :type output_files: dict
-        :param output_metadata: # TODO add
+        :param output_metadata: # TODO
         :type output_metadata: list
-        :return: Locations for the output txt (output_files), Matching metadata for each of the files (output_metadata). # TODO change
+        :return: # TODO
         :rtype: dict, dict
         """
-        # Set and validate execution directory. If not exists the execution directory will be created.
-        if not os.path.isdir(self.execution_path):
-            os.makedirs(self.execution_path)
+        try:
+            # Set and validate execution directory. If not exists the directory will be created.
+            if not os.path.isdir(self.execution_path):
+                os.makedirs(self.execution_path)
 
-        execution_parent_dir = os.path.dirname(self.execution_path)
-        if not os.path.isdir(execution_parent_dir):
-            os.makedirs(execution_parent_dir)
+            # Set and validate execution parent directory. If not exists the directory will be created.
+            execution_parent_dir = os.path.dirname(self.execution_path)
+            if not os.path.isdir(execution_parent_dir):
+                os.makedirs(execution_parent_dir)
 
-        os.chdir(self.execution_path)
+            # Update working directory to execution path
+            os.chdir(self.execution_path)
 
-        # Call application command to execute
-        retVal = self.myToolExecution(input_files)  # TODO adapt this method to your application
+            # Tool Execution
+            self.toolExecution(input_files)
 
-        # Save and validate the output files of execution
-        if len(output_files) != 0:
-            for key in output_files.keys():
-                if output_files[key] is not None:
-                    output_path = os.path.abspath(output_files[key])
-                    output_files[key] = output_path
-                else:
-                    errstr = "The output_file[{}] can not be located. Please specify its expected path.".format(key)
-                    logger.error(errstr)
-                    raise Exception(errstr)
+            # Create and validate the output file from tool execution
+            output_id = output_metadata[0]["name"]
+            output_type = output_metadata[0]["file"]["file_type"].lower()
+            output_file_path = "{}/{}.{}".format(self.execution_path, output_id, output_type)
+            output_files[output_id] = [(output_file_path, "file")]
+            # TODO: add more output files to save, if it is necessary for you
+            #  or create a method to manage more than one output file
 
-        # Create output metadata from execution
-        output_metadata = self.create_output_metadata(input_metadata, output_metadata)
+            return output_files, output_metadata
 
-        if retVal != 0:
-            errstr = "Tool execution failed. See logs."
+        except:
+            errstr = "VRE <myTool> tool execution failed. See logs."
             logger.fatal(errstr)
             raise Exception(errstr)
 
-        return output_files, {}
-
-    def myToolExecution(self, input_files):
+    def toolExecution(self, input_files):
         """
-        The main function to run the tool.
+        The main function to run the <myTool> tool.
 
         :param input_files: Dictionary of input files locations.
         :type input_files: dict
-        :return: # TODO
-        :rtype: int
-        """
-        # Get input files # TODO add input files to use, if it is necessary for you
-        input_file_1 = input_files.get("hello_file")
-
-        # Get arguments # TODO add arguments to use, if it is necessary for you
-        argument_1 = self.arguments.get("username")
-
-        cmd = [
-            '''
-            cat {0}
-            echo "Goodbye {1}!" >> results.txt
-            cat results.txt
-            '''.format(input_file_1, argument_1)
-        ]  # TODO change command line to run your application
-
-        # Tool execution
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-
-        # Sending the stdout to the log file
-        for line in iter(process.stdout.readline, b''):
-            print(line.rstrip().decode("utf-8").replace("", " "))
-
-        rc = process.poll()
-        while rc is None:
-            rc = process.poll()
-            time.sleep(0.1)
-
-        if rc is not None and rc != 0:
-            logger.progress("Something went wrong inside the tool execution. See logs", status="WARNING")
-        else:
-            logger.progress("Tool execution finished successfully", status="FINISHED")
-
-        return process.returncode
-
-    @staticmethod
-    def create_output_metadata(input_metadata, output_metadata):
-        """
-        Create returned output metadata from input metadata and output metadata from output files.
-
-        :param input_metadata: Dictionary of files metadata.
-        :type input_metadata: dict
-        :param output_metadata: # TODO add
-        :type output_metadata: list
-        :return: List of matching metadata for the returned files (result).
-        :rtype: dict
         """
         try:
-            result = dict()
-            for output_file in output_metadata:
-                output_filename = output_file["name"]
-                meta = Metadata()
+            # Get input files
+            input_file_1 = input_files.get("hello_file")
+            # TODO: add more input files to use, if it is necessary for you
 
-                # Set file_path for output files
-                meta.file_path = output_file["file"].get("file_path", None)
+            # Get arguments
+            argument_1 = self.arguments.get("username")
+            # TODO: add more arguments to use, if it is necessary for you
 
-                # Set data and file types of output_file
-                meta.data_type = output_file["file"].get("data_type", None)
-                meta.file_type = output_file["file"].get("file_type", None)
+            # Tool execution
+            cmd = [
+                'python',
+                self.parent_dir + self.PYTHON_SCRIPT_PATH,  # hello.py
+                input_file_1,   # hello_file
+                argument_1,     # username
+            ]
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            # TODO: change command line to run <myApplication>
 
-                # Set sources for output file from input_metadata
-                meta_sources_list = list()
-                for input_name in input_metadata.keys():
-                    meta_sources_list.append(input_metadata[input_name][1].file_path)
+            # Sending the stdout to the log file
+            for line in iter(process.stderr.readline, b''):
+                print(line.rstrip().decode("utf-8").replace("", " "))
 
-                meta.sources = meta_sources_list
+            rc = process.poll()
+            while rc is None:
+                rc = process.poll()
+                time.sleep(0.1)
 
-                # Set output file metadata
-                meta.meta_data = output_file["file"].get("meta_data", None)
-
-                # Add new element in output_metadata
-                result.update({output_filename: meta})
-
-            return result
+            if rc is not None and rc != 0:
+                logger.progress("Something went wrong inside the <myApplication> execution. See logs.", status="WARNING")
+            else:
+                logger.progress("The <myApplication> execution finished successfully.", status="FINISHED")
 
         except:
-            errstr = "Output metadata not created. See logs"
+            errstr = "The <myApplication> execution failed. See logs."
             logger.error(errstr)
             raise Exception(errstr)
