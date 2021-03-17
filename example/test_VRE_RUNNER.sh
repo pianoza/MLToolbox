@@ -7,11 +7,10 @@
 # Local installation - EDIT IF REQUIRED
 
 CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PARENT_CWD="$(dirname "$CWD")"
 
 TEST_DATA_DIR=$CWD
 WORKING_DIR=$TEST_DATA_DIR/run000
-TOOL_EXECUTABLE=$PARENT_CWD/VRE_RUNNER
+TOOL_EXECUTABLE=$TEST_DATA_DIR/../../VRE_RUNNER
 
 # Running wrapper tool
 

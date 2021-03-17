@@ -139,6 +139,3 @@ cython_debug/
 
 # PyCharm IDE folder
 .idea
-
-# Example test folder
-example/run000

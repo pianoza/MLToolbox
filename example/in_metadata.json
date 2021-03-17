@@ -2,9 +2,9 @@
   {
     "_id": "unique_file_id_5e14abe0a37012.29503907",
     "type": "file",
-    "file_path": "ADD_YOUR_LOCAL_PATH/example/data/hello.txt",
+    "file_path": "{ADD_YOUR_LOCAL_PATH}/vre_template_tool/example/data/hello.txt",
     "file_type": "TXT",
-    "data_type": "input_files",
+    "data_type": "input_file",
     "compressed": 0,
     "sources": [],
     "user_id": "user_id",

@@ -10,7 +10,7 @@
   "arguments": [
     {
       "name": "execution",
-      "value": "ADD_YOUR_LOCAL_PATH/example/run000"
+      "value": "{ADD_YOUR_LOCAL_PATH}/vre_template_tool/example/run000"
     },
     {
       "name": "project",
@@ -22,18 +22,17 @@
     },
     {
       "name": "username",
-      "value": "Tool Developer"
+      "value": "Laura"
     }
   ],
   "output_files": [
     {
-      "name": "output_file",
+      "name": "output_filename",
       "required": true,
       "allow_multiple": false,
       "file": {
-        "file_path": "ADD_YOUR_LOCAL_PATH/example/run000/results.txt",
         "file_type": "TXT",
-        "data_type": "output_file",
+        "data_type": "output_filename",
         "meta_data": {
           "visible": true,
           "description": ""
