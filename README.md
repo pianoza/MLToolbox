@@ -1,17 +1,21 @@
-# VRE wrapper tool template
-
-This is a simple example of a wrapper tool that can run in the VRE and is written for Python 3.6 or later.
+# VRE template Tool Executor
 
 ## Requirements
+
+- Python 3.6 or later
+- git
 
 ```bash
 sudo apt update
 sudo apt install python3
-sudo apt install python3-pip python3-dev python3-venv
 sudo apt install git
 ```
 
-The library [openvre-tool-api](https://github.com/inab/openvre-tool-api) is needed for new specifications of a new tools in the [openVRE](https://github.com/inab/openVRE) enviroment. It is included in the `requirements.txt` file.
+In order to install the Python dependencies you need `pip` and `venv` modules.
+
+```bash
+sudo apt install python3-pip python3-venv
+```
 
 ## Installation
 
@@ -32,43 +36,13 @@ pip install --upgrade wheel
 pip install -r requirements.txt
 ```
 
-## Example
-### Configuration
-
-Change the path in `example/config.json`:
-
-```
-"arguments": [
-  {
-      "name": "execution",
-      "value": "ADD_YOUR_LOCAL_PATH/example/run000"
-  }
-]
-
-...
-
-"output_files": [
-    {
-      "name": "results",
-      "required": true,
-      "allow_multiple": false,
-      "file": {
-        "file_path": "ADD_YOUR_LOCAL_PATH/example/run000/results.txt",
-...
-```
-
-Change the path in `example/in_metadata.json`:
-```
-[
-  {
-    "_id": "unique_file_id_5e14abe0a37012.29503907",
-    "type": "file",
-    "file_path": "ADD_YOUR_LOCAL_PATH/example/data/hello.txt",
-...
-```
-
-### Usage
+## Run the Wrapper
 
 ```bash
 ./VRE_RUNNER --config example/config.json --in_metadata example/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
 ```
+
+## License
+* © 2020 Barcelona Supercomputing Center (BSC), ES
+
+Licensed under the Apache License, version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>, see the file `LICENSE.txt` for details.
