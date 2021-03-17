@@ -38,6 +38,8 @@ pip install -r requirements.txt
 
 ## Run the Wrapper
 
+First, go to [tests/basic/](https://github.com/inab/vre_template_tool/tree/master/tests/basic) to change `config.json` and `in_metadata.json` files.
+
 ```bash
 ./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
 ```
