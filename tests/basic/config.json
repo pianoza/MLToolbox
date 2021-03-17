@@ -10,7 +10,7 @@
   "arguments": [
     {
       "name": "execution",
-      "value": "{ADD_YOUR_LOCAL_PATH}/vre_template_tool/example/run000"
+      "value": "{ADD_YOUR_LOCAL_PATH}/vre_template_tool/tests/basic/run000"
     },
     {
       "name": "project",
@@ -27,12 +27,12 @@
   ],
   "output_files": [
     {
-      "name": "output_filename",
+      "name": "goodbye",
       "required": true,
       "allow_multiple": false,
       "file": {
         "file_type": "TXT",
-        "data_type": "output_filename",
+        "data_type": "goodbye",
         "meta_data": {
           "visible": true,
           "description": ""
