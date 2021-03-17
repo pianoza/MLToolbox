@@ -6,7 +6,8 @@
 ### Script that validates software dependencies and call VRE_RUNNER.py
 ###
 
-DEPENDENCIES=("cat")  # TODO add your software dependencies (e.g DEPENDENCIES=("R","docker"))
+
+DEPENDENCIES=("cat")  # TODO add your software dependencies (e.g. DEPENDENCIES=("Rscript","docker")
 PROGNAME="VRE_RUNNER.py"
 
 # Validate dependencies
