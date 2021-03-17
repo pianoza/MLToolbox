@@ -20,7 +20,6 @@ import sys
 
 from utils import logger
 from apps.jsonapp import JSONApp
-
 from tool.VRE_Tool import myTool
 
 
@@ -28,6 +27,7 @@ class Wrapper:
     """
     Functions for wrapping the tool set up and execution.
     """
+
     configuration = {}
     output = {}
 
@@ -36,10 +36,9 @@ class Wrapper:
         Initialise the tool with its configuration.
 
         :param configuration: a dictionary containing parameters that define how the operation should be carried out,
-        which are specific to each Tool.
+        which are specific to <myTool> tool.
         :type configuration: dict
         """
-        logger.debug("Initialise Tool configuration")
         if configuration is None:
             configuration = {}
 
@@ -47,27 +46,27 @@ class Wrapper:
 
     def run(self, input_files, input_metadata, output_files, output_metadata):
         """
-        Main run function for running a Tool.
+        Main run function for running <myTool> tool.
 
         :param input_files: Dictionary of input files locations.
         :type input_files: dict
         :param input_metadata: Dictionary of files metadata.
         :type input_metadata: dict
-        :param output_files: Dictionary of output files locations expected to be generated.
+        :param output_files: Dictionary of the output files locations. expected to be generated.
         :type output_files: dict
-        :param output_metadata: # TODO add
+        :param output_metadata: # TODO
         :type output_metadata: list
-        :return: Locations for the output txt (output_files), Matching metadata for each of the files (output_metadata). # TODO change
+        :return: # TODO
         :rtype: dict, dict
         """
         try:
-            logger.debug("Run the Tool")
+            logger.debug("Run the <myTool> tool")
             tt_handle = myTool(self.configuration)
             tt_files, tt_meta = tt_handle.run(input_files, input_metadata, output_files, output_metadata)
             return tt_files, tt_meta
 
         except Exception as error:
-            errstr = "Tool wasn't executed successfully. ERROR: {}".format(error)
+            errstr = "Tool <myTool> wasn't executed successfully. ERROR: {}".format(error)
             logger.error(errstr)
             raise Exception(errstr)
 
@@ -80,7 +79,7 @@ def main_wrapper(config_path, in_metadata_path, out_metadata_path):
 
     :param config_path: path to a valid VRE JSON file containing information on how the tool should be executed.
     :type config_path: str
-    :param in_metadata_path: path to a valid VRE JSON file containing information on tool input files.
+    :param in_metadata_path: path to a valid VRE JSON file containing information on tool inputs.
     :type in_metadata_path: str
     :param out_metadata_path: path to write the JSON file containing information on tool outputs.
     :type out_metadata_path: str
@@ -88,23 +87,20 @@ def main_wrapper(config_path, in_metadata_path, out_metadata_path):
     :rtype: bool
     """
     try:
-        logger.info("1. Instantiate and launch the Tool")
         app = JSONApp()
 
         result = app.launch(Wrapper, config_path, in_metadata_path, out_metadata_path)
-        logger.info("2. Tool successfully launched; see " + out_metadata_path)
+        logger.info("2. Tool successfully executed; see " + out_metadata_path)
         return result
 
     except Exception as error:
-        errstr = "App wasn't successfully launched. ERROR: {}".format(error)
+        errstr = "Tool wasn't successfully executed. ERROR: {}".format(error)
         logger.error(errstr)
         raise Exception(errstr)
 
 
 if __name__ == "__main__":
-
-    # Set up the command line parameters
-    PARSER = argparse.ArgumentParser(description="VRE Template Tool")
+    PARSER = argparse.ArgumentParser(description="VRE <myTool> Tool")
     PARSER.add_argument("--config", help="Configuration file", required=True)
     PARSER.add_argument("--in_metadata", help="Location of input metadata file", required=True)
     PARSER.add_argument("--out_metadata", help="Location of output metadata file", required=True)
