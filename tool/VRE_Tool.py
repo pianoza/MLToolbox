@@ -18,6 +18,7 @@
 import os
 import subprocess
 import time
+from glob import glob
 
 from basic_modules.tool import Tool
 from utils import logger
@@ -91,7 +92,7 @@ class myTool(Tool):
             # Create and validate the output file from tool execution
             output_id = output_metadata[0]["name"]
             output_type = output_metadata[0]["file"]["file_type"].lower()
-            output_file_path = "{}/{}.{}".format(self.execution_path, output_id, output_type)
+            output_file_path = glob(self.execution_path + "/*." + output_type)[0]
             output_files[output_id] = [(output_file_path, "file")]
             # TODO: add more output files to save, if it is necessary for you
             #  or create a method to manage more than one output file
