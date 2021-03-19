@@ -20,9 +20,8 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'VRE tool template'
-author = 'Laura Rodriguez-Navas, Barcelona Supercomputing Center (BSC) & contributors'
+copyright = '2020-2021, Barcelona Supercomputing Center (BSC) & contributors'
 version = 'latest'
-copyright = author
 language = 'en'
 
 # -- General configuration ---------------------------------------------------
