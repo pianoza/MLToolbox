@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'VRE tool template'
-copyright = '2020-2021, Barcelona Supercomputing Center (BSC) & contributors'
+copyright = '2020-2021, Barcelona Supercomputing Center (BSC)'
 version = 'latest'
 language = 'en'
 

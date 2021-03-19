@@ -11,11 +11,8 @@ VRE tool template documentation
    :maxdepth: 4
 
    getting_started
-
-.. toctree::
-    :maxdepth: 4
-
-    reference/index
+   reference/index
+   credits
 
 
 Indices and tables
