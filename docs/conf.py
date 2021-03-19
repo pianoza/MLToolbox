@@ -12,16 +12,18 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
+# sys.path.append(os.path.abspath('./demo/'))
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'VRE tool template'
-copyright = '2021, Laura Rodriguez-Navas'
-author = 'Laura Rodriguez-Navas'
+author = 'Laura Rodriguez-Navas, Barcelona Supercomputing Center (BSC) & contributors'
 version = 'latest'
-
+copyright = author
+language = 'en'
 
 # -- General configuration ---------------------------------------------------
 
@@ -29,18 +31,32 @@ version = 'latest'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.intersphinx',
     'sphinx.ext.autodoc',
-    'sphinx_rtd_theme'
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
+    'sphinx_rtd_theme',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+source_suffix = '.rst'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+locale_dirs = ['locale/']
+gettext_compact = False
 
+master_doc = 'index'
+suppress_warnings = ['image.nonlocal_uri']
+pygments_style = 'default'
+
+intersphinx_mapping = {
+    'rtd': ('https://docs.readthedocs.io/en/stable/', None),
+    'sphinx': ('https://www.sphinx-doc.org/en/stable/', None),
+}
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -49,10 +65,22 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 #
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
-    'display_version': True
+    'logo_only': True,
+    'navigation_depth': 5,
 }
+html_context = {}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+if not 'READTHEDOCS' in os.environ:
+    html_static_path = ['_static/']
+    html_js_files = ['debug.js']
+
+    # Add fake versions for local QA of the menu
+    html_context['test_versions'] = list(map(
+        lambda x: str(x / 10),
+        range(1, 100)
+    ))
+
+html_show_sourcelink = True

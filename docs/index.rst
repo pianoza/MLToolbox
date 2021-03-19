@@ -8,16 +8,15 @@ Welcome to VRE tool template's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Getting started
+   :caption: Theme Documentation
 
-   getting_started.rst
+   getting_started
 
 .. toctree::
     :maxdepth: 2
-    :numbered:
     :caption: Demo Documentation
 
-    api.rst
+    api
 
 
 Indices and tables
