@@ -1,5 +1,7 @@
 # VRE template Tool Executor
 
+[![Documentation Status](https://readthedocs.org/projects/vre-template-tool/badge/?version=latest)](https://vre-template-tool.readthedocs.io/en/latest/?badge=latest)
+
 ## Requirements
 
 - Python 3.6 or later
