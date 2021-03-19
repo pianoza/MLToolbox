@@ -35,8 +35,7 @@ class myTool(Tool):
         """
         Init function
 
-        :param configuration: a dictionary containing parameters that define how the operation should be carried out,
-        which are specific to <myTool> tool.
+        :param configuration: a dictionary containing parameters that define how the operation should be carried out, which are specific to <myTool> tool.
         :type configuration: dict
         """
         Tool.__init__(self)
