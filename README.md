@@ -5,7 +5,7 @@
 ## Requirements
 
 - Python 3.6 or later
-- git
+- [git](https://git-scm.com/downloads)
 
 ```bash
 sudo apt update
