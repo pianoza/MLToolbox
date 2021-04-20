@@ -66,7 +66,7 @@ class myTool(Tool):
         :type input_files: dict
         :param input_metadata: Dictionary of files metadata.
         :type input_metadata: dict
-        :param output_files: Dictionary of the output files locations. expected to be generated.
+        :param output_files: Dictionary of the output files locations. Expected to be generated.
         :type output_files: dict
         :param output_metadata: # TODO
         :type output_metadata: list
