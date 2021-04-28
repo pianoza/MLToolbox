@@ -53,7 +53,10 @@ class myTool(Tool):
         # Init variables
         self.current_dir = os.path.abspath(os.path.dirname(__file__))
         self.parent_dir = os.path.abspath(self.current_dir + "/../")
-        self.execution_path = os.path.abspath(self.configuration.get('execution', '.'))
+        self.execution_path = self.configuration.get('execution', '.')
+        if not os.path.isabs(self.execution_path):  # convert to abspath if is relpath
+            self.execution_path = os.path.normpath(os.path.join(self.parent_dir, self.execution_path))
+
         self.arguments = dict(
             [(key, value) for key, value in self.configuration.items() if key not in self.DEFAULT_KEYS]
         )
@@ -114,6 +117,9 @@ class myTool(Tool):
         try:
             # Get input files
             input_file_1 = input_files.get("hello_file")
+            if not os.path.isabs(input_file_1):  # convert to abspath if is relpath
+                input_file_1 = os.path.normpath(os.path.join(self.parent_dir, input_file_1))
+
             # TODO: add more input files to use, if it is necessary for you
 
             # Get arguments

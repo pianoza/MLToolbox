@@ -10,7 +10,7 @@
   "arguments": [
     {
       "name": "execution",
-      "value": "{ADD_YOUR_LOCAL_PATH}/vre_template_tool/tests/basic/run000"
+      "value": "tests/basic/run000"
     },
     {
       "name": "project",
