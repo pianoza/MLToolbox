@@ -90,7 +90,7 @@ def main_wrapper(config_path, in_metadata_path, out_metadata_path):
         app = JSONApp()
 
         result = app.launch(Wrapper, config_path, in_metadata_path, out_metadata_path)
-        logger.info("2. Tool successfully executed; see " + out_metadata_path)
+        logger.progress("Tool successfully executed; see " + out_metadata_path)
         return result
 
     except Exception as error:
