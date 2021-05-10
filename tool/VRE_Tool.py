@@ -148,9 +148,9 @@ class myTool(Tool):
             if rc is not None and rc != 0:
                 logger.progress("Something went wrong inside the <myApplication> execution. See logs.", status="WARNING")
             else:
-                logger.progress("The <myApplication> execution finished successfully.", status="FINISHED")
+                logger.progress("<myApplication> execution finished successfully.", status="FINISHED")
 
         except:
-            errstr = "The <myApplication> execution failed. See logs."
+            errstr = "<myApplication> execution failed. See logs."
             logger.error(errstr)
             raise Exception(errstr)
