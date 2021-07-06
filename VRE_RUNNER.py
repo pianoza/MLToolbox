@@ -52,7 +52,7 @@ class Wrapper:
         :type input_files: dict
         :param input_metadata: Dictionary of files metadata.
         :type input_metadata: dict
-        :param output_files: Dictionary of the output files locations. expected to be generated.
+        :param output_files: Dictionary of the output files locations expected to be generated.
         :type output_files: dict
         :param output_metadata: # TODO
         :type output_metadata: list
@@ -60,7 +60,6 @@ class Wrapper:
         :rtype: dict, dict
         """
         try:
-            logger.debug("Run the <myTool> tool")
             tt_handle = myTool(self.configuration)
             tt_files, tt_meta = tt_handle.run(input_files, input_metadata, output_files, output_metadata)
             return tt_files, tt_meta
