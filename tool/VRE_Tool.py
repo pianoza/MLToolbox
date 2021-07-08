@@ -29,7 +29,7 @@ class myTool(Tool):
     This class define <myTool> Tool.
     """
     DEFAULT_KEYS = ['execution', 'project', 'description']  # config.json default keys
-    PYTHON_SCRIPT_PATH = "/example/hello.py"   # tool application
+    PYTHON_SCRIPT_PATH = "/example/hello.py"  # tool application
 
     def __init__(self, configuration=None):
         """
@@ -112,6 +112,8 @@ class myTool(Tool):
         :param input_files: Dictionary of input files locations.
         :type input_files: dict
         """
+        rc = None
+
         try:
             # Get input files
             input_file_1 = input_files.get("hello_file")
@@ -122,33 +124,49 @@ class myTool(Tool):
 
             # Get arguments
             argument_1 = self.arguments.get("username")
+            if argument_1 is None:
+                errstr = "argument_1 must be defined."
+                logger.fatal(errstr)
+                raise Exception(errstr)
+
             # TODO: add more arguments to use, if it is necessary for you
 
             # Tool execution
-            cmd = [
-                'python',
-                self.parent_dir + self.PYTHON_SCRIPT_PATH,  # hello.py
-                input_file_1,   # hello_file
-                argument_1,     # username
-            ]
-            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            # TODO: change command line to run <myApplication>
+            if os.path.isfile(input_file_1):
 
-            # Sending the stdout to the log file
-            for line in iter(process.stderr.readline, b''):
-                print(line.rstrip().decode("utf-8").replace("", " "))
+                cmd = [
+                    'python',
+                    self.parent_dir + self.PYTHON_SCRIPT_PATH,  # hello.py
+                    input_file_1,  # hello_file
+                    argument_1,  # username
+                ]
 
-            rc = process.poll()
-            while rc is None:
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                # TODO: change command line to run <myApplication>
+
+                # Sending the stdout to the log file
+                for line in iter(process.stderr.readline, b''):
+                    print(line.rstrip().decode("utf-8").replace("", " "))
+
                 rc = process.poll()
-                time.sleep(0.1)
+                while rc is None:
+                    rc = process.poll()
+                    time.sleep(0.1)
 
-            if rc is not None and rc != 0:
-                logger.progress("Something went wrong inside the <myApplication> execution. See logs.", status="WARNING")
+                if rc is not None and rc != 0:
+                    logger.progress("Something went wrong inside the <myApplication> execution. See logs.",
+                                    status="WARNING")
+                else:
+                    logger.progress("<myApplication> execution finished successfully.", status="FINISHED")
+
             else:
-                logger.progress("<myApplication> execution finished successfully.", status="FINISHED")
+                errstr = "input_file_1 must be defined."
+                logger.fatal(errstr)
+                raise Exception(errstr)
 
         except:
             errstr = "<myApplication> execution failed. See logs."
             logger.error(errstr)
+            if rc is not None:
+                logger.error("RETVAL: {}".format(rc))
             raise Exception(errstr)
