@@ -17,6 +17,7 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 # sys.path.append(os.path.abspath('./demo/'))
 
+from sphinx.locale import _
 
 # -- Project information -----------------------------------------------------
 
@@ -37,7 +38,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
-    'sphinxcontrib.httpdomain',
     'sphinx_rtd_theme',
 ]
 
@@ -101,3 +101,31 @@ man_pages = [
 texinfo_documents = [
     ('index', slug, project, author, slug, project, 'Miscellaneous'),
 ]
+
+
+# Extensions to theme docs
+def setup(app):
+    from sphinx.domains.python import PyField
+    from sphinx.util.docfields import Field
+
+    app.add_object_type(
+        'confval',
+        'confval',
+        objname='configuration value',
+        indextemplate='pair: %s; configuration value',
+        doc_field_types=[
+            PyField(
+                'type',
+                label=_('Type'),
+                has_arg=False,
+                names=('type',),
+                bodyrolename='class'
+            ),
+            Field(
+                'default',
+                label=_('Default'),
+                has_arg=False,
+                names=('default',),
+            ),
+        ]
+    )
