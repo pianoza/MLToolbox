@@ -74,7 +74,7 @@ html_context = {}
 # so a file named "default.css" will overwrite the builtin "default.css".
 if not 'READTHEDOCS' in os.environ:
     html_static_path = ['_static/']
-    html_js_files = ['debug.js']
+    html_css_files = ['style.css']
 
     # Add fake versions for local QA of the menu
     html_context['test_versions'] = list(map(
