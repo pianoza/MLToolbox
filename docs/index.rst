@@ -3,16 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-VRE tool template documentation
-===============================
+Welcome to VRE template Tool documentation!
+===========================================
 
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
+   :caption: Contents:
 
-   getting_started
-   reference/index
-   credits
+   install
+   tool-wrapper
+   example
+   about_us
 
 
 Indices and tables
@@ -21,4 +23,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-* :ref:`glossary`
