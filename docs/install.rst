@@ -19,13 +19,13 @@ Installation
 
 Directly from GitHub:
 
-.. code-block:: ini
+.. code:: console
 
    git clone https://github.com/inab/vre_template_tool.git
 
 Using pip:
 
-.. code-block:: ini
+.. code:: console
 
    pip install git+https://github.com/inab/vre_template_tool.git
 
@@ -34,7 +34,7 @@ Documentation
 
 To build the documentation:
 
-.. code-block:: ini
+.. code:: console
 
    pip install Sphinx
    pip install sphinx-autobuild
