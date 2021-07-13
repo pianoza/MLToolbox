@@ -11,16 +11,20 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.abspath('..'))
 # sys.path.append(os.path.abspath('./demo/'))
 
+from sphinx.locale import _
 
 # -- Project information -----------------------------------------------------
 
 project = 'VRE template Tool'
-copyright = '2020-2021, Barcelona Supercomputing Center (BSC)'
+slug = re.sub(r'\W+', '-', project.lower())
+author = '2020-2021, Barcelona Supercomputing Center (BSC)'
+copyright = author
 version = 'latest'
 language = 'en'
 
@@ -34,6 +38,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.httpdomain',
     'sphinx_rtd_theme',
 ]
 
@@ -74,7 +79,7 @@ html_context = {}
 # so a file named "default.css" will overwrite the builtin "default.css".
 if not 'READTHEDOCS' in os.environ:
     html_static_path = ['_static/']
-    html_css_files = ['style.css']
+    html_css_files = ['debug.js']
 
     # Add fake versions for local QA of the menu
     html_context['test_versions'] = list(map(
@@ -83,3 +88,45 @@ if not 'READTHEDOCS' in os.environ:
     ))
 
 html_show_sourcelink = True
+
+htmlhelp_basename = slug
+
+latex_documents = [
+    ('index', '{0}.tex'.format(slug), project, author, 'manual'),
+]
+
+man_pages = [
+    ('index', slug, project, [author], 1)
+]
+
+texinfo_documents = [
+    ('index', slug, project, author, slug, project, 'Miscellaneous'),
+]
+
+
+# Extensions to theme docs
+def setup(app):
+    from sphinx.domains.python import PyField
+    from sphinx.util.docfields import Field
+
+    app.add_object_type(
+        'confval',
+        'confval',
+        objname='configuration value',
+        indextemplate='pair: %s; configuration value',
+        doc_field_types=[
+            PyField(
+                'type',
+                label=_('Type'),
+                has_arg=False,
+                names=('type',),
+                bodyrolename='class'
+            ),
+            Field(
+                'default',
+                label=_('Default'),
+                has_arg=False,
+                names=('default',),
+            ),
+        ]
+    )
