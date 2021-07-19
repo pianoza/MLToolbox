@@ -73,7 +73,7 @@ class myTool(Tool):
         :type output_files: dict
         :param output_metadata: List of output files metadata expected to be generated.
         :type output_metadata: list
-        :return: output files and their metadata.
+        :return: Generated output files and their metadata.
         :rtype: dict, dict
         """
         try:

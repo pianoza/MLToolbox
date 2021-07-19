@@ -5,6 +5,6 @@ Reference
 *********
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
-   classes
+   classes/index

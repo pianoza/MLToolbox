@@ -12,8 +12,7 @@ Welcome to VRE template Tool documentation!
    :caption: Contents:
 
    install
-   tool-wrapper
-   example
+   reference/index
    about_us
 
 

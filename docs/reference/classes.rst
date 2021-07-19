@@ -1,21 +1,17 @@
-*********
+*******
 Classes
-*********
+*******
 
 
-:mod:`VRE_Tool`
-=====================
+:mod:`myTool`
+=============
 
-.. automodule:: tool.VRE_Tool
-    :members:
-    :private-members:
-    :special-members:
+.. automodapi:: tool.VRE_Tool
+   :no-inheritance-diagram:
 
 
-:mod:`VRE_RUNNER`
-=====================
+:mod:`Wrapper`
+==============
 
-.. automodule:: VRE_RUNNER
-    :members:
-    :private-members:
-    :special-members:
+.. automodapi:: VRE_RUNNER
+   :no-inheritance-diagram:
