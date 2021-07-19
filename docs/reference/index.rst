@@ -7,4 +7,6 @@ Reference
 .. toctree::
    :maxdepth: 2
 
-   classes/index
+   tool
+   wrapper
+   main_wrapper
