@@ -33,9 +33,9 @@ class myTool(Tool):
 
     def __init__(self, configuration=None):
         """
-        Init function
+        Init function.
 
-        :param configuration: a dictionary containing parameters that define how the operation should be carried out, 
+        :param configuration: A dictionary containing parameters that define how the operation should be carried out,
         which are specific to <myTool> tool.
         :type configuration: dict
         """
@@ -54,7 +54,7 @@ class myTool(Tool):
         self.current_dir = os.path.abspath(os.path.dirname(__file__))
         self.parent_dir = os.path.abspath(self.current_dir + "/../")
         self.execution_path = self.configuration.get('execution', '.')
-        if not os.path.isabs(self.execution_path):  # convert to abspath if is relpath
+        if not os.path.isabs(self.execution_path):
             self.execution_path = os.path.normpath(os.path.join(self.parent_dir, self.execution_path))
 
         self.arguments = dict(
@@ -94,14 +94,21 @@ class myTool(Tool):
             output_id = output_metadata[0]["name"]
             output_type = output_metadata[0]["file"]["file_type"].lower()
             output_file_path = glob(self.execution_path + "/*." + output_type)[0]
-            output_files[output_id] = [(output_file_path, "file")]
+            if os.path.isfile(output_file_path):
+                output_files[output_id] = [(output_file_path, "file")]
+
+                return output_files, output_metadata
+
+            else:
+                errstr = "Output file {} not created. See logs.".format(output_file_path)
+                logger.fatal(errstr)
+                raise Exception(errstr)
+
             # TODO: add more output files to save, if it is necessary for you
             #  or create a method to manage more than one output file
 
-            return output_files, output_metadata
-
         except:
-            errstr = "VRE <myTool> tool execution failed. See logs."
+            errstr = "<myTool> tool execution failed. See logs."
             logger.fatal(errstr)
             raise Exception(errstr)
 
@@ -117,7 +124,7 @@ class myTool(Tool):
         try:
             # Get input files
             input_file_1 = input_files.get("hello_file")
-            if not os.path.isabs(input_file_1):  # convert to abspath if is relpath
+            if not os.path.isabs(input_file_1):
                 input_file_1 = os.path.normpath(os.path.join(self.parent_dir, input_file_1))
 
             # TODO: add more input files to use, if it is necessary for you
@@ -154,10 +161,9 @@ class myTool(Tool):
                     time.sleep(0.1)
 
                 if rc is not None and rc != 0:
-                    logger.progress("Something went wrong inside the <myApplication> execution. See logs.",
-                                    status="WARNING")
+                    logger.progress("Something went wrong inside the <myApplication> execution. See logs", status="WARNING")
                 else:
-                    logger.progress("<myApplication> execution finished successfully.", status="FINISHED")
+                    logger.progress("<myApplication> execution finished successfully", status="FINISHED")
 
             else:
                 errstr = "input_file_1 must be defined."
