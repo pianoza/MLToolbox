@@ -1,29 +1,23 @@
-Wrapper
-=======
+.. _wrapper:
+
+VRE_RUNNER
+==========
 
 .. currentmodule:: VRE_RUNNER
 
 .. autoclass:: Wrapper
    :show-inheritance:
 
-   .. rubric:: Attributes Summary
-
-   .. autosummary::
-
-      ~Wrapper.configuration
-      ~Wrapper.output
-
    .. rubric:: Methods Summary
 
    .. autosummary::
 
+      ~Wrapper.__init__
       ~Wrapper.run
-
-   .. rubric:: Attributes Documentation
-
-   .. autoattribute:: configuration
-   .. autoattribute:: output
 
    .. rubric:: Methods Documentation
 
+   .. automethod:: __init__
    .. automethod:: run
+
+.. autofunction:: main_wrapper

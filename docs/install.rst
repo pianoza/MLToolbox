@@ -22,17 +22,17 @@ Directly from GitHub:
 
 .. code:: console
 
-    git clone https://github.com/inab/vre_template_tool.git
-    cd vre_template_tool
+   git clone https://github.com/inab/vre_template_tool.git
+   cd vre_template_tool
 
 Create Python environment:
 
 .. code:: console
 
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install --upgrade wheel
-    pip install -r requirements.txt
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install --upgrade wheel
+   pip install -r requirements.txt
 
 Documentation
 -------------
@@ -41,8 +41,8 @@ To build the documentation:
 
 .. code:: console
 
-    cd docs
-    pip install -r requirements.txt
-    make html
+   cd docs
+   pip install -r requirements.txt
+   make html
 
 Documentation will be generated (in HTML format) inside the ``_build/html`` directory.

@@ -1,5 +1,7 @@
-myTool
-======
+.. _tool:
+
+VRE_Tool
+========
 
 .. currentmodule:: tool.VRE_Tool
 
@@ -17,6 +19,7 @@ myTool
 
    .. autosummary::
 
+      ~myTool.__init__
       ~myTool.run
       ~myTool.toolExecution
 
@@ -27,5 +30,6 @@ myTool
 
    .. rubric:: Methods Documentation
 
+   .. automethod:: __init__
    .. automethod:: run
    .. automethod:: toolExecution

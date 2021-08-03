@@ -28,15 +28,17 @@ class myTool(Tool):
     """
     This class define <myTool> Tool.
     """
-    DEFAULT_KEYS = ['execution', 'project', 'description']  # config.json default keys
-    PYTHON_SCRIPT_PATH = "/example/hello.py"  # <myApplication>
+    DEFAULT_KEYS = ['execution', 'project', 'description']
+    """config.json default keys"""
+    PYTHON_SCRIPT_PATH = "/example/hello.py"
+    """<myApplication>"""
 
     def __init__(self, configuration=None):
         """
         Init function.
 
         :param configuration: A dictionary containing parameters that define how the operation should be carried out,
-        which are specific to <myTool> tool.
+            which are specific to <myTool> tool.
         :type configuration: dict
         """
         Tool.__init__(self)
