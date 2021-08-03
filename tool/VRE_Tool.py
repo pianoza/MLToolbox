@@ -29,7 +29,7 @@ class myTool(Tool):
     This class define <myTool> Tool.
     """
     DEFAULT_KEYS = ['execution', 'project', 'description']  # config.json default keys
-    PYTHON_SCRIPT_PATH = "/example/hello.py"  # tool application
+    PYTHON_SCRIPT_PATH = "/example/hello.py"  # <myApplication>
 
     def __init__(self, configuration=None):
         """
@@ -77,10 +77,10 @@ class myTool(Tool):
         :rtype: dict, dict
         """
         try:
-            # Set and validate execution directory. If not exists the directory will be created.
+            # Set and validate execution directory. If not exists the directory will be created
             os.makedirs(self.execution_path, exist_ok=True)
 
-            # Set and validate execution parent directory. If not exists the directory will be created.
+            # Set and validate execution parent directory. If not exists the directory will be created
             execution_parent_dir = os.path.dirname(self.execution_path)
             os.makedirs(execution_parent_dir, exist_ok=True)
 
@@ -91,21 +91,21 @@ class myTool(Tool):
             self.toolExecution(input_files)
 
             # Create and validate the output file from tool execution
-            output_id = output_metadata[0]["name"]
-            output_type = output_metadata[0]["file"]["file_type"].lower()
+            output_id = output_metadata[0]['name']
+            output_type = output_metadata[0]['file']['file_type'].lower()
             output_file_path = glob(self.execution_path + "/*." + output_type)[0]
             if os.path.isfile(output_file_path):
                 output_files[output_id] = [(output_file_path, "file")]
 
                 return output_files, output_metadata
 
+            # TODO: add more output files to save, if it is necessary for you
+            #   or create a method to manage more than one output file
+
             else:
                 errstr = "Output file {} not created. See logs.".format(output_file_path)
                 logger.fatal(errstr)
                 raise Exception(errstr)
-
-            # TODO: add more output files to save, if it is necessary for you
-            #  or create a method to manage more than one output file
 
         except:
             errstr = "<myTool> tool execution failed. See logs."
@@ -123,14 +123,14 @@ class myTool(Tool):
 
         try:
             # Get input files
-            input_file_1 = input_files.get("hello_file")
+            input_file_1 = input_files.get('hello_file')
             if not os.path.isabs(input_file_1):
                 input_file_1 = os.path.normpath(os.path.join(self.parent_dir, input_file_1))
 
             # TODO: add more input files to use, if it is necessary for you
 
             # Get arguments
-            argument_1 = self.arguments.get("username")
+            argument_1 = self.arguments.get('username')
             if argument_1 is None:
                 errstr = "argument_1 must be defined."
                 logger.fatal(errstr)
@@ -138,18 +138,19 @@ class myTool(Tool):
 
             # TODO: add more arguments to use, if it is necessary for you
 
-            # Tool execution
+            # <myApplication> execution
             if os.path.isfile(input_file_1):
+
+                # TODO: change cmd command line to run <myApplication>
 
                 cmd = [
                     'python',
                     self.parent_dir + self.PYTHON_SCRIPT_PATH,  # hello.py
-                    input_file_1,  # hello_file
+                    input_file_1,  # hello.txt
                     argument_1,  # username
                 ]
 
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                # TODO: change command line to run <myApplication>
 
                 # Sending the stdout to the log file
                 for line in iter(process.stderr.readline, b''):

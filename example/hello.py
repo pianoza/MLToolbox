@@ -17,13 +17,13 @@
 import sys
 
 """
-Example tool aplication that:
-    - open file hello.txt
-    - change the username
-    - add and save content to tests/basic/run000/goodbye.txt
+Example tool application that performs:
+    - Open the file hello.txt
+    - Replace string username of hello.txt with input string
+    - Add and save new content to file goodbye.txt
 """
 
-input_file = open(sys.argv[1], 'r')
-data = input_file.read().replace('username', sys.argv[2])
+input_file = open(sys.argv[1], "r")
+data = input_file.read().replace("username", sys.argv[2])
 output_file = open("goodbye.txt", "w")
-output_file.write(data + "\nGoodbye " + sys.argv[2] + "!")
+output_file.write(data + "\nGoodbye, " + sys.argv[2] + ".")
