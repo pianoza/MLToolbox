@@ -8,6 +8,7 @@ Software
 ^^^^^^^^
 
 - Python 3.6+
+- Git
 
 Python Modules
 ^^^^^^^^^^^^^^
@@ -21,13 +22,17 @@ Directly from GitHub:
 
 .. code:: console
 
-   git clone https://github.com/inab/vre_template_tool.git
+    git clone https://github.com/inab/vre_template_tool.git
+    cd vre_template_tool
 
-Using pip:
+Create Python environment:
 
 .. code:: console
 
-   pip install git+https://github.com/inab/vre_template_tool.git
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install --upgrade wheel
+    pip install -r requirements.txt
 
 Documentation
 -------------
@@ -36,7 +41,8 @@ To build the documentation:
 
 .. code:: console
 
-   pip install Sphinx
-   pip install sphinx-autobuild
-   cd docs
-   make html
+    cd docs
+    pip install -r requirements.txt
+    make html
+
+Documentation will be generated (in HTML format) inside the ``_build/html`` directory.

@@ -17,13 +17,14 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 # sys.path.append(os.path.abspath('./demo/'))
 
+from datetime import datetime
 from sphinx.locale import _
 
 # -- Project information -----------------------------------------------------
 
 project = 'VRE template Tool'
 slug = re.sub(r'\W+', '-', project.lower())
-author = '2020-2021, Barcelona Supercomputing Center (BSC)'
+author = f'2020-{datetime.now().year}, Barcelona Supercomputing Center (BSC)'
 copyright = author
 version = 'latest'
 language = 'en'
@@ -59,7 +60,7 @@ gettext_compact = False
 
 master_doc = 'index'
 suppress_warnings = ['image.nonlocal_uri']
-pygments_style = 'default'
+pygments_style = 'sphinx'
 
 intersphinx_mapping = {
     'rtd': ('https://docs.readthedocs.io/en/stable/', None),
@@ -81,7 +82,7 @@ html_context = {}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-if not 'READTHEDOCS' in os.environ:
+if 'READTHEDOCS' not in os.environ:
     html_static_path = ['_static/']
     html_js_files = ['debug.js']
 
