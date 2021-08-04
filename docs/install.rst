@@ -7,13 +7,14 @@ Requirements
 Software
 ^^^^^^^^
 
-- Python 3.6+
+- Python 3.6 or later.
 - Git
 
 Python Modules
 ^^^^^^^^^^^^^^
 
 - `openvre-tool-api <https://github.com/inab/openvre-tool-api>`_
+
 
 Installation
 ------------
@@ -33,6 +34,7 @@ Create Python environment:
    source venv/bin/activate
    pip install --upgrade wheel
    pip install -r requirements.txt
+
 
 Documentation
 -------------

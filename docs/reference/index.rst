@@ -1,11 +1,11 @@
-.. _reference:
-
 *********
 Reference
 *********
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    tool
    wrapper
+   legal
+   credits

@@ -1,5 +1,3 @@
-.. _wrapper:
-
 VRE_RUNNER
 ==========
 
