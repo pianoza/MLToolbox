@@ -3,7 +3,7 @@ Examples
 ********
 
 The best way to learn is with examples, and ``vre_template_tool`` is no exception. For this
-reason, there is an example you can test and is available at `tests/basic/`_ directory.
+reason, there is an example you can test and it is available at `tests/basic/`_ directory.
 
 .. _tests/basic/: https://github.com/inab/vre_template_tool/tree/master/tests/basic/
 
@@ -12,7 +12,7 @@ Default structure
 ~~~~~~~~~~~~~~~~~
 
 Before delving into the details, let's first understand the directory of a test. Though it
-can be modified, all VRE Tool projects have the sa,e file structure by default, similar
+can be modified, all VRE Tool projects have the same file structure by default, similar
 to this:
 
 ::
