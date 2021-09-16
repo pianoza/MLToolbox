@@ -36,12 +36,17 @@ python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade wheel
 pip install -r requirements.txt
+deactivate
 ```
 
 ## Run the Wrapper
 
 ```bash
 ./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
+
+# Look for the results in the execution folder
+cd tests/basic/run000/
+ls 
 ```
 
 ## License
