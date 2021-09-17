@@ -7,11 +7,9 @@ Welcome to VRE template Tool documentation!
 ===========================================
 
 This documentation extends the specifications detailed in the Deliverable 6.1 document: *"Design of computational
-architecture of software modules"* (http://bit.ly/MuGD6_1) to provide a simple programming template to develop tools
-for an open-source Virtual Research Environment (openVRE_). Tools are implemented as thin wrappers over
-existing software to facilitate their integration into the VRE.
-
-.. _openVRE: https://github.com/inab/openVRE
+architecture of software modules"* (http://bit.ly/MuGD6_1) to provide a simple programming template to develop new tools
+for an open-source Virtual Research Environment (`GitHub VRE <https://github.com/inab/openVRE>`_). Tools are implemented
+as thin wrappers over existing software to facilitate their integration into the VRE.
 
 .. toctree::
    :maxdepth: 2

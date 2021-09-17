@@ -2,10 +2,15 @@
 
 [![Documentation Status](https://readthedocs.org/projects/vre-template-tool/badge/?version=latest)](https://vre-template-tool.readthedocs.io/en/latest/?badge=latest)
 
+Example tool that is ready to run in the VRE matching the code in the [documentation](https://vre-template-tool.readthedocs.io/en/latest/?badge=latest).
+
+This repository can be forked and used as the base template for creating new tools. It should have all of base
+functionalities and is set up for testing to ensure code clarity.
+
 ## Requirements
 
 - Python 3.6 or later
-- [git](https://git-scm.com/downloads)
+- [Git](https://git-scm.com/downloads)
 
 ```bash
 sudo apt update
@@ -36,18 +41,15 @@ python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade wheel
 pip install -r requirements.txt
-deactivate
 ```
 
 ## Run the Wrapper
 
 ```bash
 ./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
-
-# Look for the results in the execution folder
-cd tests/basic/run000/
-ls 
 ```
+
+Look for the results in `tests/basic/run000/`.
 
 ## License
 * © 2020-2021 Barcelona Supercomputing Center (BSC), ES

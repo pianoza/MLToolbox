@@ -7,7 +7,7 @@ Requirements
 Software
 ^^^^^^^^
 
-- Python 3.6 or later.
+- Python 3.6+
 - Git
 
 Python Modules
@@ -15,6 +15,7 @@ Python Modules
 
 - `openvre-tool-api <https://github.com/inab/openvre-tool-api>`_
 
+Tool API. This API provides a standard way for all tools to be wrapped to allow for a common interface layer.
 
 Installation
 ------------

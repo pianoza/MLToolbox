@@ -13,19 +13,28 @@ is imported.
 
     from basic_modules.tool import Tool
 
-The `Tool` entity is the top-level wrapper for tools within the VRE, that for each tool define the input and output
-formats and specify its requirements on the execution environment.
+The `Tool` is the core element to running an application within the VRE. It defines the procedures that need to happen
+to prepare the data along with the application to run over chunks of data provided. An application can be either a piece
+of code that is written in Python or R that is run with given chunks of data or defined parameters. The results are then returned
+to the calling method :meth:`~tool.VRE_Tool.myTool.toolExecution()`.
+
+All tools contain at least a `run()` method which takes the input files, defined output files, and relevant metadata. Returned by
+the run method is the output files and their metadata.
+
+All the tools should be placed within the `tools` directory within the package.
 
 Your first `myTool`
 ~~~~~~~~~~~~~~~~~~~~~
 
-`myTool` is a class that you define and the wrapper uses to run your application. You must define the location of your
+Use the ``tool/VRE_Tool.py`` script as a template to create you new tool.
+
+The script contains `myTool` a class that you can define to run your application. You must define the location of your
 application to run, e.g. ``/example/hello.py``.
 
 You can see the first lines of `myTool` class saved in a file named ``VRE_tool.py`` under the ``tool/`` directory from
-the project’s top level directory. In this class, we define the application we want to run using the wrapper. The
+the project’s top level folder. In this class, we define the application we want to run using the wrapper. The
 application can be implemented in different programming languages, such as Python or R, taking into account how to
-execute it. To see how to execute your application see `Command line tool`_ section.
+execute it. To see how to execute your application see `Command line tool`_ and `Adding software dependencies`_ sections.
 
 ::
 
@@ -44,8 +53,7 @@ execute it. To see how to execute your application see `Command line tool`_ sect
 
 * :attr:`~tool.VRE_Tool.myTool.DEFAULT_KEYS`: identifies default arguments from openVRE configuration file (``config.json``).
 
-* :attr:`~tool.VRE_Tool.myTool.PYTHON_SCRIPT_PATH`: location of your application that you wanna run with the wrapper.
-    You can use a relative or absolute path.
+* :attr:`~tool.VRE_Tool.myTool.PYTHON_SCRIPT_PATH`: location of your application that you wanna run with the wrapper. You can use a relative or absolute path.
 
 * :meth:`~tool.VRE_Tool.myTool.run()`: `TO BE DOCUMENTED` ...
 
@@ -81,8 +89,8 @@ If your application expects one or more arguments, you must add them as follows 
         logger.fatal(errstr)
         raise Exception(errstr)
 
-For each argument, you must add a new variable and validate their import from the configuration file (``config.json``)
-to ensure execution.
+For each argument, you must add a new variable and validate their importation from openVRE configuration file (``config.json``)
+to ensure the execution of the application.
 
 Adding output files
 ~~~~~~~~~~~~~~~~~~~
@@ -98,6 +106,13 @@ If your application expects one or more output files, you must add them as follo
     if os.path.isfile(output_file_path):
         output_files[output_id] = [(output_file_path, "file")]
 
+For each output file, you only need to extract its `identifier`, `file type`, and `file path` from the output_metadata that
+contains the information from openVRE configuration file (``in_metadata.json``); and save it to `output_files`. As you can see,
+we recommend to check the existence of each output file.
+
+.. note:: If your application generates multiple output files, we recommend to develop a separate method. You can see an example HERE_.
+
+.. _HERE: https://github.com/inab/vre_cwl_executor/blob/9449f73e0c1e7ac53bc454c40884b0540e96b4a6/cwl/workflow.py#L93-L144.
 
 Command line tool
 ~~~~~~~~~~~~~~~~~
@@ -115,23 +130,6 @@ Command line tool
 .. currentmodule:: VRE_RUNNER
 
 
-Reference tool into the wrapper
--------------------------------
-
-`TO BE DOCUMENTED` ...
-
-::
-
-    from tool.VRE_Tool import myTool
-
-
-In method run()...
-
-::
-
-    tt_handle = myTool(self.configuration)
-
-
 Adding software dependencies
 ----------------------------
 
@@ -144,34 +142,9 @@ project's top level directory.
 
     DEPENDENCIES=("Rscript", "docker")
 
+Integrating the new tool into VRE
+---------------------------------
 
-Running the tool
-----------------
-
-To put the tool to work, go to the project's top level directory and run:
-
-::
-
-    ./VRE_RUNNER --config tests/basic/config.json --in_metadata tests/basic/in_metadata.json --out_metadata out_metadata.json --log_file VRE_RUNNER.log
-
-This command runs the tool that we've just created and you will get an output similar to this:
-
-::
-
-    2021-08-06 13:08:34 | INFO: 0) Unpack information from JSON
-    2021-08-06 13:08:34 | INFO: 1) Instantiate and Configure Tool
-    2021-08-06 13:08:34 | INFO: 2) Run Tool
-    2021-08-06 13:08:34 | PROGRESS: <myApplication> execution finished successfully - FINISHED
-    2021-08-06 13:08:34 | INFO: 3) Create information
-    2021-08-06 13:08:34 | INFO: 4) Pack information to JSON
-    2021-08-06 13:08:34 | PROGRESS: <myTool> tool successfully executed;
-
-Now, check the files in the ``run000`` directory. You should notice that a new file has been created: ``output_metadata.json``,
-with the content for the respective results, as the `run` method instructs.
-
-.. note:: If you are wondering about the ``run000`` directory, you can see an example in the :doc:`Examples Section</examples>`.
-
-What just happened under the execution?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`TO BE DOCUMENTED` ...
+The final step is the integration of the tool into VRE. The X section should provide a guide to the initial JSON files.
+The full JSON specifications is located in this GoogleDoc. the details the requirements for correctly creating the Tool
+description JSON file and the requirements for parameters needed for an application.

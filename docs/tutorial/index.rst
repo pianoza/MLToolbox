@@ -2,10 +2,14 @@
 Tutorial
 ********
 
-In this tutorial, we'll assume that ``vre_template_tool`` is already installed on your system.
-If that's not the case, see :doc:`Installation Section</install>`.
+In this tutorial, we’ll assume that ``vre_template_tool`` is already installed on your system. If that’s not the case, see
+:doc:`Installation Section</install>`.
 
-This tutorial will walk you through these tasks:
+The following is a walk through of developing a tool and a wrapper to include a new functionality within the VRE.
+Some stages are covering the tool development, using the tool and defining the configuration files required so that the
+final product can be integrated into de VRE.
+
+This tutorial will walk and help you through the following tasks for creating a tool ready to be integrated into de VRE.
 
 .. toctree::
    :maxdepth: 2
