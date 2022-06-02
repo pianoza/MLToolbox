@@ -34,6 +34,6 @@ done
 
 # Run VRE_RUNNER
 
-source "$BASEDIR"/venv/bin/activate
+#source "$BASEDIR"/venv/bin/activate
 exec python3 -u "${BASEDIR}"/"${PROGNAME}" "$@"
 exit 1
