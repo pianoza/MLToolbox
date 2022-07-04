@@ -1,0 +1,124 @@
+{
+    "_id": "segmentation",
+    "name": "Breast MG Mass Segmentation (DEMO)",
+    "title": "Breast MG Mass Segmentation (DEMO)",
+    "short_description": "Breast MG Mass Segmentation",
+    "long_description": "The model in this tool is pre-trained with a limited number of images (33), hence, for DEMO purposes only",
+    "url": "https:\/\/tool.site.com",
+    "publication": "10.00000\/if-any",
+    "owner": {
+        "author": "Kaisar Kushibar",
+        "institution": "Universitat de Barcelona",
+        "contact": "kaisar.kushibar@ub.edu"
+    },
+    "status": 1,
+    "external": true,
+    "keywords": [
+        "imaging"
+    ],
+    "keywords_tool": [
+        "image segmentation",
+        "breast mammogram"
+    ],
+    "infrastructure": {
+        "memory": 12,
+        "cpus": 6,
+        "executable": "\/home\/user\/breast_mass_segmentation\/main",
+        "clouds": {
+            "BSC_Starlife": {
+                "queue": "default.q",
+                "launcher": "SGE"
+            }
+        }
+    },
+    "input_files": [
+        {
+            "name": "images",
+            "description": "Mammography Images",
+            "help": "Select the image files to be analysed. Format: NIFTI (GZIP compressed)",
+            "data_type": [
+                "bioimage"
+            ],
+            "file_type": [
+                "NIFTI"
+            ],
+            "required": true,
+            "allow_multiple": true
+        }
+    ],
+    "input_files_info": [
+        {
+            "name": "info_file",
+            "description": "Patient description CSV file",
+            "help": "CSV file containing patient IDs",
+            "data_type": [
+                "sample_information_file"
+            ],
+            "file_type": [
+                "CSV"
+            ],
+            "required": true,
+            "allow_multiple": false
+        }
+    ],
+    "input_files_public_dir": [
+        {
+            "name": "model",
+            "description": "Deep learning Model",
+            "help": "Select pre-trained model",
+            "type": "enum",
+            "enum_items": {
+                "name": [
+                    "segmentation\/results\/UNet\/models"
+                ],
+                "description": [
+                    "U-Net Model trained with INbreast ACR 1 data"
+                ]
+            },
+            "file_type": [
+                "TAR"
+            ],
+            "data_type": [
+                "deep_learning_model"
+            ],
+            "required": true,
+            "allow_multiple": false
+        }
+    ],
+    "input_files_combinations": [
+        {
+            "description": "Segment cardiac images",
+            "input_files": [
+                "images",
+                "info_file",
+                "model"
+            ]
+        }
+    ],
+    "input_files_combinations_internal": [
+        [
+            {
+                "bioimage": "+"
+            }
+        ]
+    ],
+    "arguments": [],
+    "has_custom_viewer": false,
+    "output_files": [
+        {
+            "name": "image_mask",
+            "required": true,
+            "allow_multiple": true,
+            "file": {
+                "data_type": "image_mask",
+                "file_type": "NIFTI",
+                "compressed": "GZ",
+                "meta_data": {
+                    "description": "Breast MG mass mask",
+                    "tool": "segmentation",
+                    "visible": true
+                }
+            }
+        }
+    ]
+}

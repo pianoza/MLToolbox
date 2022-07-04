@@ -1,0 +1,26 @@
+{
+    "output_files": [
+        {
+            "sources": [
+                "/home/kaisar/Datasets/InBreast/AllPatients/ac3185e18ffdc7b6/RIGHT_MLO/scan_0.nii.gz"
+            ],
+            "meta_data": {
+            },
+            "data_type": "image_mask",
+            "name": "masks",
+            "file_type": "NIFTI",
+            "file_path": "/home/kaisar/EuCanImage/Coding/VRE/breast_mass_segmentation/tests/run000/UNet/results/segmentations/ac3185e18ffdc7b6/R_MLO/seg.nii.gz"
+        },
+        {
+            "sources": [
+                "/home/kaisar/Datasets/InBreast/AllPatients/ac3185e18ffdc7b6/RIGHT_CC/scan_0.nii.gz"
+            ],
+            "meta_data": {
+            },
+            "data_type": "image_mask",
+            "name": "masks",
+            "file_type": "NIFTI",
+            "file_path": "/home/kaisar/EuCanImage/Coding/VRE/breast_mass_segmentation/tests/run000/UNet/results/segmentations/ac3185e18ffdc7b6/R_CC/seg.nii.gz"
+        }
+    ]
+}

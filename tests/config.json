@@ -1,0 +1,66 @@
+{
+    "output_files": [
+        {
+            "file": {
+                "file_type": "NIFTI",
+                "sources": [
+                    "/home/kaisar/Datasets/InBreast/AllPatients/ac3185e18ffdc7b6/RIGHT_MLO/scan_0.nii.gz"
+                ],
+                "file_path": "/home/kaisar/EuCanImage/Coding/VRE/breast_mass_segmentation/tests/run000/UNet/segmentations/ac3185e18ffdc7b6/R_MLO/seg.nii.gz",
+                "meta_data": {},
+                "data_type": "image_mask"
+            },
+            "required": true,
+            "allow_multiple": false,
+            "name": "masks"
+        },
+        {
+            "file": {
+                "file_type": "NIFTI",
+                "sources": [
+                    "/home/kaisar/Datasets/InBreast/AllPatients/ac3185e18ffdc7b6/RIGHT_CC/scan_0.nii.gz"
+                ],
+                "file_path": "/home/kaisar/EuCanImage/Coding/VRE/breast_mass_segmentation/tests/run000/UNet/segmentations/ac3185e18ffdc7b6/R_CC/seg.nii.gz",
+                "meta_data": {},
+                "data_type": "image_mask"
+            },
+            "required": true,
+            "allow_multiple": false,
+            "name": "masks"
+        }
+    ],
+    "input_files": [
+        {
+            "value": "unique_file_id_5e14abe0a37012.29503906",
+            "required": true,
+            "allow_multiple": true,
+            "name": "images"
+        },
+        {
+            "value": "unique_file_id_5e14abe0a37012.29503905",
+            "required": true,
+            "allow_multiple": true,
+            "name": "segmentations"
+        },
+        {
+            "value": "unique_file_id_5e14abe0a37012.1212321",
+            "required": true,
+            "allow_multiple": false,
+            "name": "label_file"
+        }
+    ],
+    "arguments": [
+        {
+            "value": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run000",
+            "name": "execution"
+        },
+        {
+            "value": "my_project_id",
+            "name": "project"
+        },
+        {
+            "value": "image segmentation",
+            "name": "description"
+        }
+    ]
+}

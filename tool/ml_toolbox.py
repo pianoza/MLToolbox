@@ -21,17 +21,14 @@ import glob
 # see also the next code block in this example.
 from WORC.exampledata.datadownloader import download_HeadAndNeck
 
-# Define the folder this script is in, so we can easily find the example data
-script_path = os.path.dirname(os.path.abspath(__file__))
+# TODO: remove these inputs, should be provided by the user
+overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT'}
 
-# Determine whether you would like to use WORC for binary_classification,
-# multiclass_classification or regression
-modus = 'binary_classification'
-
-
-def main(overrides):
+def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     """Execute WORC Tutorial experiment."""
-    print(f"Running in folder: {script_path}.")
+    print(f"Running in folder: {out_dir}.")
+    # TODO: remove, just for testing
+    overrides = overridestest
     # ---------------------------------------------------------------------------
     # Input
     # ---------------------------------------------------------------------------
@@ -59,44 +56,24 @@ def main(overrides):
     # a subset of 20 patients in this folder. You can change this settings if you
     # like
 
-    nsubjects = 20  # use "all" to download all patients
-    data_path = os.path.join(script_path, 'Data')
-    download_HeadAndNeck(datafolder=data_path, nsubjects=nsubjects)
-
-    # Identify our data structure: change the fields below accordingly
-    # if you use your own data.
-    imagedatadir = os.path.join(data_path, 'stwstrategyhn1')
-    image_file_name = 'image.nii.gz'
-    segmentation_file_name = 'mask.nii.gz'
-
-    # File in which the labels (i.e. outcome you want to predict) is stated
-    # Again, change this accordingly if you use your own data.
-    label_file = os.path.join(data_path, 'Examplefiles', 'pinfo_HN.csv')
-
     # Name of the label you want to predict
-    if modus == 'binary_classification':
-        # Classification: predict a binary (0 or 1) label
-        label_name = ['imaginary_label_1']
-
-    elif modus == 'regression':
-        # Regression: predict a continuous label
-        label_name = ['Age']
-
-    elif modus == 'multiclass_classification':
-        # Multiclass classification: predict several mutually exclusive binaru labels together
-        label_name = ['imaginary_label_1', 'complement_label_1']
+    modus = overrides['modus']
+    overrides.pop('modus')
+    label_name = ['label1']
+    # TODO auto label_name for binary or multiclass
 
     # Determine whether we want to do a coarse quick experiment, or a full lengthy
     # one. Again, change this accordingly if you use your own data.
-    coarse = True
+    coarse = overrides['coarse']
+    overrides.pop('coarse')
 
     # Give your experiment a name
-    # TODO the name is inputed from the VRE UI
-    experiment_name = 'Example_STWStrategyHN'
+    experiment_name = overrides['experiment_name']
+    overrides.pop('experiment_name')
 
     # Instead of the default tempdir, let's but the temporary output in a subfolder
     # in the same folder as this script
-    tmpdir = os.path.join(script_path, 'WORC_' + experiment_name)
+    tmpdir = os.path.join(out_dir, 'tmp')
     print(f"Temporary folder: {tmpdir}.")
 
     # ---------------------------------------------------------------------------
@@ -107,17 +84,22 @@ def main(overrides):
     experiment = BasicWORC(experiment_name)
 
     # Set the input data according to the variables we defined earlier
-    experiment.images_from_this_directory(imagedatadir,
-                                          image_file_name=image_file_name)
-    experiment.segmentations_from_this_directory(imagedatadir,
-                                                 segmentation_file_name=segmentation_file_name)
-    experiment.labels_from_this_file(label_file)
-    experiment.predict_labels(label_name)
+
+    experiment.images_train = {os.path.basename(im): im for im in images}
+    experiment.segmentations_train = {os.path.basename(seg): seg for seg in segmentations}
+    experiment.labels_file_train = label_file
+    experiment.labels_name_train = label_name  # list
+    # experiment.segmentations_from_this_directory(segmentations,
+                                                #  segmentation_file_name=segmentation_file_name)
+    # experiment.labels_from_this_file(label_file)
+    # experiment.predict_labels(label_name)
 
     # Set the types of images WORC has to process. Used in fingerprinting
     # Valid quantitative types are ['CT', 'PET', 'Thermography', 'ADC']
     # Valid qualitative types are ['MRI', 'DWI', 'US']
-    experiment.set_image_types(['CT'])
+    image_types = [overrides['image_types']]  # list
+    overrides.pop('image_types')
+    experiment.set_image_types(image_types)
 
     # Use the standard workflow for your specific modus
     if modus == 'binary_classification':
@@ -157,42 +139,10 @@ def main(overrides):
     # named after your experiment name.
 
     # Locate output folder
-    outputfolder = fastr.config.mounts['output']
-    experiment_folder = os.path.join(outputfolder, 'WORC_' + experiment_name)
+    # outputfolder = fastr.config.mounts['output']
+    # experiment_folder = os.path.join(outputfolder, 'WORC_' + experiment_name)
 
-    print(f"Your output is stored in {experiment_folder}.")
-
-    # Read the features for the first patient
-    # NOTE: we use the glob package for scanning a folder to find specific files
-    feature_files = glob.glob(os.path.join(experiment_folder,
-                                           'Features',
-                                           'features_*.hdf5'))
-
-    if len(feature_files) == 0:
-        raise ValueError('No feature files found: your network has failed.')
-
-    feature_files.sort()
-    featurefile_p1 = feature_files[0]
-    features_p1 = pd.read_hdf(featurefile_p1)
-
-    # Read the overall peformance
-    performance_file = os.path.join(experiment_folder, 'performance_all_0.json')
-    if not os.path.exists(performance_file):
-        raise ValueError(f'No performance file {performance_file} found: your network has failed.')
-
-    with open(performance_file, 'r') as fp:
-        performance = json.load(fp)
-
-    # Print the feature values and names
-    print("Feature values from first patient:")
-    for v, l in zip(features_p1.feature_values, features_p1.feature_labels):
-        print(f"\t {l} : {v}.")
-
-    # Print the output performance
-    print("\n Performance:")
-    stats = performance['Statistics']
-    for k, v in stats.items():
-        print(f"\t {k} {v}.")
+    print(f"Your output is stored in {out_dir}.")
 
     # NOTE: the performance is probably horrible, which is expected as we ran
     # the experiment on coarse settings. These settings are recommended to only
@@ -224,4 +174,4 @@ def main(overrides):
 
 
 if __name__ == '__main__':
-    main()
+    run_ml_toolbox()

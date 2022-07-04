@@ -1,0 +1,83 @@
+[
+    {
+        "_id": "unique_file_id_5e14abe0a37012.29503906",
+        "file_path": "/home/kaisar/EuCanImage/Coding/VRE/T5.3/Data/stwstrategyhn1/HN1004/image.nii.gz",
+        "file_type": "NIFTI",
+        "data_type": "bioimage",
+        "compressed": "GZ",
+        "user_id": "user_id",
+        "creation_time": {
+            "sec": 1578413024,
+            "usec": 0
+        },
+        "meta_data": {
+            "type": "file",
+            "size": 0,
+            "project": "my_project_id",
+            "atime": {
+                "sec": 1578413024,
+                "usec": 0
+            },
+            "parentDir": "unique_file_id_5e14abe0a37742.64003100",
+            "lastAccess": {
+                "sec": 1578413024,
+                "usec": 0
+            }
+        },
+        "sources": []
+    },
+    {
+        "_id": "unique_file_id_5e14abe0a37012.29503905",
+        "file_path": "home/kaisar/EuCanImage/Coding/VRE/T5.3/Data/stwstrategyhn1/HN1004/mask.nii.gz",
+        "file_type": "NIFTI",
+        "data_type": "bioimage",
+        "compressed": "GZ",
+        "user_id": "user_id",
+        "creation_time": {
+            "sec": 1578413024,
+            "usec": 0
+        },
+        "meta_data": {
+            "type": "file",
+            "size": 0,
+            "project": "my_project_id",
+            "atime": {
+                "sec": 1578413024,
+                "usec": 0
+            },
+            "parentDir": "unique_file_id_5e14abe0a37742.64003100",
+            "lastAccess": {
+                "sec": 1578413024,
+                "usec": 0
+            }
+        },
+        "sources": []
+    },
+    {
+        "_id": "unique_file_id_5e14abe0a37012.1212321",
+        "file_path": "/home/kaisar/EuCanImage/Coding/VRE/T5.3/Data/Examplefiles/pinfo_HN.csv",
+        "file_type": "CSV",
+        "data_type": "sample_information_file",
+        "compressed": 0,
+        "user_id": "user_id",
+        "creation_time": {
+            "sec": 1578413024,
+            "usec": 0
+        },
+        "meta_data": {
+            "type": "dir",
+            "size": 0,
+            "project": "my_project_id",
+            "atime": {
+                "sec": 1578413024,
+                "usec": 0
+            },
+            "parentDir": "unique_file_id_5e14abe0a37742.64003100",
+            "lastAccess": {
+                "sec": 1578413024,
+                "usec": 0
+            }
+        },
+        "sources": []
+    }
+]
