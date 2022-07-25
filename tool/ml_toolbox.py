@@ -10,6 +10,7 @@
 # import neccesary packages
 from WORC import BasicWORC
 import os
+from pathlib import Path
 
 # These packages are only used in analysing the results
 import pandas as pd
@@ -59,7 +60,7 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     # Name of the label you want to predict
     modus = overrides['modus']
     overrides.pop('modus')
-    label_name = ['label1']
+    label_names = ['imaginary_label_1']  # they're going to be named as label1, label2, ... and it's mandatory
     # TODO auto label_name for binary or multiclass
 
     # Determine whether we want to do a coarse quick experiment, or a full lengthy
@@ -85,10 +86,11 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
 
     # Set the input data according to the variables we defined earlier
 
-    experiment.images_train = {os.path.basename(im): im for im in images}
-    experiment.segmentations_train = {os.path.basename(seg): seg for seg in segmentations}
+    experiment.images_train = [{Path(im).parent.name: im for im in images}]  # TODO Key error 0 in facade/simpleworc.py
+    experiment.segmentations_train = [{Path(seg).parent.name: seg for seg in segmentations}]
     experiment.labels_file_train = label_file
-    experiment.labels_name_train = label_name  # list
+    # experiment.labels_name_train = label_name  # list
+    experiment.label_names = label_names
     # experiment.segmentations_from_this_directory(segmentations,
                                                 #  segmentation_file_name=segmentation_file_name)
     # experiment.labels_from_this_file(label_file)

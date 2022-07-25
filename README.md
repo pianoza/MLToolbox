@@ -1,16 +1,16 @@
-# VRE template Tool Executor
+# EuCanImage - VRE Machine Learning Toolbox 
 
-[![Documentation Status](https://readthedocs.org/projects/vre-template-tool/badge/?version=latest)](https://vre-template-tool.readthedocs.io/en/latest/?badge=latest)
+<!-- [![Documentation Status](https://readthedocs.org/projects/vre-template-tool/badge/?version=latest)](https://vre-template-tool.readthedocs.io/en/latest/?badge=latest) -->
 
-Example tool that is ready to run in the VRE matching the code in the [documentation](https://vre-template-tool.readthedocs.io/en/latest/?badge=latest).
+### &#128679; Under development (ETA: September 30, 2022)
 
-This repository can be forked and used as the base template for creating new tools. It should have all of base
-functionalities and is set up for testing to ensure code clarity.
+This repository hosts the source code for the Machine Learning Toolbox of the EuCanImage project funded by Horizon-2020
 
 ## Requirements
 
 - Python 3.6 or later
 - [Git](https://git-scm.com/downloads)
+- WORC
 
 ```bash
 sudo apt update

@@ -1,9 +1,9 @@
 {
-    "_id": "segmentation",
-    "name": "Breast MG Mass Segmentation (DEMO)",
-    "title": "Breast MG Mass Segmentation (DEMO)",
-    "short_description": "Breast MG Mass Segmentation",
-    "long_description": "The model in this tool is pre-trained with a limited number of images (33), hence, for DEMO purposes only",
+    "_id": "mltoolbox",
+    "name": "Machine Learning Toolbox",
+    "title": "Machine Learning Toolbox",
+    "short_description": "Machine Learning Toolbox (TODO)",
+    "long_description": "Machine Learning Toolbox (TODO)",
     "url": "https:\/\/tool.site.com",
     "publication": "10.00000\/if-any",
     "owner": {
@@ -17,13 +17,14 @@
         "imaging"
     ],
     "keywords_tool": [
-        "image segmentation",
-        "breast mammogram"
+        "machine learning toolbox",
+        "medical imaging",
+        "radiomics"
     ],
     "infrastructure": {
         "memory": 12,
         "cpus": 6,
-        "executable": "\/home\/user\/breast_mass_segmentation\/main",
+        "executable": "\/home\/user\/machine_learning_toolbox\/main",
         "clouds": {
             "BSC_Starlife": {
                 "queue": "default.q",
@@ -34,8 +35,21 @@
     "input_files": [
         {
             "name": "images",
-            "description": "Mammography Images",
+            "description": "Medical Images",
             "help": "Select the image files to be analysed. Format: NIFTI (GZIP compressed)",
+            "data_type": [
+                "bioimage"
+            ],
+            "file_type": [
+                "NIFTI"
+            ],
+            "required": true,
+            "allow_multiple": true
+        },
+        {
+            "name": "segmentations",
+            "description": "Segmentations",
+            "help": "Select the segmentation files. Format: NIFTI (GZIP compressed). Correspondence with the Images should be in the Info file.",
             "data_type": [
                 "bioimage"
             ],
@@ -50,7 +64,7 @@
         {
             "name": "info_file",
             "description": "Patient description CSV file",
-            "help": "CSV file containing patient IDs",
+            "help": "CSV file containing patient IDs and disease outcomes. Patient IDs are the names of the files",
             "data_type": [
                 "sample_information_file"
             ],

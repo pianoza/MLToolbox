@@ -22,6 +22,6 @@ cd $WORKING_DIR
 
 echo "--- Test execution: $WORKING_DIR"
 echo "--- Start time: `date`"
-# echo $TOOL_EXECUTABLE --config $TEST_DATA_DIR/config.json --in_metadata $TEST_DATA_DIR/in_metadata.json --out_metadata $TEST_DATA_DIR/out_metadata_sample.json  --log_file $WORKING_DIR/tool.log
+echo $TOOL_EXECUTABLE --config $TEST_DATA_DIR/config.json --in_metadata $TEST_DATA_DIR/in_metadata.json --out_metadata $TEST_DATA_DIR/out_metadata_sample.json  --log_file $WORKING_DIR/tool.log
 
-time $TOOL_EXECUTABLE --config $TEST_DATA_DIR/config.json --in_metadata $TEST_DATA_DIR/in_metadata.json --out_metadata $TEST_DATA_DIR/out_metadata_sample.json  --log_file $WORKING_DIR/tool.log
+# time $TOOL_EXECUTABLE --config $TEST_DATA_DIR/config.json --in_metadata $TEST_DATA_DIR/in_metadata.json --out_metadata $TEST_DATA_DIR/out_metadata_sample.json  --log_file $WORKING_DIR/tool.log

@@ -22,54 +22,6 @@ from utils import logger
 from apps.jsonapp import JSONApp
 from tool.VRE_Tool import MLToolboxRunner
 
-
-# class Wrapper:
-#     """
-#     Functions for wrapping the tool set up and execution.
-#     """
-
-#     configuration = {}
-#     output = {}
-
-#     def __init__(self, configuration=None):
-#         """
-#         Initialise the tool with its configuration.
-
-#         :param configuration: A dictionary containing parameters that define how the operation should be carried out,
-#             which are specific to <myTool> tool.
-#         :type configuration: dict
-#         """
-#         if configuration is None:
-#             configuration = {}
-
-#         self.configuration.update(configuration)
-
-#     def run(self, input_files, input_metadata, output_files, output_metadata):
-#         """
-#         Main run function for running <myTool> tool.
-
-#         :param input_files: Dictionary of input files locations.
-#         :type input_files: dict
-#         :param input_metadata: Dictionary of input files metadata.
-#         :type input_metadata: dict
-#         :param output_files: Dictionary of output files locations expected to be generated.
-#         :type output_files: dict
-#         :param output_metadata: List of output files metadata expected to be generated.
-#         :type output_metadata: list
-#         :return: Generated output files and their metadata.
-#         :rtype: dict, dict
-#         """
-#         try:
-#             tt_handle = MLToolboxRunner(self.configuration)
-#             tt_files, tt_meta = tt_handle.run(input_files, input_metadata, output_files, output_metadata)
-#             return tt_files, tt_meta
-
-#         except Exception as error:
-#             errstr = "<myTool> tool wasn't executed successfully. ERROR: {}.".format(error)
-#             logger.error(errstr)
-#             raise Exception(errstr)
-
-
 def main_wrapper(config_path, in_metadata_path, out_metadata_path):
     """
     Main function.
@@ -88,7 +40,6 @@ def main_wrapper(config_path, in_metadata_path, out_metadata_path):
     try:
         app = JSONApp()
 
-        # result = app.launch(Wrapper, config_path, in_metadata_path, out_metadata_path)
         result = app.launch(MLToolboxRunner, config_path, in_metadata_path, out_metadata_path)
         logger.progress("<myTool> tool successfully executed; see {}".format(out_metadata_path))
         return result

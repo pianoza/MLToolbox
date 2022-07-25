@@ -16,127 +16,127 @@
     ],
     "input_files": [
         {
-            "value": "8ef5fd5d-9e11-41e4-9bc5-1863c8c4f9e6",
+            "value": "230e77f9-22c0-4add-a143-8721cc2d66c4",
             "required": true,
             "allow_multiple": false,
             "name": "label_file"
         },
         {
-            "value": "66832258-1790-4962-b50b-d389c0766e7a",
+            "value": "43455bd9-ce29-4d57-a1ba-8db1e8f1ae25",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "0233d837-7f55-4f73-8220-015065634c4e",
+            "value": "c45a903c-3ef2-440c-89ae-759b68db0865",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "b3ba90e2-8159-420c-a270-42fd323a5096",
+            "value": "9e70e1cd-82b4-417a-a0aa-13b96f5d1f18",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "30faf4d4-8fa0-4938-83dd-95e836434c80",
+            "value": "40850775-22b6-4768-92d7-d8a98513cfbe",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "ad1794ef-3227-4c5c-8e83-cf1a56e92125",
+            "value": "3b5d62b7-a2ec-4dea-807f-5ce09bec8428",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "26eb4c10-2700-4ea3-b9e0-4cc6e1e6426f",
+            "value": "90e5e584-b494-42c8-9597-4bfc6b09d9d8",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "920e3200-78d6-4176-8ee5-9f7014653a85",
+            "value": "9e72a244-5b8e-4dae-a8e9-036ac34ca24e",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "c82c8482-99f7-4277-b0bb-3542a1e429c0",
+            "value": "9da1813b-89de-4611-9214-5208df03d00d",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "6708e467-0f3b-45c5-aa95-5d6b8a1fe269",
+            "value": "15e24170-2759-4392-9887-3d1787b4765d",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "99d0942a-e7e5-4ef8-b438-764baab9e384",
+            "value": "df04009a-606d-4f15-9ade-3c555876fe96",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "a55af819-399a-44de-b713-e5a3931cf9f7",
+            "value": "26141f5a-fe83-4ec3-a349-4b658d96413d",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "c4998575-af5f-4f12-b487-f5e93c983b17",
+            "value": "40354106-89e1-4153-9f41-903131a3f742",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "96686e62-0420-4c4a-8079-911a43113f8c",
+            "value": "e371efde-e587-4818-8ccd-8dafd201ecfe",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "f023cf66-a24f-4d16-b4d0-970c500da205",
+            "value": "b368b83b-35d6-4dba-9726-a6b8590d64d3",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "bb889e26-bb50-4340-a255-cbafd135c2f3",
+            "value": "0eb749bf-dab5-470f-ae62-10b893747a7c",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "47a3d388-b374-4f36-bf25-1a3ba6b229d7",
+            "value": "3a00d77a-0591-4a82-8dea-29dca14a7d07",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "7ad06c5c-3e86-4555-965f-d69feebda89c",
+            "value": "be9c42b1-3752-4b88-a41d-4458012d5283",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "df6e9bcf-5171-4276-a388-a71f7056be23",
+            "value": "5f787aea-ac47-42dd-9fe7-70c6f609b81c",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "60dbce7a-59b1-498d-ab71-6f9add9e8d0e",
+            "value": "bff50ef6-872f-496c-a70c-4231730e49c0",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "2290fa0c-2a5f-42f6-9c13-134a234459b0",
+            "value": "1e41cf5f-2ed4-4948-a29b-7dde60526c3e",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
