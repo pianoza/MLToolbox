@@ -8,6 +8,7 @@ __pycache__/
 
 # Generated folders
 tmp
+run*
 
 # Distribution / packaging
 .Python

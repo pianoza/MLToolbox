@@ -9,7 +9,6 @@
 
 # import neccesary packages
 import os
-os.environ["FASTRHOME"] = os.path.abspath(os.path.join(os.path.dirname(__file__), '../fastr_config'))
 from WORC import BasicWORC
 from pathlib import Path
 
@@ -146,10 +145,11 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     # named after your experiment name.
 
     # Locate output folder
-    # outputfolder = fastr.config.mounts['output']
+    outputfolder = fastr.config.mounts['output'] + '/WORC_' + experiment_name
     # experiment_folder = os.path.join(outputfolder, 'WORC_' + experiment_name)
 
-    print(f"Your output is stored in {out_dir}.")
+    print(f"Your output is stored in {outputfolder}.")
+    # TODO zip the output folder then return the path as Metadata (or dictionary)
 
     # NOTE: the performance is probably horrible, which is expected as we ran
     # the experiment on coarse settings. These settings are recommended to only

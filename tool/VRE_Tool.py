@@ -19,6 +19,7 @@ import os
 import subprocess
 import time
 from glob import glob
+from pathlib import Path
 
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
@@ -96,11 +97,23 @@ class MLToolboxRunner(Tool):
                 else:
                     logger.debug('Unrecognized key {}'.format(key))
                     continue
+            # Create a custom config file for this execution
+            template = get_config_template(input_metadata['output_folder'] + '/outputs')
+            config_file_path = Path(input_metadata['output_folder']) / 'config.d' / 'config.py'
+            config_file_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(config_file_path, 'w') as f:
+                f.write(template)
+            logger.debug("Output metadata file: {}".format(config_file_path))
+            
+            # Make fastr to look for config file here
+            os.environ["FASTRHOME"] = str(config_file_path.parent)
+
+            # Run the MLToolbox
             outputs = run_ml_toolbox(self.configuration, images, segmentations, label_file, input_metadata['output_folder'])
 
             output_files = []
             out_meta = []
-            # TODO parse outputs from run_test
+            # TODO parse outputs from run_ml_toolbox
             for _file, _meta in outputs:
                 if os.path.isfile(_file):
                     meta = Metadata()
@@ -125,159 +138,48 @@ class MLToolboxRunner(Tool):
             logger.fatal(errstr)
             raise Exception(errstr)
 
+def get_config_template(output_path):
+    template = f"""
+# THIS IS AN AUTOMATICALLY GENERATED FILE. ANY CHANGES WILL BE OVERWRITTEN.
+import os
+import fastr
+import pkg_resources
+import site
+import sys
 
-# class myTool(Tool):
-#     """
-#     This class define <myTool> Tool.
-#     """
-#     DEFAULT_KEYS = ['execution', 'project', 'description']
-#     """config.json default keys"""
-#     PYTHON_SCRIPT_PATH = "/example/hello.py"
-#     """<myApplication>"""
+# Get directory in which packages are installed
+working_set = pkg_resources.working_set
+requirement_spec = pkg_resources.Requirement.parse('WORC')
+egg_info = working_set.find(requirement_spec)
+if egg_info is None:  # Backwards compatibility with WORC2
+    try:
+        packagedir = site.getsitepackages()[0]
+    except AttributeError:
+        # Inside virtualenvironment, so getsitepackages doesnt work.
+        paths = sys.path
+        for p in paths:
+            if os.path.isdir(p) and os.path.basename(p) == 'site-packages':
+                packagedir = p
+else:
+    packagedir = egg_info.location
 
-#     def __init__(self, configuration=None):
-#         """
-#         Init function.
+# Add the WORC FASTR tools and type paths
+tools_path = [os.path.join(packagedir, 'WORC', 'resources', 'fastr_tools')] + tools_path
+types_path = [os.path.join(packagedir, 'WORC', 'resources', 'fastr_types')] + types_path
 
-#         :param configuration: A dictionary containing parameters that define how the operation should be carried out,
-#             which are specific to <myTool> tool.
-#         :type configuration: dict
-#         """
-#         Tool.__init__(self)
+# Mounts accessible to fastr virtual file system
+mounts['worc_example_data'] = os.path.join(packagedir, 'WORC', 'exampledata')
+mounts['apps'] = os.path.expanduser(os.path.join('~', 'apps'))
+mounts['output'] = '{output_path}'
+mounts['test'] = os.path.join(packagedir, 'WORC', 'resources', 'fastr_tests')
 
-#         if configuration is None:
-#             configuration = {}
+# First option is to have a single shared folder where all the results from all the users are stored.
+# Problem: each user will have their own random uuid directory without access outside this dir.
+# Second option is to modify the config file before importing fastr.
+# Problem: the user space and the source code is separated, so each user runs the same code. This is dangerous as one user can modify the run of another user.
 
-#         self.configuration.update(configuration)
-
-#         for k, v in self.configuration.items():
-#             if isinstance(v, list):
-#                 self.configuration[k] = ' '.join(v)
-
-#         # Init variables
-#         self.current_dir = os.path.abspath(os.path.dirname(__file__))
-#         self.parent_dir = os.path.abspath(self.current_dir + "/../")
-#         self.execution_path = self.configuration.get('execution', '.')
-#         if not os.path.isabs(self.execution_path):
-#             self.execution_path = os.path.normpath(os.path.join(self.parent_dir, self.execution_path))
-
-#         self.arguments = dict(
-#             [(key, value) for key, value in self.configuration.items() if key not in self.DEFAULT_KEYS]
-#         )
-
-#     def run(self, input_files, input_metadata, output_files, output_metadata):
-#         """
-#         The main function to run the <myTool> tool.
-
-#         :param input_files: Dictionary of input files locations.
-#         :type input_files: dict
-#         :param input_metadata: Dictionary of input files metadata.
-#         :type input_metadata: dict
-#         :param output_files: Dictionary of output files locations expected to be generated.
-#         :type output_files: dict
-#         :param output_metadata: List of output files metadata expected to be generated.
-#         :type output_metadata: list
-#         :return: Generated output files and their metadata.
-#         :rtype: dict, dict
-#         """
-#         try:
-#             # Set and validate execution directory. If not exists the directory will be created
-#             os.makedirs(self.execution_path, exist_ok=True)
-
-#             # Set and validate execution parent directory. If not exists the directory will be created
-#             execution_parent_dir = os.path.dirname(self.execution_path)
-#             os.makedirs(execution_parent_dir, exist_ok=True)
-
-#             # Update working directory to execution path
-#             os.chdir(self.execution_path)
-
-#             # Tool Execution
-#             self.toolExecution(input_files)
-
-#             # Create and validate the output file from tool execution
-#             output_id = output_metadata[0]['name']
-#             output_type = output_metadata[0]['file']['file_type'].lower()
-#             output_file_path = glob(self.execution_path + "/*." + output_type)[0]
-#             if os.path.isfile(output_file_path):
-#                 output_files[output_id] = [(output_file_path, "file")]
-
-#                 return output_files, output_metadata
-
-#             # TODO: add more output files to save, if it is necessary for you
-#             #   or create a method to manage more than one output file
-
-#             else:
-#                 errstr = "Output file {} not created. See logs.".format(output_file_path)
-#                 logger.fatal(errstr)
-#                 raise Exception(errstr)
-
-#         except:
-#             errstr = "<myTool> tool execution failed. See logs."
-#             logger.fatal(errstr)
-#             raise Exception(errstr)
-
-#     def toolExecution(self, input_files):
-#         """
-#         The main function to run the <myTool> tool.
-
-#         :param input_files: Dictionary of input files locations.
-#         :type input_files: dict
-#         """
-#         rc = None
-
-#         try:
-#             # Get input files
-#             input_file_1 = input_files.get('hello_file')
-#             if not os.path.isabs(input_file_1):
-#                 input_file_1 = os.path.normpath(os.path.join(self.parent_dir, input_file_1))
-
-#             # TODO: add more input files to use, if it is necessary for you
-
-#             # Get arguments
-#             argument_1 = self.arguments.get('username')
-#             if argument_1 is None:
-#                 errstr = "argument_1 must be defined."
-#                 logger.fatal(errstr)
-#                 raise Exception(errstr)
-
-#             # TODO: add more arguments to use, if it is necessary for you
-
-#             # <myApplication> execution
-#             if os.path.isfile(input_file_1):
-
-#                 # TODO: change cmd command line to run <myApplication>
-
-#                 cmd = [
-#                     'python',
-#                     self.parent_dir + self.PYTHON_SCRIPT_PATH,  # hello.py
-#                     input_file_1,  # hello.txt
-#                     argument_1,  # username
-#                 ]
-
-#                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-#                 # Sending the stdout to the log file
-#                 for line in iter(process.stderr.readline, b''):
-#                     print(line.rstrip().decode("utf-8").replace("", " "))
-
-#                 rc = process.poll()
-#                 while rc is None:
-#                     rc = process.poll()
-#                     time.sleep(0.1)
-
-#                 if rc is not None and rc != 0:
-#                     logger.progress("Something went wrong inside the <myApplication> execution. See logs", status="WARNING")
-#                 else:
-#                     logger.progress("<myApplication> execution finished successfully", status="FINISHED")
-
-#             else:
-#                 errstr = "input_file_1 must be defined."
-#                 logger.fatal(errstr)
-#                 raise Exception(errstr)
-
-#         except:
-#             errstr = "<myApplication> execution failed. See logs."
-#             logger.error(errstr)
-#             if rc is not None:
-#                 logger.error("RETVAL: {}".format(rc))
-#             raise Exception(errstr)
+# The ITKFile type requires a preferred type when no specification is given.
+# We will set it to Nifti, but you may change this.
+preferred_types += ["NiftiImageFileCompressed"]
+    """
+    return template
