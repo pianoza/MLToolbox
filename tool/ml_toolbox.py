@@ -8,8 +8,9 @@
 # suitable for first time usage.
 
 # import neccesary packages
-from WORC import BasicWORC
 import os
+os.environ["FASTRHOME"] = os.path.abspath(os.path.join(os.path.dirname(__file__), '../fastr_config'))
+from WORC import BasicWORC
 from pathlib import Path
 
 # These packages are only used in analysing the results
@@ -23,7 +24,7 @@ import glob
 from WORC.exampledata.datadownloader import download_HeadAndNeck
 
 # TODO: remove these inputs, should be provided by the user
-overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT'}
+overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
 
 def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     """Execute WORC Tutorial experiment."""
@@ -60,7 +61,7 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     # Name of the label you want to predict
     modus = overrides['modus']
     overrides.pop('modus')
-    label_names = ['imaginary_label_1']  # they're going to be named as label1, label2, ... and it's mandatory
+    # label_names = ['imaginary_label_1']  # they're going to be named as label1, label2, ... and it's mandatory
     # TODO auto label_name for binary or multiclass
 
     # Determine whether we want to do a coarse quick experiment, or a full lengthy
@@ -89,8 +90,12 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     experiment.images_train = [{Path(im).parent.name: im for im in images}]  # TODO Key error 0 in facade/simpleworc.py
     experiment.segmentations_train = [{Path(seg).parent.name: seg for seg in segmentations}]
     experiment.labels_file_train = label_file
-    # experiment.labels_name_train = label_name  # list
-    experiment.label_names = label_names
+    # experiment.labels_name_train = overrides['label_names']  # list
+    # # Tried both, setting label_names of the experiment like this:
+    # experiment.label_names = overrides['label_names']
+    # # And also like this:
+    experiment.predict_labels(['imaginary_label_1'])  # Also tried ['imaginary_label1'] and 'imaginary_label1'
+    # overrides.pop('label_names')
     # experiment.segmentations_from_this_directory(segmentations,
                                                 #  segmentation_file_name=segmentation_file_name)
     # experiment.labels_from_this_file(label_file)
