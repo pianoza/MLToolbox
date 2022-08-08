@@ -2,12 +2,12 @@
     "output_files": [
         {
             "name": "outputs",
-            "file_path": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run000/outputs/run000.zip",
+            "file_path": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run001/outputs/run001.zip",
             "data_type": "sample_information_file",
             "file_type": "zip",
             "meta_data": {
                 "file_format": "zip",
-                "output_path": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run000/outputs/run000.zip"
+                "output_path": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run001/outputs/run001.zip"
             },
             "sources": []
         }

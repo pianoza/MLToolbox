@@ -118,12 +118,12 @@ class MLToolboxRunner(Tool):
                 if os.path.isfile(_file):
                     meta = Metadata()
                     meta.file_path = _file  # Set file_path for output files
-                    meta.data_type = 'image_mask'
-                    meta.file_type = 'NIFTI'
+                    meta.data_type = 'sample_information_file'
+                    meta.file_type = 'zip'
                     meta.meta_data = _meta
                     out_meta.append(meta)
                     output_files.append({
-                        'name': 'image_mask', 'file_path': _file
+                        'name': 'outputs', 'file_path': _file
                     })
                 else:
                     logger.warning("Output not found. Path \"{}\" does not exist".format(_file))

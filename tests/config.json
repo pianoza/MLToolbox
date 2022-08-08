@@ -3,7 +3,7 @@
         {
             "file": {
                 "file_type": "zip",
-                "file_path": "/home/kaisar/WORC/output_TEST/WORC_run000.zip",
+                "file_path": "/home/kaisar/WORC/output_TEST/WORC_run001.zip",
                 "meta_data": {},
                 "data_type": "sample_information_file"
             },
@@ -14,7 +14,7 @@
     ],
     "arguments": [
         {
-            "value": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run000",
+            "value": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run001",
             "name": "execution"
         },
         {

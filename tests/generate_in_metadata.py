@@ -18,7 +18,19 @@ config = {}
 
 csv_id = str(uuid.uuid4())
 # add csv_file to config
-config["output_files"] = []
+config["output_files"] = [
+        {
+            "file": {
+                "file_type": "zip",
+                "file_path": str(execution_dir / "outputs" / "run000.zip"),
+                "meta_data": {},
+                "data_type": "sample_information_file"
+            },
+            "required": True,
+            "allow_multiple": False,
+            "name": "outputs"
+        }
+]
 config["arguments"] = [
     {
         "value": str(execution_dir),

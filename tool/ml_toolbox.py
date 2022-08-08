@@ -9,6 +9,7 @@
 
 # import neccesary packages
 import os
+import shutil
 from WORC import BasicWORC
 from pathlib import Path
 
@@ -23,7 +24,7 @@ import glob
 from WORC.exampledata.datadownloader import download_HeadAndNeck
 
 # TODO: remove these inputs, should be provided by the user
-overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
+overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run001', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
 
 def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     """Execute WORC Tutorial experiment."""
@@ -145,11 +146,18 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     # named after your experiment name.
 
     # Locate output folder
-    outputfolder = fastr.config.mounts['output'] + '/WORC_' + experiment_name
-    # experiment_folder = os.path.join(outputfolder, 'WORC_' + experiment_name)
+    outputfolder = out_dir + '/outputs/' + experiment_name
+    # zip the folder in outputfloder
+    shutil.make_archive(outputfolder, 'zip', os.path.split(outputfolder)[0])
+    outfile = outputfolder + '.zip'
+    print(f"Your output is stored in {outfile}.")
 
-    print(f"Your output is stored in {outputfolder}.")
-    # TODO zip the output folder then return the path as Metadata (or dictionary)
+    metadata = {
+        'file_format': 'zip',
+        'output_path': outfile,
+    }
+    outputs = [(outfile, metadata)]
+    return outputs
 
     # NOTE: the performance is probably horrible, which is expected as we ran
     # the experiment on coarse settings. These settings are recommended to only
