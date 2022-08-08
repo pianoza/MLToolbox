@@ -19,10 +19,6 @@ import json
 import fastr
 import glob
 
-# If you don't want to use your own data, we use the following example set,
-# see also the next code block in this example.
-from WORC.exampledata.datadownloader import download_HeadAndNeck
-
 # TODO: remove these inputs, should be provided by the user
 overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run001', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
 

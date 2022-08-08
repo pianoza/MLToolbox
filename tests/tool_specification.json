@@ -7,8 +7,8 @@
     "url": "https:\/\/tool.site.com",
     "publication": "10.00000\/if-any",
     "owner": {
-        "author": "Kaisar Kushibar",
-        "institution": "Universitat de Barcelona",
+        "author": "Kaisar Kushibar, Socayna Jouide, Martijn Starmans",
+        "institution": "Universitat de Barcelona | Erasmus MC",
         "contact": "kaisar.kushibar@ub.edu"
     },
     "status": 1,
@@ -64,7 +64,7 @@
         {
             "name": "info_file",
             "description": "Patient description CSV file",
-            "help": "CSV file containing patient IDs and disease outcomes. Patient IDs are the names of the files",
+            "help": "CSV file containing patient IDs and disease outcomes. Patient IDs are the names of the files. IMPORTANT: First column title must be called Patient and the following columns can be any label.",
             "data_type": [
                 "sample_information_file"
             ],
@@ -101,7 +101,7 @@
     ],
     "input_files_combinations": [
         {
-            "description": "Segment cardiac images",
+            "description": "Missing description",
             "input_files": [
                 "images",
                 "info_file",
@@ -120,16 +120,16 @@
     "has_custom_viewer": false,
     "output_files": [
         {
-            "name": "image_mask",
+            "name": "outputs",
             "required": true,
-            "allow_multiple": true,
+            "allow_multiple": false,
             "file": {
-                "data_type": "image_mask",
-                "file_type": "NIFTI",
-                "compressed": "GZ",
+                "data_type": "sample_information_file",
+                "file_type": "zip",
+                "compressed": "zip",
                 "meta_data": {
-                    "description": "Breast MG mass mask",
-                    "tool": "segmentation",
+                    "description": "Results of all the experiments in the run",
+                    "tool": "mltoolbox",
                     "visible": true
                 }
             }
