@@ -20,7 +20,7 @@ import fastr
 import glob
 
 # TODO: remove these inputs, should be provided by the user
-overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run001', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
+overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
 
 def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     """Execute WORC Tutorial experiment."""
@@ -80,11 +80,11 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
 
     # Create a Simple WORC object
     experiment = BasicWORC(experiment_name)
-
+    # print([{Path(im).name.split("_")[0]: im for im in images}])
+    # print([{Path(seg).name.split("_")[0]: seg for seg in segmentations}])
     # Set the input data according to the variables we defined earlier
-
-    experiment.images_train = [{Path(im).parent.name: im for im in images}]  # TODO Key error 0 in facade/simpleworc.py
-    experiment.segmentations_train = [{Path(seg).parent.name: seg for seg in segmentations}]
+    experiment.images_train = [{Path(im).name.split("_")[0]: im for im in images}]
+    experiment.segmentations_train = [{Path(seg).name.split("_")[0]: seg for seg in segmentations}]
     experiment.labels_file_train = label_file
     # experiment.labels_name_train = overrides['label_names']  # list
     # # Tried both, setting label_names of the experiment like this:

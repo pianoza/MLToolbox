@@ -12,7 +12,7 @@
 CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 TEST_DATA_DIR=$CWD
-WORKING_DIR=$TEST_DATA_DIR/run001
+WORKING_DIR=$TEST_DATA_DIR/run000
 TOOL_EXECUTABLE=$TEST_DATA_DIR/../VRE_RUNNER
 
 # Running segmentation tool

@@ -4,15 +4,26 @@ import json
 import uuid
 from time import time
 
-from_dir = Path("/home/kaisar/EuCanImage/Coding/VRE/T5.3/Data/stwstrategyhn1")
+from_dir = Path("/home/kaisar/EuCanImage/Coding/VRE/T5.3/Data/stwstrategyhn2")
 csv_file = Path("/home/kaisar/EuCanImage/Coding/VRE/T5.3/Data/Examplefiles/pinfo_HN.csv")
 execution_dir = Path("/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run000")
-image_name = "image.nii.gz"
-mask_name = "mask.nii.gz"
+image_suffix = "image_0.nii.gz"
+mask_suffix = "mask_0.nii.gz"
 max_load = 10
 
 # list all folders in from_dir
-folders = [f for f in from_dir.iterdir() if f.is_dir()]
+# folders = [f for f in from_dir.iterdir() if f.is_dir()]
+files = [f for f in from_dir.iterdir() if f.is_file()]
+patients = {}
+for file in files:
+    pid = file.name.split("_")[0]
+    if pid not in patients:
+        patients[pid] = {"images": [], "masks": []}
+    if file.name.endswith(image_suffix):
+        patients[pid]["images"].append(file)
+    elif file.name.endswith(mask_suffix):
+        patients[pid]["masks"].append(file)
+
 in_metadata = []
 config = {}
 
@@ -81,8 +92,11 @@ in_metadata.append({
     "sources": []
 })
 
-
-for folder in folders[:max_load]:
+counter = 0
+for patient, vals in patients.items():
+    if counter >= max_load:
+        break
+    counter += 1
     img_id = str(uuid.uuid4())
     mask_id = str(uuid.uuid4())
     config_item_images = {
@@ -103,7 +117,7 @@ for folder in folders[:max_load]:
 
     image_item = {
         "_id": img_id,
-        "file_path": str(folder/image_name),
+        "file_path": str(vals["images"][0]),
         "file_type": "NIFTI",
         "data_type": "bioimage",
         "compressed": "GZ",
@@ -130,7 +144,7 @@ for folder in folders[:max_load]:
     }
     mask_item = {
         "_id": mask_id,
-        "file_path": str(folder/mask_name),
+        "file_path": str(vals["masks"][0]),
         "file_type": "NIFTI",
         "data_type": "bioimage",
         "compressed": "GZ",

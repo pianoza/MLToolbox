@@ -3,7 +3,7 @@
         {
             "file": {
                 "file_type": "zip",
-                "file_path": "/home/kaisar/WORC/output_TEST/WORC_run001.zip",
+                "file_path": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run000/outputs/run000.zip",
                 "meta_data": {},
                 "data_type": "sample_information_file"
             },
@@ -14,7 +14,7 @@
     ],
     "arguments": [
         {
-            "value": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run001",
+            "value": "/home/kaisar/EuCanImage/Coding/VRE/MLToolbox/tests/run000",
             "name": "execution"
         },
         {
@@ -28,127 +28,127 @@
     ],
     "input_files": [
         {
-            "value": "8ef5fd5d-9e11-41e4-9bc5-1863c8c4f9e6",
+            "value": "427eac80-f405-4777-8d08-f7ea2f695d89",
             "required": true,
             "allow_multiple": false,
             "name": "label_file"
         },
         {
-            "value": "66832258-1790-4962-b50b-d389c0766e7a",
+            "value": "85499799-5e46-4aab-8287-ec2ef46e6269",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "0233d837-7f55-4f73-8220-015065634c4e",
+            "value": "aa6949b8-2d5c-4b06-ae98-d0c59b9d7f65",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "b3ba90e2-8159-420c-a270-42fd323a5096",
+            "value": "2dee375e-77fe-4ce2-93ff-2d3a0ddd7804",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "30faf4d4-8fa0-4938-83dd-95e836434c80",
+            "value": "78e59b73-078c-4e3d-929c-60d53b712c74",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "ad1794ef-3227-4c5c-8e83-cf1a56e92125",
+            "value": "154714fa-3e10-4f3c-b3e7-ce40ac5c4c0a",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "26eb4c10-2700-4ea3-b9e0-4cc6e1e6426f",
+            "value": "1d59c81f-4c0b-4e5b-9b7e-952d0a69ca99",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "920e3200-78d6-4176-8ee5-9f7014653a85",
+            "value": "e81eca71-d8a3-4dd5-ac0f-26e46756aa02",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "c82c8482-99f7-4277-b0bb-3542a1e429c0",
+            "value": "6b7728eb-2325-44a8-a960-a5543f4c374a",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "6708e467-0f3b-45c5-aa95-5d6b8a1fe269",
+            "value": "d1476f83-036c-4013-aec3-123fe946d0d6",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "99d0942a-e7e5-4ef8-b438-764baab9e384",
+            "value": "98c46b4f-4a8d-4074-b664-d52d70b3e2e4",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "a55af819-399a-44de-b713-e5a3931cf9f7",
+            "value": "878d09a9-065f-4472-b40a-8f2c51c2123b",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "c4998575-af5f-4f12-b487-f5e93c983b17",
+            "value": "d19fb324-b530-464b-9ccc-3d9b8f474460",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "96686e62-0420-4c4a-8079-911a43113f8c",
+            "value": "9d2e6359-4ad1-4e9f-9728-3ee88063a955",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "f023cf66-a24f-4d16-b4d0-970c500da205",
+            "value": "613a4766-82fd-4691-9241-dfe912050105",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "bb889e26-bb50-4340-a255-cbafd135c2f3",
+            "value": "8bb3cfe7-b20d-4e7e-9124-57cf6a9aa27b",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "47a3d388-b374-4f36-bf25-1a3ba6b229d7",
+            "value": "5327210f-25f8-412e-aff2-d39e8284b5f0",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "7ad06c5c-3e86-4555-965f-d69feebda89c",
+            "value": "4f3116bf-8752-48d2-a35a-d958abc394f0",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "df6e9bcf-5171-4276-a388-a71f7056be23",
+            "value": "a59600db-f1e9-45a5-b16b-da217f755429",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"
         },
         {
-            "value": "60dbce7a-59b1-498d-ab71-6f9add9e8d0e",
+            "value": "f101a218-68f3-4b34-8655-34cce5f048b6",
             "required": true,
             "allow_multiple": true,
             "name": "images"
         },
         {
-            "value": "2290fa0c-2a5f-42f6-9c13-134a234459b0",
+            "value": "cf376262-2c70-40b5-a190-15d9406401a1",
             "required": true,
             "allow_multiple": true,
             "name": "segmentations"

@@ -23,7 +23,7 @@ from pathlib import Path
 
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
-from tool.ml_toolbox import run_ml_toolbox
+# from tool.ml_toolbox import run_ml_toolbox
 from utils import logger
 
 class MLToolboxRunner(Tool):
@@ -99,15 +99,15 @@ class MLToolboxRunner(Tool):
                     continue
             # Create a custom config file for this execution
             template = get_config_template(input_metadata['output_folder'] + '/outputs')
-            config_file_path = Path(input_metadata['output_folder']) / 'config.d' / 'config.py'
+            config_file_path = Path(input_metadata['output_folder']) / 'config.d' / 'WORC_config.py'
             config_file_path.parent.mkdir(parents=True, exist_ok=True)
             with open(config_file_path, 'w') as f:
                 f.write(template)
             logger.debug("Output metadata file: {}".format(config_file_path))
             
             # Make fastr to look for config file here
-            os.environ["FASTRHOME"] = str(config_file_path.parent)
-
+            os.environ["FASTRHOME"] = str(config_file_path.parent.parent)
+            from tool.ml_toolbox import run_ml_toolbox
             # Run the MLToolbox
             outputs = run_ml_toolbox(self.configuration, images, segmentations, label_file, input_metadata['output_folder'])
 
@@ -168,10 +168,10 @@ tools_path = [os.path.join(packagedir, 'WORC', 'resources', 'fastr_tools')] + to
 types_path = [os.path.join(packagedir, 'WORC', 'resources', 'fastr_types')] + types_path
 
 # Mounts accessible to fastr virtual file system
-mounts['worc_example_data'] = os.path.join(packagedir, 'WORC', 'exampledata')
-mounts['apps'] = os.path.expanduser(os.path.join('~', 'apps'))
+# mounts['worc_example_data'] = os.path.join(packagedir, 'WORC', 'exampledata')
+# mounts['apps'] = os.path.expanduser(os.path.join('~', 'apps'))
 mounts['output'] = '{output_path}'
-mounts['test'] = os.path.join(packagedir, 'WORC', 'resources', 'fastr_tests')
+# mounts['test'] = os.path.join(packagedir, 'WORC', 'resources', 'fastr_tests')
 
 # First option is to have a single shared folder where all the results from all the users are stored.
 # Problem: each user will have their own random uuid directory without access outside this dir.
