@@ -98,7 +98,7 @@ class MLToolboxRunner(Tool):
                     logger.debug('Unrecognized key {}'.format(key))
                     continue
             # Create a custom config file for this execution
-            template = get_config_template(input_metadata['output_folder'] + '/outputs')
+            template = get_config_template(input_metadata['output_folder'] + '/outputs', input_metadata['output_folder'] + '/tmp')
             config_file_path = Path(input_metadata['output_folder']) / 'config.d' / 'WORC_config.py'
             config_file_path.parent.mkdir(parents=True, exist_ok=True)
             with open(config_file_path, 'w') as f:
@@ -138,7 +138,7 @@ class MLToolboxRunner(Tool):
             logger.fatal(errstr)
             raise Exception(errstr)
 
-def get_config_template(output_path):
+def get_config_template(output_path, tmpdir):
     template = f"""
 # THIS IS AN AUTOMATICALLY GENERATED FILE. ANY CHANGES WILL BE OVERWRITTEN.
 import os
@@ -171,6 +171,7 @@ types_path = [os.path.join(packagedir, 'WORC', 'resources', 'fastr_types')] + ty
 # mounts['worc_example_data'] = os.path.join(packagedir, 'WORC', 'exampledata')
 # mounts['apps'] = os.path.expanduser(os.path.join('~', 'apps'))
 mounts['output'] = '{output_path}'
+mounts['tmp'] = '{tmpdir}'
 # mounts['test'] = os.path.join(packagedir, 'WORC', 'resources', 'fastr_tests')
 
 # First option is to have a single shared folder where all the results from all the users are stored.

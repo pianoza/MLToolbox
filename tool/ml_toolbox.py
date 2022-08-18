@@ -69,7 +69,7 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
     experiment_name = overrides['experiment_name']
     overrides.pop('experiment_name')
 
-    # Instead of the default tempdir, let's but the temporary output in a subfolder
+    # Instead of the default tempdir, let's put the temporary output in a subfolder
     # in the same folder as this script
     tmpdir = os.path.join(out_dir, 'tmp')
     print(f"Temporary folder: {tmpdir}.")
