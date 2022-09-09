@@ -99,10 +99,20 @@ class MLToolboxRunner(Tool):
                     continue
             # Create a custom config file for this execution
             output_folder = input_metadata['output_folder']
+            # remove double slash in the path
             tmp1 = output_folder.split('/')
             output_folder = '/'.join([t for t in tmp1 if len(t) > 0])
-            template = get_config_template(output_folder + '/outputs', input_metadata['output_folder'] + '/tmp')
+            # add the root path in front
+            output_folder = '/' + output_folder
+            # create outputs folder
+            worc_outputs = Path(output_folder) / 'outputs'
+            worc_outputs.mkdir(parents=True, exist_ok=True)
+            # create tmp folder
+            worc_tmpdir = Path(output_folder) / 'tmp'
+            worc_tmpdir.mkdir(parents=True, exist_ok=True)
+            template = get_config_template(worc_outputs, worc_tmpdir)
             config_file_path = Path(output_folder) / 'config.d' / 'WORC_config.py'
+            print(f'VRE_Tool.py -- DEBUG: Loading config file from {config_file_path}')
             config_file_path.parent.mkdir(parents=True, exist_ok=True)
             with open(config_file_path, 'w') as f:
                 f.write(template)
