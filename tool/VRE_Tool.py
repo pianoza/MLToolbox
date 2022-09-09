@@ -136,7 +136,7 @@ class MLToolboxRunner(Tool):
                     meta.meta_data = _meta
                     out_meta.append(meta)
                     output_files.append({
-                        'name': 'outputs', 'file_path': _file
+                        'name': 'results', 'file_path': _file
                     })
                 else:
                     logger.warning("Output not found. Path \"{}\" does not exist".format(_file))
@@ -153,7 +153,7 @@ class MLToolboxRunner(Tool):
 
 def get_config_template(output_path, tmpdir):
     template = f"""
-# THIS IS AN AUTOMATICALLY GENERATED FILE. ANY CHANGES WILL BE OVERWRITTEN.
+# THIS IS AN AUTOMATICALLY GENERATED FILE. ALL CHANGES WILL BE OVERWRITTEN.
 import os
 import fastr
 import pkg_resources
