@@ -143,7 +143,7 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
 
     # Locate output folder
     outputfolder = out_dir + '/outputs/' + experiment_name
-    zip_file = out_dir + 'results'
+    zip_file = out_dir + '/results'
     # outputfolder = out_dir + '/outputs/results'
     # zip the folder in outputfloder
     shutil.make_archive(zip_file, 'zip', os.path.split(outputfolder)[0])
