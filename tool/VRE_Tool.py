@@ -70,9 +70,9 @@ class MLToolboxRunner(Tool):
         :rtype: dict, dict
         """
 
-        # print('INPUT FILES', input_files)
-        # print('INPUT METADATA', input_metadata)
-        # print('OUTPUT FILES', output_files)
+        print('INPUT FILES', input_files)
+        print('INPUT METADATA', input_metadata)
+        print('OUTPUT FILES', output_files)
 
         try:
             # Set and check execution directory. If not exists the directory will be created.
