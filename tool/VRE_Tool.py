@@ -98,8 +98,11 @@ class MLToolboxRunner(Tool):
                     logger.debug('Unrecognized key {}'.format(key))
                     continue
             # Create a custom config file for this execution
-            template = get_config_template(input_metadata['output_folder'] + '/outputs', input_metadata['output_folder'] + '/tmp')
-            config_file_path = Path(input_metadata['output_folder']) / 'config.d' / 'WORC_config.py'
+            output_folder = input_metadata['output_folder']
+            tmp1 = output_folder.split('/')
+            output_folder = '/'.join([t for t in tmp1 if len(t) > 0])
+            template = get_config_template(output_folder + '/outputs', input_metadata['output_folder'] + '/tmp')
+            config_file_path = Path(output_folder) / 'config.d' / 'WORC_config.py'
             config_file_path.parent.mkdir(parents=True, exist_ok=True)
             with open(config_file_path, 'w') as f:
                 f.write(template)
