@@ -22,10 +22,11 @@ import glob
 # TODO: remove these inputs, should be provided by the user
 overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
 
-def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir):
+def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, arguments):
     """Execute WORC Tutorial experiment."""
     print(f"Running in folder: {out_dir}.")
     # TODO: remove, just for testing
+    print("ARGUMENTS\n", arguments)
     overrides = overridestest
     # ---------------------------------------------------------------------------
     # Input

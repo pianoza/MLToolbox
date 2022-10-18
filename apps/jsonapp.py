@@ -95,6 +95,7 @@ class JSONApp(WorkflowApp):  # pylint: disable=too-few-public-methods
 
         # Output folder
         input_metadata['output_folder'] = arguments['execution']
+        input_metadata['arguments'] = arguments
 
         # get paths from IDs
         input_files = {}

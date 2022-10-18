@@ -122,7 +122,7 @@ class MLToolboxRunner(Tool):
             os.environ["FASTRHOME"] = str(config_file_path.parent.parent)
             from tool.ml_toolbox import run_ml_toolbox
             # Run the MLToolbox
-            outputs = run_ml_toolbox(self.configuration, images, segmentations, label_file, input_metadata['output_folder'])
+            outputs = run_ml_toolbox(self.configuration, images, segmentations, label_file, input_metadata['output_folder'], input_metadata['arguments'])
 
             output_files = []
             out_meta = []
