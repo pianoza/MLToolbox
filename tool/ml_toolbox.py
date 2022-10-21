@@ -143,7 +143,8 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
     experiment.set_tmpdir(tmpdir)
 
     # TODO add an option in UI to run evaluations
-    # experiment.add_evaluation()
+    print('ADDING EVALUATIONS')
+    experiment.add_evaluation()
 
     experiment.set_multicore_execution()
     # Run the experiment!
