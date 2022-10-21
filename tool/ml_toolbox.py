@@ -99,7 +99,9 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
     # experiment.label_names = overrides['label_names']
     # # And also like this:
     # experiment.predict_labels(['imaginary_label_1'])  # Also tried ['imaginary_label1'] and 'imaginary_label1'
-    experiment.predict_labels(overrides['Labels']['label_names'])  # Also tried ['imaginary_label1'] and 'imaginary_label1'
+    label_names = [label_name for label_name in overrides['Labels']['label_names'].split(', ')]
+    print('LABEL NAMES', label_names)
+    experiment.predict_labels(label_names)  # Also tried ['imaginary_label1'] and 'imaginary_label1'
     # overrides.pop('label_names')
     # experiment.segmentations_from_this_directory(segmentations,
                                                 #  segmentation_file_name=segmentation_file_name)
