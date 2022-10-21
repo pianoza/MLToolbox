@@ -133,6 +133,8 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
                     # 'classifiers': 'SVM, RF, LR, LDA, QDA, GaussianNB, AdaBoostClassifier, XGBClassifier'
     #           }
     #     }
+    print('ADDING CONFIG OVERRIDES')
+    print(overrides)
     experiment.add_config_overrides(overrides)
 
     # Set the temporary directory
