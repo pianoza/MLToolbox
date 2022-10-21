@@ -32,7 +32,7 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
     print(f"Running in folder: {out_dir}.")
     print("ARGUMENTS\n", arguments)
     user_arguments = parse_user_arguments(arguments)
-    overrides = load_default_configs('./configs_default.ini')
+    overrides = load_default_configs('/home/user/MLToolbox/tool/configs_default.ini')
     overrides = update_overrides(user_arguments)
     print('Parsed arguments', overrides)
     # ---------------------------------------------------------------------------
