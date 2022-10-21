@@ -1,0 +1,257 @@
+{
+
+  "arguments": [
+    {
+      "name": "image:TBD",
+      "description": "TBD",
+      "help": "TBD",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    }
+  ],
+  "arguments_rad": [
+    {
+      "name": "radiomics:Histogram",
+      "description": "Histogram (13)",
+      "help": "Histogram (13)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:Shape",
+      "description": "Shape (35)",
+      "help": "Shape (35)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:Shape",
+      "description": "Shape (35)",
+      "help": "Shape (35)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:Orientation",
+      "description": "Orientation (9)",
+      "help": "Orientation (9)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:GLCM(MS)",
+      "description": "GLCM(MS) (144)",
+      "help": "GLCM(MS) (144)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:GLRLM",
+      "description": "GLRLM (16)",
+      "help": "GLRLM (16)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:GLSZM",
+      "description": "GLSZM (16)",
+      "help": "GLSZM (16)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:NGTDM",
+      "description": "NGTDM (5)",
+      "help": "NGTDM (5)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:gabor",
+      "description": "Gabor filter (156)",
+      "help": "Gabor filter (156)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:GLDM",
+      "description": "GLDM (14)",
+      "help": "GLDM (14)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:log",
+      "description": "LoG filter (39)",
+      "help": "LoG filter (39)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:vessel",
+      "description": "Vessel filter (39)",
+      "help": "Vessel filter (39)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:lbp",
+      "description": "Local Binary Patterns (39)",
+      "help": "Local Binary Patterns (39)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:local",
+      "description": "Local phase (39)",
+      "help": "Local phase (39)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "radiomics:vessel",
+      "description": "Vessel filter (39)",
+      "help": "Vessel filter (39)",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    }
+  ],
+  "arguments_feat": [
+    {
+      "name": "selection:exclusion",
+      "description": "Exclusion of features with near zero variance",
+      "help": "Exclusion of features with near zero variance",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "selection:pearson",
+      "description": "Pearson’s R with cut-off for high correlationss",
+      "help": "Pearson’s R with cut-off for high correlationss",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "selection:recursive",
+      "description": "Recursive feature elimination",
+      "help": "Recursive feature elimination",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "selection:LASSO",
+      "description": "LASSO: least absolute shrinkage and selection operator",
+      "help": "LASSO: least absolute shrinkage and selection operator",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    }
+  ],
+  "arguments_ML": [
+    {
+      "name": "ML:mode",
+      "description": "Mode",
+      "help": "Mode",
+      "type": "enum",
+      "default": "binary_classification",
+      "required": true,
+      "allow_multiple": false,
+      "enum_items": {
+        "description": [
+          "Binary classification",
+          "Multiclass classification",
+          "Regression"
+        ],
+        "name": [
+          "binary_classification",
+          "multiclass_classification",
+          "regression"
+        ]
+      }
+    },
+    {
+      "name": "ML:labels",
+      "description": "Labels to predict (comma separated for multiclass classification)",
+      "help": "Label names should match the column names in the patient description CSV file.",
+      "type": true,
+      "required": true,
+      "allow_multiple": false
+    },
+    {
+      "name": "ML:RF",
+      "description": "Random Forest",
+      "help": "Random Forest",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "ML:SVM",
+      "description": "SVM",
+      "help": "SVM",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    },
+    {
+      "name": "ML:AdaBoost",
+      "description": "AdaBoost",
+      "help": "AdaBoost",
+      "type": "boolean",
+      "required": false,
+      "allow_multiple": false,
+      "default": true
+    }
+  ],
+  "arguments_feat2": [
+    {
+      "name": "feat2:TBD",
+      "description": "TBD",
+      "help": "TBD",
+      "type": "boolean",
+      "required": "false",
+      "default": "true"
+    }
+  ]
+}

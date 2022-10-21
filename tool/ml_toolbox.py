@@ -12,7 +12,7 @@ import os
 import shutil
 from WORC import BasicWORC
 from pathlib import Path
-
+from load_vre_configs import load_default_configs, parse_user_arguments, update_overrides
 # These packages are only used in analysing the results
 import pandas as pd
 import json
@@ -20,14 +20,21 @@ import fastr
 import glob
 
 # TODO: remove these inputs, should be provided by the user
-overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
+# overridestest = {'modus': 'binary_classification', 'coarse': True, 'experiment_name': 'run000', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
+# overridestest = {'modus': 'binary_classification', 'coarse': False, 'experiment_name': 'run000', 'image_types': 'CT', 'Labels': {'label_names': 'imaginary_label_1'}}
+
+# DONE image_types: drop-down menu with the following options:
+# quantitative_modalities = ['CT', 'PET', 'Thermography', 'ADC', 'MG']
+# qualitative_modalities = ['MRI', 'MR', 'DWI', 'US']
 
 def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, arguments):
     """Execute WORC Tutorial experiment."""
     print(f"Running in folder: {out_dir}.")
-    # TODO: remove, just for testing
     print("ARGUMENTS\n", arguments)
-    overrides = overridestest
+    user_arguments = parse_user_arguments(arguments)
+    overrides = load_default_configs('./configs_default.ini')
+    overrides = update_overrides(user_arguments)
+    print('Parsed arguments', overrides)
     # ---------------------------------------------------------------------------
     # Input
     # ---------------------------------------------------------------------------
@@ -63,7 +70,7 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
 
     # Determine whether we want to do a coarse quick experiment, or a full lengthy
     # one. Again, change this accordingly if you use your own data.
-    coarse = overrides['coarse']
+    coarse = overrides['coarse']  # Note: KEEP COARSE ONLY FOR DEBUGGING
     overrides.pop('coarse')
 
     # Give your experiment a name
@@ -91,7 +98,8 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
     # # Tried both, setting label_names of the experiment like this:
     # experiment.label_names = overrides['label_names']
     # # And also like this:
-    experiment.predict_labels(['imaginary_label_1'])  # Also tried ['imaginary_label1'] and 'imaginary_label1'
+    # experiment.predict_labels(['imaginary_label_1'])  # Also tried ['imaginary_label1'] and 'imaginary_label1'
+    experiment.predict_labels(overrides['Labels']['label_names'])  # Also tried ['imaginary_label1'] and 'imaginary_label1'
     # overrides.pop('label_names')
     # experiment.segmentations_from_this_directory(segmentations,
                                                 #  segmentation_file_name=segmentation_file_name)
@@ -108,8 +116,8 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
     # Use the standard workflow for your specific modus
     if modus == 'binary_classification':
         experiment.binary_classification(coarse=coarse)
-    elif modus == 'regression':
-        experiment.regression(coarse=coarse)
+    # elif modus == 'regression':  # TODO remove it for this version because not all of the classifiers are regressors
+    #     experiment.regression(coarse=coarse)
     elif modus == 'multiclass_classification':
         experiment.multiclass_classification(coarse=coarse)
 
@@ -121,12 +129,19 @@ def run_ml_toolbox(overrides, images, segmentations, label_file, out_dir, argume
     #             # Other estimators do not support multiclass
     #             'SelectFromModel_estimator': 'RF'
     #         }
+    #         'Classification': {
+                    # 'classifiers': 'SVM, RF, LR, LDA, QDA, GaussianNB, AdaBoostClassifier, XGBClassifier'
+    #           }
     #     }
     experiment.add_config_overrides(overrides)
 
     # Set the temporary directory
     experiment.set_tmpdir(tmpdir)
 
+    # TODO add an option in UI to run evaluations
+    # experiment.add_evaluation()
+
+    experiment.set_multicore_execution()
     # Run the experiment!
     experiment.execute()
 
