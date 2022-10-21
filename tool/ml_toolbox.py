@@ -12,7 +12,7 @@ import os
 import shutil
 from WORC import BasicWORC
 from pathlib import Path
-from load_vre_configs import load_default_configs, parse_user_arguments, update_overrides
+from tool.load_vre_configs import load_default_configs, parse_user_arguments, update_overrides
 # These packages are only used in analysing the results
 import pandas as pd
 import json
